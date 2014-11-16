@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GatherAssist
 {
-    class GatherRequest
+    public class GatherRequest
     {
         public string ItemName { get; set; }
         public uint CurrentCount { get; set; }

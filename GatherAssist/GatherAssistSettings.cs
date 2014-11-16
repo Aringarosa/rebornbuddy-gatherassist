@@ -16,5 +16,6 @@ namespace GatherAssist.Settings
 
         [Setting]
         public int ShardTarget { get; set; }
+        public int UpdateIntervalMinutes { get; set; }
     }
 }

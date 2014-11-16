@@ -10,7 +10,6 @@ using ff14bot.Managers;
 using ff14bot.Navigation;
 using ff14bot.Objects;
 using ff14bot.Settings;
-using ff14bot.Settings.GlobalSettings;
 using Clio.Utilities;
 using GatherAssist.Settings;
 using System;
@@ -70,6 +69,7 @@ namespace GatherAssist
             _form.ShowDialog();
             InitializeCrystalList(); // reinitialize from updated settings
 
+            GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
             GatherAssistTimer.Start();
             // generate XML file
             // NeoProfileManager.Load("C:/Programs/RebornBuddy/Profiles/ShardHunter/Mining_FireShards.xml", true);
@@ -90,7 +90,14 @@ namespace GatherAssist
             {
                 settings.ShardTarget = 500;
             }
+
+            if (settings.UpdateIntervalMinutes == 0)
+            {
+                settings.UpdateIntervalMinutes = 1;
+            }
+
             GatherAssistTimer.Elapsed += GatherAssistTimer_Elapsed;
+            GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
         }
         public void OnShutdown()
         {
