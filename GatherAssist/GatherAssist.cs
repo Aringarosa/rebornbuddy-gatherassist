@@ -9,6 +9,8 @@ using ff14bot.Interfaces;
 using ff14bot.Managers;
 using ff14bot.Navigation;
 using ff14bot.Objects;
+using ff14bot.Settings;
+using ff14bot.Settings.GlobalSettings;
 using Clio.Utilities;
 using GatherAssist.Settings;
 using System;
@@ -28,6 +30,7 @@ using TreeSharp;
 
 using Action = TreeSharp.Action;
 using System.Xml.Linq;
+using ff14bot.NeoProfiles;
 
 namespace GatherAssist
 {
@@ -43,6 +46,10 @@ namespace GatherAssist
 
         public static GatherAssistSettings settings = GatherAssistSettings.instance;
         private List<GatherRequest> crystalList;
+        private int killRadius = 50;
+        private string gatheringSpell = "Sharp Vision II";
+        private GatherRequest currentGatherRequest = null;
+        private static System.Timers.Timer GatherAssistTimer;
 
         [DllImport("user32.dll")]
         public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
@@ -61,12 +68,11 @@ namespace GatherAssist
                 _form = new GatherAssist_Form();
 
             _form.ShowDialog();
-            InitializeCrystalList();
-            UpdateItemCount();
-            ReportGatheringStatus();
-            
-            XElement curElement = NeoProfileManager.CurrentProfile.Element;
-            curElement.Remove
+            InitializeCrystalList(); // reinitialize from updated settings
+
+            GatherAssistTimer.Start();
+            // generate XML file
+            // NeoProfileManager.Load("C:/Programs/RebornBuddy/Profiles/ShardHunter/Mining_FireShards.xml", true);
         }
         public bool Equals(IBotPlugin other)
         {
@@ -84,21 +90,39 @@ namespace GatherAssist
             {
                 settings.ShardTarget = 500;
             }
+            GatherAssistTimer.Elapsed += GatherAssistTimer_Elapsed;
         }
         public void OnShutdown()
         {
-
         }
         public void OnEnabled()
         {
             Logging.Write(Colors.SkyBlue, "[" + pluginName + "] v" + Version.ToString() + " Enabled");
             InitializeCrystalList();
-            UpdateItemCount();
-            ReportGatheringStatus();
         }
+
+        void GatherAssistTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            UpdateRequestedItemCounts();
+            ReportGatheringStatus();
+
+            if (currentGatherRequest == null) // if no valid gather requests remain
+            {
+                Logging.Write(Colors.Teal, "Gather requests complete!  GatherAssist will stop now.");
+                GatherAssistTimer.Stop();
+                // TODO: find a way to stop the bot
+                return;
+            }
+            else
+            {
+                LoadProfile(currentGatherRequest);
+            }
+        }
+
         public void OnDisabled()
         {
             Logging.Write(Colors.SkyBlue, "[" + pluginName + "] v" + Version.ToString() + " Disabled");
+            GatherAssistTimer.Stop();
         }
         #endregion
 
@@ -119,15 +143,33 @@ namespace GatherAssist
             // crystal
             // cluster
         }
-        public void UpdateItemCount()
+
+        /// <summary>
+        /// Updates item counts for all requested items.  Assigns a valid gather request for continuing work.
+        /// If all gather requests have been fulfilled, moves plugin to finished state.
+        /// </summary>
+        public void UpdateRequestedItemCounts()
         {
+            currentGatherRequest = null; // reset current gather request, will be set to first valid request below
+
+
             foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(InventoryBagId.Crystals))
             {
                 var obj = crystalList.FirstOrDefault(x => x.ItemName == curSlot.Name);
-                if (obj != null) obj.CurrentCount = curSlot.Count;
+                if (obj != null)
+                {
+                    obj.CurrentCount = curSlot.Count;
+                    if (currentGatherRequest == null && obj.RequestedTotal < obj.CurrentCount)
+                    {
+                        currentGatherRequest = obj as GatherRequest;
+                    }
+                }
             }
         }
 
+        /// <summary>
+        /// Lists the gathering status of all requested items.
+        /// </summary>
         public void ReportGatheringStatus()
         {
             foreach (GatherRequest curRequest in crystalList)
@@ -135,6 +177,40 @@ namespace GatherAssist
                 Color logColor = curRequest.RequestedTotal < curRequest.CurrentCount ? Colors.Teal : Colors.SkyBlue;
                 Logging.Write(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
             }
+        }
+
+        public void LoadProfile(GatherRequest gatherRequest)
+        {
+            string itemName = gatherRequest.ItemName;
+            string mapNumber = "153"; // TODO: map to item name
+            string aethernetName = "Quarrymill";
+            string aethernetID = "5";
+            string gatherObject = "Mineral Deposit";
+            string hotspotRadius = "60";
+            string location = "353.7134, -3.617686, 58.73518";
+
+            // get profile variables for the requested item name
+            string xmlContent = string.Format("<Profile><Name>{0}</Name><KillRadius>{1}</KillRadius><Order><If Condition=\"not IsOnMap({2}" +
+                ")\"><TeleportTo Name=\"{3}\" AetheryteId=\"{4}\" /></If><Gather while=\"True\"><GatherObject>{5}</GatherObject><HotSpots>" +
+                "<HotSpot Radius=\"{6}\" XYZ=\"{7}\" /></HotSpots><ItemNames><ItemName>{8}</ItemName></ItemNames><GatheringSkillOrder>" + 
+                "<GatheringSkill SpellName=\"{9}\" TimesToCast=\"1\" /></GatheringSkillOrder></Gather></Order></Profile>",
+                "Mining: " + itemName,
+                killRadius,
+                mapNumber,
+                aethernetName,
+                aethernetID,
+                gatherObject,
+                hotspotRadius,
+                location,
+                itemName,
+                gatheringSpell
+                );
+
+            string targetXmlName = "currentProfile.xml";
+            string profilePath = "C:/Programs/RebornBuddy/Plugins/GatherAssist"; // TODO: Get temp folder or actual plugins folder
+            string targetXmlFile = profilePath + "/" + targetXmlName;
+            File.WriteAllText(targetXmlFile, xmlContent);
+            NeoProfileManager.Load(targetXmlFile, true); // profile will automatically switch to the new gathering profile at this point
         }
     }
 }
