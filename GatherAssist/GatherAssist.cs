@@ -39,14 +39,14 @@ namespace GatherAssist
 
         #region Initialization Information
         public string Author { get { return " Zane McFate"; } }
-        public string Description { get { return "Adds chat-based functionality."; } }
+        public string Description { get { return "Extends OrderBot gathering functionality to seek multiple items with a single command."; } }
         public Version Version { get { return new Version(0, 1, 0); } }
         public string Name { get { return pluginName; } }
 
         public static GatherAssistSettings settings = GatherAssistSettings.instance;
         private List<GatherRequest> crystalList;
         private int killRadius = 50;
-        private string gatheringSpell = "Sharp Vision II";
+        private string gatheringSpell = "Sharp Vision II"; // spell to idly fire when resources allow.  TODO: add level-based flexibility.
         private GatherRequest currentGatherRequest = null;
         private static System.Timers.Timer GatherAssistTimer;
 
@@ -71,8 +71,6 @@ namespace GatherAssist
 
             GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
             GatherAssistTimer.Start();
-            // generate XML file
-            // NeoProfileManager.Load("C:/Programs/RebornBuddy/Profiles/ShardHunter/Mining_FireShards.xml", true);
         }
         public bool Equals(IBotPlugin other)
         {
