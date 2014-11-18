@@ -9,7 +9,7 @@ namespace GatherAssist
     /// <summary>
     /// Contains information required to gather a specific item, to be used in generating profiles.  ItemName is used in comparison operations.
     /// </summary>
-    class ItemRecord
+    public class ItemRecord
     {
         /// <summary>
         /// Name of the gatherable item.
