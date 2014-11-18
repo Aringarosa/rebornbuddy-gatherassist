@@ -44,7 +44,7 @@ namespace GatherAssist
         public string Name { get { return pluginName; } }
 
         public static GatherAssistSettings settings = GatherAssistSettings.instance;
-        private List<GatherRequest> crystalList;
+        private List<GatherRequest> requestList;
         private int killRadius = 50;
         private string gatheringSpell = "Sharp Vision II"; // spell to idly fire when resources allow.  TODO: add level-based flexibility.
         private GatherRequest currentGatherRequest = null;
@@ -136,13 +136,13 @@ namespace GatherAssist
 
         public void InitializeCrystalList()
         {
-            crystalList = new List<GatherRequest>();
-            crystalList.Add(new GatherRequest("Fire Shard", settings.ShardTarget));
-            crystalList.Add(new GatherRequest("Ice Shard", settings.ShardTarget));
-            crystalList.Add(new GatherRequest("Wind Shard", settings.ShardTarget));
+            requestList = new List<GatherRequest>();
+            requestList.Add(new GatherRequest("Fire Shard", settings.ShardTarget));
+            requestList.Add(new GatherRequest("Ice Shard", settings.ShardTarget));
+            requestList.Add(new GatherRequest("Wind Shard", settings.ShardTarget));
             //            crystalList.Add(new GatherRequest("Earth Shard", settings.ShardTarget));
-            crystalList.Add(new GatherRequest("Lightning Shard", settings.ShardTarget));
-            crystalList.Add(new GatherRequest("Water Shard", settings.ShardTarget));
+            requestList.Add(new GatherRequest("Lightning Shard", settings.ShardTarget));
+            requestList.Add(new GatherRequest("Water Shard", settings.ShardTarget));
             // crystal
             // cluster
         }
@@ -158,7 +158,7 @@ namespace GatherAssist
 
             foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(InventoryBagId.Crystals))
             {
-                var obj = crystalList.FirstOrDefault(x => x.ItemName == curSlot.Name);
+                var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
                 if (obj != null)
                 {
                     obj.CurrentCount = curSlot.Count;
@@ -175,7 +175,7 @@ namespace GatherAssist
         /// </summary>
         public void ReportGatheringStatus()
         {
-            foreach (GatherRequest curRequest in crystalList)
+            foreach (GatherRequest curRequest in requestList)
             {
                 Color logColor = curRequest.RequestedTotal < curRequest.CurrentCount ? Colors.Teal : Colors.SkyBlue;
                 Logging.Write(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
