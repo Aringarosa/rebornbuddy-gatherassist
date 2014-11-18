@@ -56,6 +56,7 @@
       <DependentUpon>GatherAssist_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="GatherRequest.cs" />
+    <Compile Include="ItemRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,7 @@ mkdir "$(TargetDir)Plugin\Settings"
 mkdir "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
 copy /Y "$(SolutionDir)$(ProjectName).cs" "$(TargetDir)Plugin\$(ProjectName).cs"
 copy /Y "$(SolutionDir)GatherRequest.cs" "$(TargetDir)Plugin\GatherRequest.cs"
+copy /Y "$(SolutionDir)ItemRecord.cs" "$(TargetDir)Plugin\ItemRecord.cs"
 copy /Y "$(SolutionDir)$(ProjectName)_Form.cs" "$(TargetDir)Plugin\$(ProjectName)_Form.cs"
 copy /Y "$(SolutionDir)$(ProjectName)_Form.Designer.cs" "$(TargetDir)Plugin\$(ProjectName)_Form.Designer.cs"
 copy /Y "$(SolutionDir)$(ProjectName)Settings.cs" "$(TargetDir)Plugin\Settings\$(ProjectName)Settings.cs"
