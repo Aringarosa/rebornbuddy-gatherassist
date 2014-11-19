@@ -66,10 +66,10 @@ namespace GatherAssist
         public void OnButtonPress()
         {
             if (_form == null || _form.IsDisposed || _form.Disposing)
-                _form = new GatherAssist_Form();
+                _form = new GatherAssist_Form(itemsTable);
 
             _form.ShowDialog();
-            InitializeCrystalList(); // reinitialize from updated settings
+            InitializeRequestList(_form.requestTable); // reinitialize from updated settings
 
             GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
             GatherAssistTimer.Start();
@@ -103,7 +103,7 @@ namespace GatherAssist
         public void OnEnabled()
         {
             Logging.Write(Colors.SkyBlue, "[" + pluginName + "] v" + Version.ToString() + " Enabled");
-            InitializeCrystalList();
+            InitializeRequestList(settings.RequestTable);
         }
 
         void GatherAssistTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -134,17 +134,14 @@ namespace GatherAssist
         {
         }
 
-        public void InitializeCrystalList()
+        public void InitializeRequestList(DataTable requestTable)
         {
             requestList = new List<GatherRequest>();
-            requestList.Add(new GatherRequest("Fire Shard", settings.ShardTarget));
-            requestList.Add(new GatherRequest("Ice Shard", settings.ShardTarget));
-            requestList.Add(new GatherRequest("Wind Shard", settings.ShardTarget));
-            //            crystalList.Add(new GatherRequest("Earth Shard", settings.ShardTarget));
-            requestList.Add(new GatherRequest("Lightning Shard", settings.ShardTarget));
-            requestList.Add(new GatherRequest("Water Shard", settings.ShardTarget));
-            // crystal
-            // cluster
+
+            foreach (DataRow dataRow in requestTable.Rows)
+            {
+                requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToInt32(dataRow["Count"])));
+            }
         }
 
         /// <summary>
@@ -286,11 +283,29 @@ namespace GatherAssist
             itemsTable.Columns.Add("HotspotRadius");
             itemsTable.Columns.Add("Location");
 
+            itemsTable.Rows.Add("Alumen", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227");
+            itemsTable.Rows.Add("Black Alumen", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
+            itemsTable.Rows.Add("Bomb Ash", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923");
+            itemsTable.Rows.Add("Copper Ore", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
+            itemsTable.Rows.Add("Muddy Water", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
+            itemsTable.Rows.Add("Electrum Ore", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521");
             itemsTable.Rows.Add("Fire Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
             itemsTable.Rows.Add("Ice Shard", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
-            itemsTable.Rows.Add("Wind Shard", 95, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
+            itemsTable.Rows.Add("Iron Ore", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282");
             itemsTable.Rows.Add("Lightning Shard", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
+            itemsTable.Rows.Add("Mythril Ore", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443");
+            itemsTable.Rows.Add("Obsidian", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
+            itemsTable.Rows.Add("Raw Fluorite", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227");
+            itemsTable.Rows.Add("Raw Heliodor", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443");
+            itemsTable.Rows.Add("Raw Malachite", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227");
+            itemsTable.Rows.Add("Raw Spinel", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
+            itemsTable.Rows.Add("Raw Tourmaline", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
+            itemsTable.Rows.Add("Silex", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923");
+            itemsTable.Rows.Add("Soiled Femur", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
+            itemsTable.Rows.Add("Tin Ore", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             itemsTable.Rows.Add("Water Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
+            itemsTable.Rows.Add("Wind Shard", 95, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
+            itemsTable.Rows.Add("Zinc Ore", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             //itemsTable.Rows.Add("Wind Rock", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086");
         }
 

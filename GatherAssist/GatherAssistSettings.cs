@@ -4,6 +4,7 @@ using Clio.Utilities;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.IO;
+using System.Data;
 
 namespace GatherAssist.Settings
 {
@@ -17,5 +18,6 @@ namespace GatherAssist.Settings
         [Setting]
         public int ShardTarget { get; set; }
         public int UpdateIntervalMinutes { get; set; }
+        public DataTable RequestTable { get; set; }
     }
 }

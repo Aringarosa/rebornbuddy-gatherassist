@@ -17,14 +17,25 @@ namespace GatherAssist
     {
         public static Vector3 vendorlocationtemp;
         public static GatherAssistSettings settings = GatherAssistSettings.instance;
+        public DataTable requestTable;
 
-        public GatherAssist_Form()
+        public GatherAssist_Form(DataTable itemsTable)
         {
             InitializeComponent();
+            requestTable = itemsTable.DefaultView.ToTable(false, "ItemName");
+            requestTable.Columns.Add(new DataColumn("Count", typeof(int)) { DefaultValue = 0 }); // requested count, defaults to 0
+        }
+
+        /// <summary>
+        /// Prevent default constructor from being called.
+        /// </summary>
+        private GatherAssist_Form()
+        {
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dataGridViewRequestList.DataSource = requestTable;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
