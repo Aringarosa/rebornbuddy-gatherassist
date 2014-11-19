@@ -83,12 +83,6 @@ namespace GatherAssist
 
         public void OnInitialize()
         {
-            // default settings values
-            if (settings.ShardTarget == 0)
-            {
-                settings.ShardTarget = 500;
-            }
-
             if (settings.UpdateIntervalMinutes == 0)
             {
                 settings.UpdateIntervalMinutes = 1;

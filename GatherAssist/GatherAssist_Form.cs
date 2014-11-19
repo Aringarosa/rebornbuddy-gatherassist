@@ -40,8 +40,8 @@ namespace GatherAssist
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            settings.ShardTarget = System.Convert.ToInt32(textBoxShardTarget.Text);
             settings.UpdateIntervalMinutes = System.Convert.ToInt32(textBoxUpdateInterval.Text);
+            settings.RequestTable = requestTable;
             this.Close();
         }
     }
