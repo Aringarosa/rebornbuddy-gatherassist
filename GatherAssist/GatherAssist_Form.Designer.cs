@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxShardTarget = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.textBoxUpdateInterval = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,22 +36,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequestList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textBoxShardTarget
-            // 
-            this.textBoxShardTarget.Location = new System.Drawing.Point(137, 19);
-            this.textBoxShardTarget.Name = "textBoxShardTarget";
-            this.textBoxShardTarget.Size = new System.Drawing.Size(100, 20);
-            this.textBoxShardTarget.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(61, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Shard Target";
             // 
             // buttonOK
             // 
@@ -92,8 +74,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBoxShardTarget);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxUpdateInterval);
             this.groupBox1.Location = new System.Drawing.Point(12, 26);
             this.groupBox1.Name = "groupBox1";
@@ -121,8 +101,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxShardTarget;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.TextBox textBoxUpdateInterval;
         private System.Windows.Forms.Label label2;

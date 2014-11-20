@@ -48,7 +48,7 @@ namespace GatherAssist
         private int killRadius = 50;
         private string gatheringSpell = "Sharp Vision II"; // spell to idly fire when resources allow.  TODO: add level-based flexibility.
         private GatherRequest currentGatherRequest = null;
-        private static System.Timers.Timer GatherAssistTimer;
+        private static System.Timers.Timer GatherAssistTimer = new System.Timers.Timer();
         private DataTable mapsTable;
         private DataTable itemsTable;
 
@@ -69,10 +69,13 @@ namespace GatherAssist
                 _form = new GatherAssist_Form(itemsTable);
 
             _form.ShowDialog();
-            InitializeRequestList(_form.requestTable); // reinitialize from updated settings
-
-            GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
-            GatherAssistTimer.Start();
+            if (_form.DialogResult == DialogResult.OK) // don't alter anything if the user cancelled the form
+            {
+                InitializeRequestList(_form.requestTable); // reinitialize from updated settings
+                GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
+                GatherAssistTimer.Start();
+                ElapseTimer(); // immediately elapse timer to check item counts and set correct profile
+            }
         }
         public bool Equals(IBotPlugin other)
         {
@@ -83,6 +86,9 @@ namespace GatherAssist
 
         public void OnInitialize()
         {
+            InitializeItems();
+            InitializeMaps();
+
             if (settings.UpdateIntervalMinutes == 0)
             {
                 settings.UpdateIntervalMinutes = 1;
@@ -91,16 +97,21 @@ namespace GatherAssist
             GatherAssistTimer.Elapsed += GatherAssistTimer_Elapsed;
             GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
         }
+
         public void OnShutdown()
         {
         }
         public void OnEnabled()
         {
             Logging.Write(Colors.SkyBlue, "[" + pluginName + "] v" + Version.ToString() + " Enabled");
-            InitializeRequestList(settings.RequestTable);
         }
 
         void GatherAssistTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            ElapseTimer();
+        }
+
+        void ElapseTimer()
         {
             UpdateRequestedItemCounts();
             ReportGatheringStatus();
@@ -134,6 +145,7 @@ namespace GatherAssist
 
             foreach (DataRow dataRow in requestTable.Rows)
             {
+                Logging.Write(Colors.SkyBlue, "DEBUG: Adding " + dataRow["ItemName"] + " to request list");
                 requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToInt32(dataRow["Count"])));
             }
         }
@@ -146,15 +158,16 @@ namespace GatherAssist
         {
             currentGatherRequest = null; // reset current gather request, will be set to first valid request below
 
-
             foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(InventoryBagId.Crystals))
             {
                 var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
                 if (obj != null)
                 {
+                    Logging.Write(Colors.SkyBlue, "DEBUG:Updating count");
                     obj.CurrentCount = curSlot.Count;
-                    if (currentGatherRequest == null && obj.RequestedTotal < obj.CurrentCount)
+                    if (currentGatherRequest == null && obj.RequestedTotal > obj.CurrentCount)
                     {
+                        Logging.Write(Colors.SkyBlue, "DEBUG: Updating gather request");
                         currentGatherRequest = obj as GatherRequest;
                     }
                 }
@@ -168,7 +181,7 @@ namespace GatherAssist
         {
             foreach (GatherRequest curRequest in requestList)
             {
-                Color logColor = curRequest.RequestedTotal < curRequest.CurrentCount ? Colors.Teal : Colors.SkyBlue;
+                Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? Colors.Teal : Colors.SkyBlue;
                 Logging.Write(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
             }
         }
@@ -183,6 +196,7 @@ namespace GatherAssist
                 isValid = false;
             }
 
+            Logging.Write(Colors.SkyBlue, string.Format("DEBUG: Current Gather Request is {0}", currentGatherRequest.ItemName));
             ItemRecord itemRecord = GetItemRecord(currentGatherRequest.ItemName);
             if (itemRecord == null)
             {
@@ -201,6 +215,12 @@ namespace GatherAssist
                 //string gatherObject = "Mineral Deposit";
                 //string hotspotRadius = "60";
                 //string location = "353.7134, -3.617686, 58.73518";
+
+                // TODO: Add this section to job change
+        //</If>
+        //    <If Condition="Core.Me.CurrentJob != ClassJobType.Miner">
+        //    <ChangeJob Type="Miner" />
+        // </If>
 
                 // get profile variables for the requested item name
                 string xmlContent = string.Format("<Profile><Name>{0}</Name><KillRadius>{1}</KillRadius><Order><If Condition=\"not IsOnMap({2}" +
@@ -224,6 +244,7 @@ namespace GatherAssist
                 string targetXmlFile = profilePath + "/" + targetXmlName;
                 File.WriteAllText(targetXmlFile, xmlContent);
                 NeoProfileManager.Load(targetXmlFile, true); // profile will automatically switch to the new gathering profile at this point
+//                ProfileManager.LoadNew(xmlContent, true);
             }
         }
 
@@ -240,7 +261,7 @@ namespace GatherAssist
             mapsTable.Rows.Add(2, "New Gridania", 132);
             mapsTable.Rows.Add(3, "Bentbranch Meadows", 148);
             mapsTable.Rows.Add(4, "Hawthorne Hut", 152);
-            mapsTable.Rows.Add(5, "Querrymill", 153);
+            mapsTable.Rows.Add(5, "Quarrymill", 153);
             mapsTable.Rows.Add(6, "Camp Tranquil", 153);
             mapsTable.Rows.Add(7, "Fallgourd Float", 154);
             mapsTable.Rows.Add(8, "Limsa Lominsa", 129);
@@ -283,6 +304,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Copper Ore", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
             itemsTable.Rows.Add("Muddy Water", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
             itemsTable.Rows.Add("Electrum Ore", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521");
+            itemsTable.Rows.Add("Fire Crystal", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753");
             itemsTable.Rows.Add("Fire Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
             itemsTable.Rows.Add("Ice Shard", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
             itemsTable.Rows.Add("Iron Ore", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282");
@@ -298,8 +320,15 @@ namespace GatherAssist
             itemsTable.Rows.Add("Soiled Femur", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             itemsTable.Rows.Add("Tin Ore", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             itemsTable.Rows.Add("Water Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
-            itemsTable.Rows.Add("Wind Shard", 95, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
+            itemsTable.Rows.Add("Wind Shard", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
             itemsTable.Rows.Add("Zinc Ore", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
+            itemsTable.Rows.Add("Wyvern Obsidian", 18, "Mineral Deposit", 60, "250.000,5.000,230.000");
+            itemsTable.Rows.Add("Earth Crystal", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
+            itemsTable.Rows.Add("Earth Shard", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
+            itemsTable.Rows.Add("Earth Cluster", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
+            itemsTable.Rows.Add("Grade 3 Carbonized Matter", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
+            itemsTable.Rows.Add("Marble", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
+            itemsTable.Rows.Add("Electrum Sand", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
             //itemsTable.Rows.Add("Wind Rock", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086");
         }
 
@@ -310,17 +339,17 @@ namespace GatherAssist
         /// <returns>The ItemRecord for the supplied item name.  Null if no item name can be found in the item table.</returns>
         public ItemRecord GetItemRecord(string itemName)
         {
-            bool isValid = false;
-            DataRow[] itemRows = itemsTable.Select("ItemName = \"" + itemName + "\"");
+            bool isValid = true;
+            DataRow[] itemRows = itemsTable.Select(string.Format("ItemName = '{0}'", itemName));
             int itemCount = itemRows.Count<DataRow>();
             if (itemCount > 1)
             {
-                Logging.Write(Colors.Red, string.Format("Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
+                Logging.Write(Colors.Red, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
                 isValid = false;
             }
             else if (itemCount == 0)
             {
-                Logging.Write(Colors.Red, string.Format("Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
+                Logging.Write(Colors.Red, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
                 isValid = false;
             }
 
@@ -339,17 +368,17 @@ namespace GatherAssist
                 itemRecord.HotspotRadius = Convert.ToInt32(itemRow["HotspotRadius"]);
                 itemRecord.Location = Convert.ToString(itemRow["Location"]);
 
-                DataRow[] mapRows = mapsTable.Select("AetheryteId = " + itemRecord.AetheryteId);
+                DataRow[] mapRows = mapsTable.Select(string.Format("AetheryteId = '{0}'", itemRecord.AetheryteId));
                 int mapCount = mapRows.Count<DataRow>();
 
                 if (mapCount > 1)
                 {
-                    Logging.Write(Colors.Red, string.Format("Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
+                    Logging.Write(Colors.Red, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
                     isValid = false;
                 }
                 else if (mapCount == 0)
                 {
-                    Logging.Write(Colors.Red, string.Format("Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
+                    Logging.Write(Colors.Red, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
                     isValid = false;
                 }
 

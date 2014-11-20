@@ -16,8 +16,7 @@ namespace GatherAssist.Settings
         public GatherAssistSettings(string filename) : base(Path.Combine(CharacterSettingsDirectory, "GatherAssist.json")) { }
 
         [Setting]
-        public int ShardTarget { get; set; }
         public int UpdateIntervalMinutes { get; set; }
-        public DataTable RequestTable { get; set; }
+//        public DataTable RequestTable { get; set; }
     }
 }

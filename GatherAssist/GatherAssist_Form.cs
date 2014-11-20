@@ -22,8 +22,10 @@ namespace GatherAssist
         public GatherAssist_Form(DataTable itemsTable)
         {
             InitializeComponent();
+            textBoxUpdateInterval.Text = Convert.ToString(settings.UpdateIntervalMinutes);
             requestTable = itemsTable.DefaultView.ToTable(false, "ItemName");
             requestTable.Columns.Add(new DataColumn("Count", typeof(int)) { DefaultValue = 0 }); // requested count, defaults to 0
+            dataGridViewRequestList.DataSource = requestTable;
         }
 
         /// <summary>
@@ -35,14 +37,26 @@ namespace GatherAssist
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            dataGridViewRequestList.DataSource = requestTable;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
             settings.UpdateIntervalMinutes = System.Convert.ToInt32(textBoxUpdateInterval.Text);
-            settings.RequestTable = requestTable;
+            //DataTable oldTable = this.requestTable.Copy();
+            DataTable oldTable = ((DataTable)this.dataGridViewRequestList.DataSource).Copy();
+            this.requestTable = oldTable.Clone();
+            foreach (DataRow curRow in oldTable.Rows)
+            {
+                if (Convert.ToInt32(curRow["Count"]) != 0)
+                {
+                    this.requestTable.Rows.Add(Convert.ToString(curRow["ItemName"]), Convert.ToInt32(curRow["Count"]));
+                }
+            }
+            //settings.RequestTable = requestTable;
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
     }
+
+
 }

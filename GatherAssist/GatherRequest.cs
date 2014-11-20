@@ -16,7 +16,7 @@ namespace GatherAssist
         {
             ItemName = itemName;
             RequestedTotal = requestedTotal;
-            CurrentCount = 999999;
+            CurrentCount = 0;
         }
 
         private GatherRequest()
