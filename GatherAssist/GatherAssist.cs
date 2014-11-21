@@ -37,6 +37,9 @@ namespace GatherAssist
     public class GatherAssist : IBotPlugin
     {
         const string pluginName = "GatherAssist";
+        const Color LogMajorColor = Colors.SkyBlue;
+        const Color LogMinorColor = Colors.Teal;
+        const Color LogErrorColor = Colors.Red;
 
         public string Author { get { return " Zane McFate"; } }
         public string Description { get { return "Extends OrderBot gathering functionality to seek multiple items with a single command."; } }
@@ -103,7 +106,7 @@ namespace GatherAssist
         }
         public void OnEnabled()
         {
-            Logging.Write(Colors.SkyBlue, "[" + pluginName + "] v" + Version.ToString() + " Enabled");
+            Logging.Write(LogMajorColor, "[" + pluginName + "] v" + Version.ToString() + " Enabled");
         }
 
         void GatherAssistTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -119,7 +122,7 @@ namespace GatherAssist
 
             if (currentGatherRequest == null) // if no valid gather requests remain
             {
-                Logging.Write(Colors.Teal, "Gather requests complete!  GatherAssist will stop now.");
+                Logging.Write(LogMinorColor, "Gather requests complete!  GatherAssist will stop now.");
                 GatherAssistTimer.Stop();
                 TreeRoot.Stop(); // stop the bot
                 return;
@@ -132,7 +135,7 @@ namespace GatherAssist
 
         public void OnDisabled()
         {
-            Logging.Write(Colors.SkyBlue, "[" + pluginName + "] v" + Version.ToString() + " Disabled");
+            Logging.Write(LogMajorColor, "[" + pluginName + "] v" + Version.ToString() + " Disabled");
             GatherAssistTimer.Stop();
         }
 
@@ -146,7 +149,7 @@ namespace GatherAssist
 
             foreach (DataRow dataRow in requestTable.Rows)
             {
-                Logging.Write(Colors.SkyBlue, "DEBUG: Adding " + dataRow["ItemName"] + " to request list");
+                Logging.Write(LogMajorColor, "DEBUG: Adding " + dataRow["ItemName"] + " to request list");
                 requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToInt32(dataRow["Count"])));
             }
         }
@@ -164,11 +167,11 @@ namespace GatherAssist
                 var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
                 if (obj != null)
                 {
-                    Logging.Write(Colors.SkyBlue, "DEBUG:Updating count");
+                    Logging.Write(LogMajorColor, "DEBUG:Updating count");
                     obj.CurrentCount = curSlot.Count;
                     if (currentGatherRequest == null && obj.RequestedTotal > obj.CurrentCount)
                     {
-                        Logging.Write(Colors.SkyBlue, "DEBUG: Updating gather request");
+                        Logging.Write(LogMajorColor, "DEBUG: Updating gather request");
                         currentGatherRequest = obj as GatherRequest;
                     }
                 }
@@ -182,7 +185,7 @@ namespace GatherAssist
         {
             foreach (GatherRequest curRequest in requestList)
             {
-                Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? Colors.Teal : Colors.SkyBlue;
+                Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? LogMinorColor : LogMajorColor;
                 Logging.Write(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
             }
         }
@@ -193,15 +196,15 @@ namespace GatherAssist
 
             if (currentGatherRequest == null)
             {
-                Logging.Write(Colors.Red, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
+                Logging.Write(LogErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
                 isValid = false;
             }
 
-            Logging.Write(Colors.SkyBlue, string.Format("DEBUG: Current Gather Request is {0}", currentGatherRequest.ItemName));
+            Logging.Write(LogMajorColor, string.Format("DEBUG: Current Gather Request is {0}", currentGatherRequest.ItemName));
             ItemRecord itemRecord = GetItemRecord(currentGatherRequest.ItemName);
             if (itemRecord == null)
             {
-                Logging.Write(Colors.Red, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", currentGatherRequest.ItemName));
+                Logging.Write(LogErrorColor, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", currentGatherRequest.ItemName));
                 isValid = false;
             }
 
@@ -353,12 +356,12 @@ namespace GatherAssist
             int itemCount = itemRows.Count<DataRow>();
             if (itemCount > 1)
             {
-                Logging.Write(Colors.Red, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
+                Logging.Write(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
                 isValid = false;
             }
             else if (itemCount == 0)
             {
-                Logging.Write(Colors.Red, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
+                Logging.Write(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
                 isValid = false;
             }
 
@@ -382,12 +385,12 @@ namespace GatherAssist
 
                 if (mapCount > 1)
                 {
-                    Logging.Write(Colors.Red, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
+                    Logging.Write(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
                     isValid = false;
                 }
                 else if (mapCount == 0)
                 {
-                    Logging.Write(Colors.Red, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
+                    Logging.Write(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
                     isValid = false;
                 }
 
