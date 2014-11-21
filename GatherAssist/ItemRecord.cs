@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GatherAssist
+﻿namespace GatherAssist
 {
     /// <summary>
     /// Contains information required to gather a specific item, to be used in generating profiles.  ItemName is used in comparison operations.

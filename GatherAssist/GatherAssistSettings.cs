@@ -1,10 +1,7 @@
-﻿using ff14bot;
-using ff14bot.Helpers;
-using Clio.Utilities;
+﻿using ff14bot.Helpers;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.IO;
-using System.Data;
 
 namespace GatherAssist.Settings
 {
