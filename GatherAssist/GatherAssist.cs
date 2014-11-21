@@ -113,6 +113,7 @@ namespace GatherAssist
 
         void ElapseTimer()
         {
+            string lastRequest = currentGatherRequest == null ? "" : currentGatherRequest.ItemName;
             UpdateRequestedItemCounts();
             ReportGatheringStatus();
 
@@ -120,10 +121,10 @@ namespace GatherAssist
             {
                 Logging.Write(Colors.Teal, "Gather requests complete!  GatherAssist will stop now.");
                 GatherAssistTimer.Stop();
-                // TODO: find a way to stop the bot
+                TreeRoot.Stop(); // stop the bot
                 return;
             }
-            else
+            else if (currentGatherRequest.ItemName != lastRequest) // keeps profile from needlessly reloading
             {
                 LoadProfile();
             }
@@ -244,6 +245,11 @@ namespace GatherAssist
                 string targetXmlFile = profilePath + "/" + targetXmlName;
                 File.WriteAllText(targetXmlFile, xmlContent);
                 NeoProfileManager.Load(targetXmlFile, true); // profile will automatically switch to the new gathering profile at this point
+
+                // reboot the bot; this is a workaround for the profile loader not properly updating item names.
+                TreeRoot.Stop();
+                Thread.Sleep(1000);
+                TreeRoot.Start();
 //                ProfileManager.LoadNew(xmlContent, true);
             }
         }
@@ -301,14 +307,22 @@ namespace GatherAssist
             itemsTable.Rows.Add("Alumen", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227");
             itemsTable.Rows.Add("Black Alumen", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
             itemsTable.Rows.Add("Bomb Ash", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923");
+            itemsTable.Rows.Add("Brown Pigment", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
             itemsTable.Rows.Add("Copper Ore", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
-            itemsTable.Rows.Add("Muddy Water", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
+            //itemsTable.Rows.Add("Earth Cluster", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
+            itemsTable.Rows.Add("Earth Crystal", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
+            itemsTable.Rows.Add("Earth Shard", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
             itemsTable.Rows.Add("Electrum Ore", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521");
+            itemsTable.Rows.Add("Electrum Sand", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
             itemsTable.Rows.Add("Fire Crystal", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753");
             itemsTable.Rows.Add("Fire Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
+            itemsTable.Rows.Add("Grade 2 Carbonized Matter", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
+            itemsTable.Rows.Add("Grade 3 Carbonized Matter", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137");
             itemsTable.Rows.Add("Ice Shard", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
             itemsTable.Rows.Add("Iron Ore", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282");
             itemsTable.Rows.Add("Lightning Shard", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
+            itemsTable.Rows.Add("Marble", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
+            itemsTable.Rows.Add("Muddy Water", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
             itemsTable.Rows.Add("Mythril Ore", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443");
             itemsTable.Rows.Add("Obsidian", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             itemsTable.Rows.Add("Raw Fluorite", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227");
@@ -320,16 +334,11 @@ namespace GatherAssist
             itemsTable.Rows.Add("Soiled Femur", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             itemsTable.Rows.Add("Tin Ore", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             itemsTable.Rows.Add("Water Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
-            itemsTable.Rows.Add("Wind Shard", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
-            itemsTable.Rows.Add("Zinc Ore", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
-            itemsTable.Rows.Add("Wyvern Obsidian", 18, "Mineral Deposit", 60, "250.000,5.000,230.000");
-            itemsTable.Rows.Add("Earth Crystal", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
-            itemsTable.Rows.Add("Earth Shard", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
-            itemsTable.Rows.Add("Earth Cluster", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
-            itemsTable.Rows.Add("Grade 3 Carbonized Matter", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
-            itemsTable.Rows.Add("Marble", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
-            itemsTable.Rows.Add("Electrum Sand", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
             //itemsTable.Rows.Add("Wind Rock", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086");
+            itemsTable.Rows.Add("Wind Shard", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
+            itemsTable.Rows.Add("Wyvern Obsidian", 18, "Mineral Deposit", 60, "250.000,5.000,230.000");
+            itemsTable.Rows.Add("Yellow Pigment", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
+            itemsTable.Rows.Add("Zinc Ore", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
         }
 
         /// <summary>
