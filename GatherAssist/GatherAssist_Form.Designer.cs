@@ -31,15 +31,21 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.textBoxUpdateInterval = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridViewRequestList = new System.Windows.Forms.DataGridView();
+            this.dataGridViewRequests = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequestList)).BeginInit();
+            this.dataGridViewResults = new System.Windows.Forms.DataGridView();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.labelSearch = new System.Windows.Forms.Label();
+            this.labelRequestOptions = new System.Windows.Forms.Label();
+            this.labelRequestList = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequests)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(478, 26);
+            this.buttonOK.Location = new System.Drawing.Point(349, 26);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(108, 22);
             this.buttonOK.TabIndex = 2;
@@ -63,13 +69,13 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Polling Interval (Minutes)";
             // 
-            // dataGridViewRequestList
+            // dataGridViewRequests
             // 
-            this.dataGridViewRequestList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRequestList.Location = new System.Drawing.Point(12, 123);
-            this.dataGridViewRequestList.Name = "dataGridViewRequestList";
-            this.dataGridViewRequestList.Size = new System.Drawing.Size(574, 339);
-            this.dataGridViewRequestList.TabIndex = 5;
+            this.dataGridViewRequests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRequests.Location = new System.Drawing.Point(12, 157);
+            this.dataGridViewRequests.Name = "dataGridViewRequests";
+            this.dataGridViewRequests.Size = new System.Drawing.Size(252, 422);
+            this.dataGridViewRequests.TabIndex = 5;
             // 
             // groupBox1
             // 
@@ -82,20 +88,71 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
+            // dataGridViewResults
+            // 
+            this.dataGridViewResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewResults.Location = new System.Drawing.Point(270, 157);
+            this.dataGridViewResults.Name = "dataGridViewResults";
+            this.dataGridViewResults.Size = new System.Drawing.Size(187, 421);
+            this.dataGridViewResults.TabIndex = 7;
+            this.dataGridViewResults.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewResults_CellContentClick);
+            // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Location = new System.Drawing.Point(316, 118);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSearch.TabIndex = 8;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+            // 
+            // labelSearch
+            // 
+            this.labelSearch.AutoSize = true;
+            this.labelSearch.Location = new System.Drawing.Point(269, 121);
+            this.labelSearch.Name = "labelSearch";
+            this.labelSearch.Size = new System.Drawing.Size(41, 13);
+            this.labelSearch.TabIndex = 9;
+            this.labelSearch.Text = "Search";
+            // 
+            // labelRequestOptions
+            // 
+            this.labelRequestOptions.AutoSize = true;
+            this.labelRequestOptions.Location = new System.Drawing.Point(270, 141);
+            this.labelRequestOptions.Name = "labelRequestOptions";
+            this.labelRequestOptions.Size = new System.Drawing.Size(86, 13);
+            this.labelRequestOptions.TabIndex = 10;
+            this.labelRequestOptions.Text = "Request Options";
+            // 
+            // labelRequestList
+            // 
+            this.labelRequestList.AutoSize = true;
+            this.labelRequestList.Location = new System.Drawing.Point(12, 141);
+            this.labelRequestList.Name = "labelRequestList";
+            this.labelRequestList.Size = new System.Drawing.Size(66, 13);
+            this.labelRequestList.TabIndex = 11;
+            this.labelRequestList.Text = "Request List";
+            // 
             // GatherAssist_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 474);
+            this.ClientSize = new System.Drawing.Size(473, 619);
+            this.Controls.Add(this.labelRequestList);
+            this.Controls.Add(this.labelRequestOptions);
+            this.Controls.Add(this.labelSearch);
+            this.Controls.Add(this.textBoxSearch);
+            this.Controls.Add(this.dataGridViewResults);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridViewRequestList);
+            this.Controls.Add(this.dataGridViewRequests);
             this.Controls.Add(this.buttonOK);
             this.Name = "GatherAssist_Form";
             this.Text = "GatherAssist Settings";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequestList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequests)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -104,7 +161,12 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.TextBox textBoxUpdateInterval;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dataGridViewRequestList;
+        private System.Windows.Forms.DataGridView dataGridViewRequests;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dataGridViewResults;
+        private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.Label labelSearch;
+        private System.Windows.Forms.Label labelRequestOptions;
+        private System.Windows.Forms.Label labelRequestList;
     }
 }
