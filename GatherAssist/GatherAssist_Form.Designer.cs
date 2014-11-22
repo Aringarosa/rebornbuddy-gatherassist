@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GatherAssist_Form));
             this.buttonOK = new System.Windows.Forms.Button();
             this.textBoxUpdateInterval = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.labelSearch = new System.Windows.Forms.Label();
             this.labelRequestOptions = new System.Windows.Forms.Label();
             this.labelRequestList = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequests)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
@@ -45,7 +47,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(349, 26);
+            this.buttonOK.Location = new System.Drawing.Point(353, 585);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(108, 22);
             this.buttonOK.TabIndex = 2;
@@ -55,7 +57,7 @@
             // 
             // textBoxUpdateInterval
             // 
-            this.textBoxUpdateInterval.Location = new System.Drawing.Point(137, 46);
+            this.textBoxUpdateInterval.Location = new System.Drawing.Point(146, 50);
             this.textBoxUpdateInterval.Name = "textBoxUpdateInterval";
             this.textBoxUpdateInterval.Size = new System.Drawing.Size(100, 20);
             this.textBoxUpdateInterval.TabIndex = 3;
@@ -63,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 49);
+            this.label2.Location = new System.Drawing.Point(17, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 13);
             this.label2.TabIndex = 4;
@@ -72,16 +74,16 @@
             // dataGridViewRequests
             // 
             this.dataGridViewRequests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRequests.Location = new System.Drawing.Point(12, 157);
+            this.dataGridViewRequests.Location = new System.Drawing.Point(12, 180);
             this.dataGridViewRequests.Name = "dataGridViewRequests";
-            this.dataGridViewRequests.Size = new System.Drawing.Size(252, 422);
+            this.dataGridViewRequests.Size = new System.Drawing.Size(252, 399);
             this.dataGridViewRequests.TabIndex = 5;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxUpdateInterval);
-            this.groupBox1.Location = new System.Drawing.Point(12, 26);
+            this.groupBox1.Location = new System.Drawing.Point(12, 11);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(252, 91);
             this.groupBox1.TabIndex = 6;
@@ -91,15 +93,15 @@
             // dataGridViewResults
             // 
             this.dataGridViewResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewResults.Location = new System.Drawing.Point(270, 157);
+            this.dataGridViewResults.Location = new System.Drawing.Point(270, 180);
             this.dataGridViewResults.Name = "dataGridViewResults";
-            this.dataGridViewResults.Size = new System.Drawing.Size(187, 421);
+            this.dataGridViewResults.Size = new System.Drawing.Size(187, 398);
             this.dataGridViewResults.TabIndex = 7;
             this.dataGridViewResults.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewResults_CellContentClick);
             // 
             // textBoxSearch
             // 
-            this.textBoxSearch.Location = new System.Drawing.Point(316, 118);
+            this.textBoxSearch.Location = new System.Drawing.Point(318, 141);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(100, 20);
             this.textBoxSearch.TabIndex = 8;
@@ -108,7 +110,7 @@
             // labelSearch
             // 
             this.labelSearch.AutoSize = true;
-            this.labelSearch.Location = new System.Drawing.Point(269, 121);
+            this.labelSearch.Location = new System.Drawing.Point(271, 144);
             this.labelSearch.Name = "labelSearch";
             this.labelSearch.Size = new System.Drawing.Size(41, 13);
             this.labelSearch.TabIndex = 9;
@@ -117,7 +119,7 @@
             // labelRequestOptions
             // 
             this.labelRequestOptions.AutoSize = true;
-            this.labelRequestOptions.Location = new System.Drawing.Point(270, 141);
+            this.labelRequestOptions.Location = new System.Drawing.Point(269, 164);
             this.labelRequestOptions.Name = "labelRequestOptions";
             this.labelRequestOptions.Size = new System.Drawing.Size(86, 13);
             this.labelRequestOptions.TabIndex = 10;
@@ -126,17 +128,27 @@
             // labelRequestList
             // 
             this.labelRequestList.AutoSize = true;
-            this.labelRequestList.Location = new System.Drawing.Point(12, 141);
+            this.labelRequestList.Location = new System.Drawing.Point(12, 164);
             this.labelRequestList.Name = "labelRequestList";
             this.labelRequestList.Size = new System.Drawing.Size(66, 13);
             this.labelRequestList.TabIndex = 11;
             this.labelRequestList.Text = "Request List";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(274, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(187, 104);
+            this.label1.TabIndex = 12;
+            this.label1.Text = resources.GetString("label1.Text");
             // 
             // GatherAssist_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(473, 619);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelRequestList);
             this.Controls.Add(this.labelRequestOptions);
             this.Controls.Add(this.labelSearch);
@@ -168,5 +180,6 @@
         private System.Windows.Forms.Label labelSearch;
         private System.Windows.Forms.Label labelRequestOptions;
         private System.Windows.Forms.Label labelRequestList;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -117,4 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Instructions:
+Browse from the request options, or
+search for the item you need.  Clicking
+the item in the request options list
+will make it appear in the request list.
+Enter the desired number of each item
+you are searching for, and click OK to
+start the bot!</value>
+  </data>
 </root>
