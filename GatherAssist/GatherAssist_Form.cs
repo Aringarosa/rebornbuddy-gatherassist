@@ -27,6 +27,19 @@ namespace GatherAssist
             requestTable = itemsTable.DefaultView.ToTable(false, "ItemName");
             requestTable.Rows.Clear();
             requestTable.Columns.Add(new DataColumn("Count", typeof(int)) { DefaultValue = 0 }); // requested count, defaults to 0
+            UpdateSearchBox();
+            labelInstructions.Text = "Instructions:\nBrowse from the request options, or\nsearch for the item you need.  Clicking\nthe item in the request options list\nwill make it appear in the request list.\nEnter the desired number of each item\nyou are searching for, and click OK to\nstart the bot!";
+
+            DataTable oldTable = this.requestTable.Copy();
+            this.requestTable = oldTable.Clone();
+            foreach (DataRow curRow in oldTable.Rows)
+            {
+                if (Convert.ToInt32(curRow["Count"]) != 0)
+                {
+                    this.requestTable.Rows.Add(Convert.ToString(curRow["ItemName"]), Convert.ToInt32(curRow["Count"]));
+                }
+            }
+
             dataGridViewRequests.DataSource = requestTable;
             UpdateSearchBox();
         }
@@ -40,15 +53,6 @@ namespace GatherAssist
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DataTable oldTable = this.requestTable.Copy();
-            this.requestTable = new DataTable();
-            foreach (DataRow curRow in oldTable.Rows)
-            {
-                if (Convert.ToInt32(curRow["Count"]) != 0)
-                {
-                    this.requestTable.Rows.Add(Convert.ToString(curRow["ItemName"]), Convert.ToInt32(curRow["Count"]));
-                }
-            }
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -91,9 +95,34 @@ namespace GatherAssist
             dataGridViewResults.DataSource = resultsTable;
         }
 
-        private void dataGridViewResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewResults_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string itemName = Convert.ToString(dataGridViewResults.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+            AddSelectedCell();
+        }        
+        
+
+
+        private void AddSelectedCell()
+        {
+            //if (requestTable == null || requestTable.Columns.Count == 0)
+            //{
+            //    return; // don't run if the request table hasn't been initialized
+            //}
+
+            if (dataGridViewResults.SelectedCells.Count != 1)
+            {
+                return; // don't bother unless a single cell is selected
+            }
+
+            int rowIndex = dataGridViewResults.SelectedCells[0].RowIndex;
+            int columnIndex = dataGridViewResults.SelectedCells[0].ColumnIndex;
+
+            if (rowIndex < 0 || columnIndex < 0)
+            {
+                return; // do nothing, invalid index
+            }
+
+            string itemName = Convert.ToString(dataGridViewResults.Rows[rowIndex].Cells[columnIndex].Value);
             if (requestTable.Select(string.Format("ItemName = '{0}'", itemName)).Length == 0)
             {
                 requestTable.Rows.Add(itemName, 0);
@@ -109,6 +138,4 @@ namespace GatherAssist
             return inTable;
         }
     }
-
-
 }
