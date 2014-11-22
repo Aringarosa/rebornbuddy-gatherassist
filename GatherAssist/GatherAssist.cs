@@ -109,7 +109,7 @@ namespace GatherAssist
         {
             try
             {
-                Log(LogMajorColor, "[" + pluginName + "] v" + Version.ToString() + " Enabled");
+                Log(LogMajorColor, " v" + Version.ToString() + " Enabled");
             }
             catch (Exception ex)
             {
@@ -159,7 +159,7 @@ namespace GatherAssist
         {
             try
             {
-                Log(LogMajorColor, "[" + pluginName + "] v" + Version.ToString() + " Disabled");
+                Log(LogMajorColor, " v" + Version.ToString() + " Disabled");
                 GatherAssistTimer.Stop();
             }
             catch (Exception ex)
@@ -180,7 +180,7 @@ namespace GatherAssist
 
                 foreach (DataRow dataRow in requestTable.Rows)
                 {
-                    Log(LogMajorColor, "DEBUG: Adding " + dataRow["ItemName"] + " to request list");
+                    Log(LogMajorColor, "Adding " + dataRow["ItemName"] + " to request list", true);
                     requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToInt32(dataRow["Count"])));
                 }
             }
@@ -214,13 +214,13 @@ namespace GatherAssist
 
                 foreach (InventoryBagId curBagId in validBags)
                 {
-                    Log(LogMajorColor, curBagId.ToString()); // debug
+                    Log(LogMajorColor, "curBagId.ToString()", true);
                     foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
                     {
                         var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
                         if (obj != null)
                         {
-                            Log(LogMajorColor, "DEBUG: Updating count");
+                            Log(LogMajorColor, "Updating count", true);
                             obj.CurrentCount += curSlot.Count;
                         }
                     }
@@ -245,7 +245,7 @@ namespace GatherAssist
                     Log(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
                     if (currentGatherRequest == null && curRequest.CurrentCount < curRequest.RequestedTotal)
                     {
-                        Log(LogMajorColor, string.Format("DEBUG: Updating gather request to {0}", curRequest.ItemName));
+                        Log(LogMajorColor, string.Format("Updating gather request to {0}", curRequest.ItemName), true);
                         currentGatherRequest = curRequest;
                     }
                 }
@@ -268,7 +268,7 @@ namespace GatherAssist
                     isValid = false;
                 }
 
-                Log(LogMajorColor, string.Format("DEBUG: Current Gather Request is {0}", currentGatherRequest.ItemName));
+                Log(LogMajorColor, string.Format("Current Gather Request is {0}", currentGatherRequest.ItemName), true);
                 ItemRecord itemRecord = GetItemRecord(currentGatherRequest.ItemName);
                 if (itemRecord == null)
                 {
@@ -517,6 +517,16 @@ namespace GatherAssist
 
         public void Log(Color color, string message)
         {
+            Log(color, message, false);
+        }
+
+        public void Log(Color color, string message, bool debug)
+        {
+            if (debug)
+            {
+                message = "DEBUG: " + message;
+            }
+
             Logging.Write(color, string.Format("[{0}] {1}", pluginName, message));
         }
     }
