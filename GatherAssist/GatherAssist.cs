@@ -109,7 +109,7 @@ namespace GatherAssist
         {
             try
             {
-                Logging.Write(LogMajorColor, "[" + pluginName + "] v" + Version.ToString() + " Enabled");
+                Log(LogMajorColor, "[" + pluginName + "] v" + Version.ToString() + " Enabled");
             }
             catch (Exception ex)
             {
@@ -139,7 +139,7 @@ namespace GatherAssist
 
                 if (currentGatherRequest == null) // if no valid gather requests remain
                 {
-                    Logging.Write(LogMajorColor, "Gather requests complete!  GatherAssist will stop now.");
+                    Log(LogMajorColor, "Gather requests complete!  GatherAssist will stop now.");
                     GatherAssistTimer.Stop();
                     TreeRoot.Stop(); // stop the bot
                     return;
@@ -159,7 +159,7 @@ namespace GatherAssist
         {
             try
             {
-                Logging.Write(LogMajorColor, "[" + pluginName + "] v" + Version.ToString() + " Disabled");
+                Log(LogMajorColor, "[" + pluginName + "] v" + Version.ToString() + " Disabled");
                 GatherAssistTimer.Stop();
             }
             catch (Exception ex)
@@ -180,7 +180,7 @@ namespace GatherAssist
 
                 foreach (DataRow dataRow in requestTable.Rows)
                 {
-                    Logging.Write(LogMajorColor, "DEBUG: Adding " + dataRow["ItemName"] + " to request list");
+                    Log(LogMajorColor, "DEBUG: Adding " + dataRow["ItemName"] + " to request list");
                     requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToInt32(dataRow["Count"])));
                 }
             }
@@ -214,13 +214,13 @@ namespace GatherAssist
 
                 foreach (InventoryBagId curBagId in validBags)
                 {
-                    Logging.Write(LogMajorColor, curBagId.ToString()); // debug
+                    Log(LogMajorColor, curBagId.ToString()); // debug
                     foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
                     {
                         var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
                         if (obj != null)
                         {
-                            Logging.Write(LogMajorColor, "DEBUG: Updating count");
+                            Log(LogMajorColor, "DEBUG: Updating count");
                             obj.CurrentCount += curSlot.Count;
                         }
                     }
@@ -242,10 +242,10 @@ namespace GatherAssist
                 foreach (GatherRequest curRequest in requestList)
                 {
                     Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? LogMinorColor : LogMajorColor;
-                    Logging.Write(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
+                    Log(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
                     if (currentGatherRequest == null && curRequest.CurrentCount < curRequest.RequestedTotal)
                     {
-                        Logging.Write(LogMajorColor, string.Format("DEBUG: Updating gather request to {0}", curRequest.ItemName));
+                        Log(LogMajorColor, string.Format("DEBUG: Updating gather request to {0}", curRequest.ItemName));
                         currentGatherRequest = curRequest;
                     }
                 }
@@ -264,15 +264,15 @@ namespace GatherAssist
 
                 if (currentGatherRequest == null)
                 {
-                    Logging.Write(LogErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
+                    Log(LogErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
                     isValid = false;
                 }
 
-                Logging.Write(LogMajorColor, string.Format("DEBUG: Current Gather Request is {0}", currentGatherRequest.ItemName));
+                Log(LogMajorColor, string.Format("DEBUG: Current Gather Request is {0}", currentGatherRequest.ItemName));
                 ItemRecord itemRecord = GetItemRecord(currentGatherRequest.ItemName);
                 if (itemRecord == null)
                 {
-                    Logging.Write(LogErrorColor, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", currentGatherRequest.ItemName));
+                    Log(LogErrorColor, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", currentGatherRequest.ItemName));
                     isValid = false;
                 }
 
@@ -445,12 +445,12 @@ namespace GatherAssist
                 int itemCount = itemRows.Count<DataRow>();
                 if (itemCount > 1)
                 {
-                    Logging.Write(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
+                    Log(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
                     isValid = false;
                 }
                 else if (itemCount == 0)
                 {
-                    Logging.Write(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
+                    Log(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
                     isValid = false;
                 }
 
@@ -474,12 +474,12 @@ namespace GatherAssist
 
                     if (mapCount > 1)
                     {
-                        Logging.Write(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
+                        Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
                         isValid = false;
                     }
                     else if (mapCount == 0)
                     {
-                        Logging.Write(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
+                        Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
                         isValid = false;
                     }
 
@@ -506,13 +506,18 @@ namespace GatherAssist
 
         public void LogException(Exception ex)
         {
-            Logging.Write(LogErrorColor, string.Format("Exception in plugin {0}: {1} {2}", pluginName, ex.Message, ex.StackTrace));
+            Log(LogErrorColor, string.Format("Exception in plugin {0}: {1} {2}", pluginName, ex.Message, ex.StackTrace));
             GatherAssistTimer.Stop();
         }
 
         public static IEnumerable<T> GetValues<T>()
         {
             return Enum.GetValues(typeof(T)).Cast<T>();
+        }
+
+        public void Log(Color color, string message)
+        {
+            Logging.Write(color, string.Format("[{0}] {1}", pluginName, message));
         }
     }
 }
