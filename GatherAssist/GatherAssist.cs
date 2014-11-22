@@ -279,6 +279,7 @@ namespace GatherAssist
                 if (!isValid)
                 {
                     GatherAssistTimer.Stop();
+                    BotStop();
                 }
                 else
                 {
@@ -315,13 +316,17 @@ namespace GatherAssist
                     string profilePath = System.IO.Path.GetTempPath();
                     string targetXmlFile = profilePath + "/" + targetXmlName;
                     File.WriteAllText(targetXmlFile, xmlContent);
-                    NeoProfileManager.Load(targetXmlFile, true); // profile will automatically switch to the new gathering profile at this point
 
-                    // reboot the bot; this is a workaround for the profile loader not properly updating item names.
-                    BotStop();
+                    while (ff14bot.Managers.GatheringWindow.WindowOpen)
+                    {
+                        Log(LogMinorColor, "waiting for a window to close...", true);
+                        Thread.Sleep(1000);
+                    }
+
+                    BotStop(); // reboot the bot; this is a workaround for the profile loader not properly updating item names.
+                    NeoProfileManager.Load(targetXmlFile, true); // profile will automatically switch to the new gathering profile at this point
                     Thread.Sleep(1000);
                     TreeRoot.Start();
-    //                ProfileManager.LoadNew(xmlContent, true);
                 }
             }
             catch (Exception ex)
@@ -398,7 +403,7 @@ namespace GatherAssist
                 itemsTable.Rows.Add("Earth Crystal", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 itemsTable.Rows.Add("Earth Shard", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 itemsTable.Rows.Add("Electrum Ore", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521");
-                itemsTable.Rows.Add("Electrum Sand", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
+                itemsTable.Rows.Add("Electrum Sand", 15, "Rocky Outcrop", 60, "333.2277, -3.4, 45.06057");
                 itemsTable.Rows.Add("Fire Crystal", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753");
                 itemsTable.Rows.Add("Fire Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
                 itemsTable.Rows.Add("Grade 2 Carbonized Matter", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
@@ -457,6 +462,7 @@ namespace GatherAssist
                 if (!isValid)
                 {
                     GatherAssistTimer.Stop();
+                    BotStop();
                 }
                 else
                 {
@@ -486,6 +492,7 @@ namespace GatherAssist
                     if (!isValid)
                     {
                         GatherAssistTimer.Stop();
+                        BotStop();
                     }
                     else
                     {
@@ -521,6 +528,7 @@ namespace GatherAssist
         {
             Log(LogErrorColor, string.Format("Exception in plugin {0}: {1} {2}", pluginName, ex.Message, ex.StackTrace));
             GatherAssistTimer.Stop();
+            BotStop();
         }
 
         public static IEnumerable<T> GetValues<T>()

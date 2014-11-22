@@ -66,16 +66,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(TargetDir)Plugin"
-mkdir "$(TargetDir)Plugin\Settings"
+    <PostBuildEvent>mkdir "$(TargetDir)Plugins\$(ProjectName)"
+mkdir "$(TargetDir)Plugins\$(ProjectName)\Settings"
 mkdir "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
-copy /Y "$(SolutionDir)$(ProjectName).cs" "$(TargetDir)Plugin\$(ProjectName).cs"
-copy /Y "$(SolutionDir)GatherRequest.cs" "$(TargetDir)Plugin\GatherRequest.cs"
-copy /Y "$(SolutionDir)ItemRecord.cs" "$(TargetDir)Plugin\ItemRecord.cs"
-copy /Y "$(SolutionDir)$(ProjectName)_Form.cs" "$(TargetDir)Plugin\$(ProjectName)_Form.cs"
-copy /Y "$(SolutionDir)$(ProjectName)_Form.Designer.cs" "$(TargetDir)Plugin\$(ProjectName)_Form.Designer.cs"
-copy /Y "$(SolutionDir)$(ProjectName)Settings.cs" "$(TargetDir)Plugin\Settings\$(ProjectName)Settings.cs"
-xcopy /S /Y "$(TargetDir)Plugin" "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
+copy /Y "$(SolutionDir)$(ProjectName).cs" "$(TargetDir)Plugins\$(ProjectName)\$(ProjectName).cs"
+copy /Y "$(SolutionDir)GatherRequest.cs" "$(TargetDir)Plugins\$(ProjectName)\GatherRequest.cs"
+copy /Y "$(SolutionDir)ItemRecord.cs" "$(TargetDir)Plugins\$(ProjectName)\ItemRecord.cs"
+copy /Y "$(SolutionDir)$(ProjectName)_Form.cs" "$(TargetDir)Plugins\$(ProjectName)\$(ProjectName)_Form.cs"
+copy /Y "$(SolutionDir)$(ProjectName)_Form.Designer.cs" "$(TargetDir)Plugins\$(ProjectName)\$(ProjectName)_Form.Designer.cs"
+copy /Y "$(SolutionDir)$(ProjectName)Settings.cs" "$(TargetDir)Plugins\$(ProjectName)\Settings\$(ProjectName)Settings.cs"
+xcopy /S /Y "$(TargetDir)Plugins\$(ProjectName)" "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
