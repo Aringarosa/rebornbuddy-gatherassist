@@ -404,10 +404,10 @@ namespace GatherAssist
                 itemsTable.Rows.Add("Earth Shard", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 itemsTable.Rows.Add("Electrum Ore", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521");
                 itemsTable.Rows.Add("Electrum Sand", 15, "Rocky Outcrop", 60, "333.2277, -3.4, 45.06057");
-                itemsTable.Rows.Add("Fire Crystal", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753");
+                //itemsTable.Rows.Add("Fire Crystal", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753"); // not at this location, find a new one
                 itemsTable.Rows.Add("Fire Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
                 itemsTable.Rows.Add("Grade 2 Carbonized Matter", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
-                itemsTable.Rows.Add("Grade 3 Carbonized Matter", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137");
+                //itemsTable.Rows.Add("Grade 3 Carbonized Matter", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137"); // walks to location and stands around, investigate
                 itemsTable.Rows.Add("Ice Shard", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
                 itemsTable.Rows.Add("Iron Ore", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282");
                 itemsTable.Rows.Add("Lightning Shard", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
@@ -426,7 +426,7 @@ namespace GatherAssist
                 itemsTable.Rows.Add("Water Shard", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
                 //itemsTable.Rows.Add("Wind Rock", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086");
                 itemsTable.Rows.Add("Wind Shard", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
-                itemsTable.Rows.Add("Wyvern Obsidian", 18, "Mineral Deposit", 60, "250.000,5.000,230.000");
+                //itemsTable.Rows.Add("Wyvern Obsidian", 18, "Mineral Deposit", 60, "250.000,5.000,230.000"); // runs into a cliff and runs endlessly, investigate
                 itemsTable.Rows.Add("Yellow Pigment", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 itemsTable.Rows.Add("Zinc Ore", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             }
