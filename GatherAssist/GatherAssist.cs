@@ -139,7 +139,7 @@ namespace GatherAssist
 
                 if (currentGatherRequest == null) // if no valid gather requests remain
                 {
-                    Logging.Write(LogMinorColor, "Gather requests complete!  GatherAssist will stop now.");
+                    Logging.Write(LogMajorColor, "Gather requests complete!  GatherAssist will stop now.");
                     GatherAssistTimer.Stop();
                     TreeRoot.Stop(); // stop the bot
                     return;
