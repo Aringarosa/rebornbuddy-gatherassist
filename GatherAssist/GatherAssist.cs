@@ -200,17 +200,28 @@ namespace GatherAssist
             {
                 currentGatherRequest = null; // reset current gather request, will be set to first valid request below
 
-                foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(InventoryBagId.Crystals))
+                foreach (GatherRequest curRequest in requestList)
                 {
-                    var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
-                    if (obj != null)
+                    curRequest.CurrentCount = 0;
+                }
+
+                List<InventoryBagId> validBags = new List<InventoryBagId>();
+                validBags.Add(InventoryBagId.Bag1);
+                validBags.Add(InventoryBagId.Bag2);
+                validBags.Add(InventoryBagId.Bag3);
+                validBags.Add(InventoryBagId.Bag4);
+                validBags.Add(InventoryBagId.Crystals);
+
+                foreach (InventoryBagId curBagId in validBags)
+                {
+                    Logging.Write(LogMajorColor, curBagId.ToString()); // debug
+                    foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
                     {
-                        Logging.Write(LogMajorColor, "DEBUG:Updating count");
-                        obj.CurrentCount = curSlot.Count;
-                        if (currentGatherRequest == null && obj.RequestedTotal > obj.CurrentCount)
+                        var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
+                        if (obj != null)
                         {
-                            Logging.Write(LogMajorColor, "DEBUG: Updating gather request");
-                            currentGatherRequest = obj as GatherRequest;
+                            Logging.Write(LogMajorColor, "DEBUG: Updating count");
+                            obj.CurrentCount += curSlot.Count;
                         }
                     }
                 }
@@ -232,6 +243,11 @@ namespace GatherAssist
                 {
                     Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? LogMinorColor : LogMajorColor;
                     Logging.Write(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
+                    if (currentGatherRequest == null && curRequest.CurrentCount < curRequest.RequestedTotal)
+                    {
+                        Logging.Write(LogMajorColor, string.Format("DEBUG: Updating gather request to {0}", curRequest.ItemName));
+                        currentGatherRequest = curRequest;
+                    }
                 }
             }
             catch (Exception ex)
@@ -492,6 +508,11 @@ namespace GatherAssist
         {
             Logging.Write(LogErrorColor, string.Format("Exception in plugin {0}: {1} {2}", pluginName, ex.Message, ex.StackTrace));
             GatherAssistTimer.Stop();
+        }
+
+        public static IEnumerable<T> GetValues<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
         }
     }
 }
