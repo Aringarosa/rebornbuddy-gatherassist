@@ -24,9 +24,9 @@ namespace GatherAssist
     public class GatherAssist : IBotPlugin
     {
         const string pluginName = "GatherAssist";
-        const Color LogMajorColor = Colors.SkyBlue;
-        const Color LogMinorColor = Colors.Teal;
-        const Color LogErrorColor = Colors.Red;
+        Color LogMajorColor = Colors.SkyBlue;
+        Color LogMinorColor = Colors.Teal;
+        Color LogErrorColor = Colors.Red;
 
         public string Author { get { return " Zane McFate"; } }
         public string Description { get { return "Extends OrderBot gathering functionality to seek multiple items with a single command."; } }
