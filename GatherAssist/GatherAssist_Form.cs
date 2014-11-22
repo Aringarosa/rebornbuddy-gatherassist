@@ -26,12 +26,14 @@ namespace GatherAssist
 
             requestTable = itemsTable.DefaultView.ToTable(false, "ItemName");
             requestTable.Rows.Clear();
+            requestTable.Columns[0].ReadOnly = true;
             requestTable.Columns.Add(new DataColumn("Count", typeof(int)) { DefaultValue = 0 }); // requested count, defaults to 0
             UpdateSearchBox();
             labelInstructions.Text = "Instructions:\nBrowse from the request options, or\nsearch for the item you need.  Clicking\nthe item in the request options list\nwill make it appear in the request list.\nEnter the desired number of each item\nyou are searching for, and click OK to\nstart the bot!";
 
             DataTable oldTable = this.requestTable.Copy();
             this.requestTable = oldTable.Clone();
+            requestTable.Columns[0].ReadOnly = true;
             foreach (DataRow curRow in oldTable.Rows)
             {
                 if (Convert.ToInt32(curRow["Count"]) != 0)
@@ -60,6 +62,7 @@ namespace GatherAssist
             settings.UpdateIntervalMinutes = System.Convert.ToInt32(textBoxUpdateInterval.Text);
             DataTable oldTable = ((DataTable)this.dataGridViewRequests.DataSource).Copy();
             this.requestTable = oldTable.Clone();
+            requestTable.Columns[0].ReadOnly = true;
             foreach (DataRow curRow in oldTable.Rows)
             {
                 if (Convert.ToInt32(curRow["Count"]) != 0)
@@ -129,6 +132,7 @@ namespace GatherAssist
             }
 
             requestTable = ReSort(requestTable, "ItemName", "ASC");
+            requestTable.Columns[0].ReadOnly = true;
             dataGridViewRequests.DataSource = requestTable;
         }
         public static DataTable ReSort(DataTable inTable, string colName, string direction)

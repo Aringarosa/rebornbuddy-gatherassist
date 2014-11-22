@@ -311,8 +311,8 @@ namespace GatherAssist
                         gatheringSpell
                         );
 
-                    string targetXmlName = "currentProfile.xml";
-                    string profilePath = "C:/Programs/RebornBuddy/Plugins/GatherAssist"; // TODO: Get temp folder or actual plugins folder
+                    string targetXmlName = "gaCurrentProfile.xml";
+                    string profilePath = System.IO.Path.GetTempPath();
                     string targetXmlFile = profilePath + "/" + targetXmlName;
                     File.WriteAllText(targetXmlFile, xmlContent);
                     NeoProfileManager.Load(targetXmlFile, true); // profile will automatically switch to the new gathering profile at this point
