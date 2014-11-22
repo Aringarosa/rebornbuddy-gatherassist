@@ -141,7 +141,7 @@ namespace GatherAssist
                 {
                     Log(LogMajorColor, "Gather requests complete!  GatherAssist will stop now.");
                     GatherAssistTimer.Stop();
-                    TreeRoot.Stop(); // stop the bot
+                    BotStop();
                     return;
                 }
                 else if (currentGatherRequest.ItemName != lastRequest) // keeps profile from needlessly reloading
@@ -318,7 +318,7 @@ namespace GatherAssist
                     NeoProfileManager.Load(targetXmlFile, true); // profile will automatically switch to the new gathering profile at this point
 
                     // reboot the bot; this is a workaround for the profile loader not properly updating item names.
-                    TreeRoot.Stop();
+                    BotStop();
                     Thread.Sleep(1000);
                     TreeRoot.Start();
     //                ProfileManager.LoadNew(xmlContent, true);
@@ -502,6 +502,19 @@ namespace GatherAssist
                 LogException(ex);
             }
             return null; // if valid ItemRecord was not returned or error was thrown, return null here
+        }
+
+        /// <summary>
+        /// Safely stops the bot so profiles can be switched.
+        /// </summary>
+        public void BotStop()
+        {
+            while (ff14bot.Managers.GatheringWindow.WindowOpen)
+            {
+                Log(LogMinorColor, "waiting for a window to close...", true);
+                Thread.Sleep(1000);
+            }
+            TreeRoot.Stop(); // stop the bot
         }
 
         public void LogException(Exception ex)
