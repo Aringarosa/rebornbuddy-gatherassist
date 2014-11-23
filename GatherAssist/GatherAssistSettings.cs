@@ -14,6 +14,8 @@ namespace GatherAssist.Settings
 
         [Setting]
         public int UpdateIntervalMinutes { get; set; }
+        [Setting]
+        public string[] gearSets { get; set; }
 //        public DataTable RequestTable { get; set; }
     }
 }

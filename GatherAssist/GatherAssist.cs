@@ -24,6 +24,7 @@ namespace GatherAssist
     public class GatherAssist : IBotPlugin
     {
         const string pluginName = "GatherAssist";
+        const int maxGearSets = 20;
         Color LogMajorColor = Colors.SkyBlue;
         Color LogMinorColor = Colors.Teal;
         Color LogErrorColor = Colors.Red;
@@ -269,6 +270,7 @@ namespace GatherAssist
                 }
 
                 Log(LogMajorColor, string.Format("Current Gather Request is {0}", currentGatherRequest.ItemName), true);
+                SetClass("Miner");
                 ItemRecord itemRecord = GetItemRecord(currentGatherRequest.ItemName);
                 if (itemRecord == null)
                 {
@@ -549,6 +551,96 @@ namespace GatherAssist
             }
 
             Logging.Write(color, string.Format("[{0}] {1}", pluginName, message));
+        }
+
+        public void SetClass(string newClass)
+        {
+            if (Core.Me.CurrentJob.ToString() == newClass)
+            {
+                Log(LogMajorColor, string.Format("Class {0} is already chosen, bypassing SetClass logic", newClass), true);
+                return;
+            }
+
+            bool gearSetsUpdated = false;
+
+            // make sure gear sets exist
+            if (settings.gearSets == null)
+            {
+                UpdateGearSets();
+                gearSetsUpdated = true; // make sure gear sets are not updated again in this script
+            }
+
+            string newClassString = newClass.ToString();
+
+            int targetGearSet = 0;
+
+            while (true)
+            {
+                for (int i = 0; i < maxGearSets; i++)
+                {
+                    if (newClassString == settings.gearSets[i])
+                    {
+                        targetGearSet = i + 1;
+                    }
+                }
+
+                if (targetGearSet != 0)
+                {
+                    ChatManager.SendChat(string.Format("/gs change {0}", targetGearSet));
+                    Thread.Sleep(3000); // give the system time to register the class change
+
+                    // if the class change didn't work, update gear sets; assuming the sets have been adjusted
+                    if (newClass != Core.Me.CurrentJob.ToString())
+                    {
+                        Log(LogMajorColor, "Gear sets appear to have been adjusted, scanning gear sets for changes...");
+                        UpdateGearSets();
+                        gearSetsUpdated = true;
+                    }
+
+                    break;
+                }
+
+                if (gearSetsUpdated)
+                {
+                    throw new ApplicationException(string.Format("No gear set is available for the specified job class {0}; please check your gear sets.", newClassString));
+                }
+                else
+                {
+                    // update gear sets, reloop to check again
+                    UpdateGearSets();
+                    gearSetsUpdated = true;
+                }
+            }
+        }
+
+        public void UpdateGearSets()
+        {
+            int maxClasses = 20;
+            string[] gearSets = new string[maxClasses];
+
+            for (int i = 0; i < maxClasses; i++)
+            {
+                ChatManager.SendChat(string.Format("/gs change {0}", i + 1));
+                Thread.Sleep(3000); // give the system time to register the class change
+                gearSets[i] = Core.Me.CurrentJob.ToString();
+
+                // if current gear set is the same class type as the previous set, exit loop
+                if (i != 0 && gearSets[i] == gearSets[i - 1])
+                {
+                    break;
+                }
+            }
+
+            settings.gearSets = gearSets; // save gear sets
+
+            Log(LogMajorColor, "Gear sets acquired:");
+            for (int i = 0; i < maxClasses; i++)
+            {
+                if (gearSets[i] != null)
+                {
+                    Log(LogMajorColor, string.Format("{0}: {1}", i + 1, gearSets[i]));
+                }
+            }
         }
     }
 }
