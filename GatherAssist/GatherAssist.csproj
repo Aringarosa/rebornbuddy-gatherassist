@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="GatherAssist_Form.Designer.cs">
       <DependentUpon>GatherAssist_Form.cs</DependentUpon>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="GatherRequest.cs" />
     <Compile Include="ItemRecord.cs" />
