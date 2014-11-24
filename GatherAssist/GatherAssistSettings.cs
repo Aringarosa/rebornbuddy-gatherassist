@@ -25,12 +25,12 @@ namespace GatherAssist.Settings
         /// The single instance of these settings, allowing multiple classes to call the single set of plugin settings.
         /// </summary>
         [JsonIgnore]
-        private static GatherAssistSettings _instance;
+        private static GatherAssistSettings instance;
 
         /// <summary>
-        /// A property for accessing the single settings instance for this plugin.  Creates a new settings instance if it does not exist.
+        /// Gets the single settings instance for this plugin.  Creates a new settings instance if it does not exist.
         /// </summary>
-        public static GatherAssistSettings instance { get { return _instance ?? (_instance = new GatherAssistSettings("GatherAssistSettings")); } }
+        public static GatherAssistSettings Instance { get { return instance ?? (instance = new GatherAssistSettings("GatherAssistSettings")); } }
 
         /// <summary>
         /// The constructor for GatherAssistSettings class.  Sets the appropriate files location for these settings (per character).
@@ -39,15 +39,15 @@ namespace GatherAssist.Settings
         public GatherAssistSettings(string filename) : base(Path.Combine(CharacterSettingsDirectory, "GatherAssist.json")) { }
 
         /// <summary>
-        /// The interval, in minutes, when the gathering status should be checked, and the engine routines change to continue execution.
+        /// Gets or sets the interval, in minutes, when the gathering status should be checked, and the engine routines change to continue execution.
         /// </summary>
         [Setting]
         public int UpdateIntervalMinutes { get; set; }
 
         /// <summary>
-        /// The list of available gear sets.  Used when the plugin must swtich classes to gather items from different class skill sets.
+        /// Gets or sets the list of available gear sets.  Used when the plugin must swtich classes to gather items from different class skill sets.
         /// </summary>
         [Setting]
-        public string[] gearSets { get; set; }
+        public string[] GearSets { get; set; }
     }
 }

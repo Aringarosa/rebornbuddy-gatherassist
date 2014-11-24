@@ -18,17 +18,17 @@ namespace GatherAssist
     public class GatherRequest
     {
         /// <summary>
-        /// The name of the item to be gathered.
+        /// Gets or sets the name of the item to be gathered.
         /// </summary>
         public string ItemName { get; set; }
 
         /// <summary>
-        /// The current intentory count for this item.
+        /// Gets or sets the current intentory count for this item.
         /// </summary>
         public uint CurrentCount { get; set; }
 
         /// <summary>
-        /// The requested count for this item.
+        /// Gets or sets the requested count for this item.
         /// </summary>
         public int RequestedTotal { get; set; }
 

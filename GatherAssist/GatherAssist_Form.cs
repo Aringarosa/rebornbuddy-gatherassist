@@ -26,12 +26,12 @@ namespace GatherAssist
         /// <summary>
         /// The plugin settings.
         /// </summary>
-        private static GatherAssistSettings settings = GatherAssistSettings.instance;
+        private static GatherAssistSettings settings = GatherAssistSettings.Instance;
 
         /// <summary>
         /// The table for all gather requests.
         /// </summary>
-        public DataTable requestTable;
+        public DataTable RequestTable { get; set; }
 
         /// <summary>
         /// The search results for possible items to add to the request table.  Shows everything if no search is present.
@@ -53,25 +53,25 @@ namespace GatherAssist
             this.itemsTable = inItemsTable.Copy();
             this.InitializeComponent();
             this.textBoxUpdateInterval.Text = Convert.ToString(settings.UpdateIntervalMinutes);
-            this.requestTable = this.itemsTable.DefaultView.ToTable(false, "ItemName");
-            this.requestTable.Rows.Clear();
-            this.requestTable.Columns[0].ReadOnly = true;
-            this.requestTable.Columns.Add(new DataColumn("Count", typeof(int)) { DefaultValue = 0 }); // requested count, defaults to 0
+            this.RequestTable = this.itemsTable.DefaultView.ToTable(false, "ItemName");
+            this.RequestTable.Rows.Clear();
+            this.RequestTable.Columns[0].ReadOnly = true;
+            this.RequestTable.Columns.Add(new DataColumn("Count", typeof(int)) { DefaultValue = 0 }); // requested count, defaults to 0
             this.UpdateSearchBox();
             this.labelInstructions.Text = "Instructions:\nBrowse from the request options, or\nsearch for the item you need.  Clicking\nthe item in the request options list\nwill make it appear in the request list.\nEnter the desired number of each item\nyou are searching for, and click OK to\nstart the bot!";
 
-            DataTable oldTable = this.requestTable.Copy();
-            this.requestTable = oldTable.Clone();
-            this.requestTable.Columns[0].ReadOnly = true;
+            DataTable oldTable = this.RequestTable.Copy();
+            this.RequestTable = oldTable.Clone();
+            this.RequestTable.Columns[0].ReadOnly = true;
             foreach (DataRow curRow in oldTable.Rows)
             {
                 if (Convert.ToInt32(curRow["Count"]) != 0)
                 {
-                    this.requestTable.Rows.Add(Convert.ToString(curRow["ItemName"]), Convert.ToInt32(curRow["Count"]));
+                    this.RequestTable.Rows.Add(Convert.ToString(curRow["ItemName"]), Convert.ToInt32(curRow["Count"]));
                 }
             }
 
-            this.dataGridViewRequests.DataSource = this.requestTable;
+            this.dataGridViewRequests.DataSource = this.RequestTable;
             this.UpdateSearchBox();
         }
 
@@ -87,21 +87,21 @@ namespace GatherAssist
         /// </summary>
         /// <param name="sender">The parameter is not used.</param>
         /// <param name="e">The parameter is not used.</param>
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOK_Click(object sender, EventArgs e)
         {
             settings.UpdateIntervalMinutes = System.Convert.ToInt32(this.textBoxUpdateInterval.Text);
             DataTable oldTable = ((DataTable)this.dataGridViewRequests.DataSource).Copy();
-            this.requestTable = oldTable.Clone();
-            this.requestTable.Columns[0].ReadOnly = true;
+            this.RequestTable = oldTable.Clone();
+            this.RequestTable.Columns[0].ReadOnly = true;
             foreach (DataRow curRow in oldTable.Rows)
             {
                 if (Convert.ToInt32(curRow["Count"]) != 0)
                 {
-                    this.requestTable.Rows.Add(Convert.ToString(curRow["ItemName"]), Convert.ToInt32(curRow["Count"]));
+                    this.RequestTable.Rows.Add(Convert.ToString(curRow["ItemName"]), Convert.ToInt32(curRow["Count"]));
                 }
             }
 
-            this.dataGridViewRequests.DataSource = this.requestTable;
+            this.dataGridViewRequests.DataSource = this.RequestTable;
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
@@ -111,7 +111,7 @@ namespace GatherAssist
         /// </summary>
         /// <param name="sender">The parameter is not used.</param>
         /// <param name="e">The parameter is not used.</param>
-        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        private void TextBoxSearch_TextChanged(object sender, EventArgs e)
         {
             this.UpdateSearchBox();
         }
@@ -141,7 +141,7 @@ namespace GatherAssist
         /// </summary>
         /// <param name="sender">The parameter is not used.</param>
         /// <param name="e">The parameter is not used.</param>
-        private void dataGridViewResults_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewResults_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.AddSelectedCell();
         }        
@@ -166,14 +166,14 @@ namespace GatherAssist
             }
 
             string itemName = Convert.ToString(this.dataGridViewResults.Rows[rowIndex].Cells[columnIndex].Value);
-            if (this.requestTable.Select(string.Format("ItemName = '{0}'", itemName)).Length == 0)
+            if (this.RequestTable.Select(string.Format("ItemName = '{0}'", itemName)).Length == 0)
             {
-                this.requestTable.Rows.Add(itemName, 0);
+                this.RequestTable.Rows.Add(itemName, 0);
             }
 
-            this.requestTable = ReSort(this.requestTable, "ItemName", "ASC");
-            this.requestTable.Columns[0].ReadOnly = true;
-            this.dataGridViewRequests.DataSource = this.requestTable;
+            this.RequestTable = ReSort(this.RequestTable, "ItemName", "ASC");
+            this.RequestTable.Columns[0].ReadOnly = true;
+            this.dataGridViewRequests.DataSource = this.RequestTable;
         }
 
         /// <summary>

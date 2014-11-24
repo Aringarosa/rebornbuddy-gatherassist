@@ -52,7 +52,7 @@
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
             // textBoxUpdateInterval
             // 
@@ -96,7 +96,7 @@
             this.dataGridViewResults.Name = "dataGridViewResults";
             this.dataGridViewResults.Size = new System.Drawing.Size(187, 398);
             this.dataGridViewResults.TabIndex = 7;
-            this.dataGridViewResults.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewResults_CellClick);
+            this.dataGridViewResults.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewResults_CellClick);
             // 
             // textBoxSearch
             // 
@@ -104,7 +104,7 @@
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(100, 20);
             this.textBoxSearch.TabIndex = 8;
-            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.TextBoxSearch_TextChanged);
             // 
             // labelSearch
             // 
