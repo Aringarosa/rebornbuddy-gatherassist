@@ -40,9 +40,9 @@ namespace GatherAssist
         /// <param name="requestedTotal">The requested count for this item.</param>
         public GatherRequest(string itemName, int requestedTotal)
         {
-            ItemName = itemName;
-            RequestedTotal = requestedTotal;
-            CurrentCount = 0;
+            this.ItemName = itemName;
+            this.RequestedTotal = requestedTotal;
+            this.CurrentCount = 0;
         }
 
         /// <summary>

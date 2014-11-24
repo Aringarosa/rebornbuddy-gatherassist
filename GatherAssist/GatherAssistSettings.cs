@@ -9,13 +9,13 @@
 // </copyright>
 // <author>Zane McFate</author>
 //-----------------------------------------------------------------------
-using System.Configuration;
-using System.IO;
-using ff14bot.Helpers;
-using Newtonsoft.Json;
-
 namespace GatherAssist.Settings
 {
+    using System.Configuration;
+    using System.IO;
+    using ff14bot.Helpers;
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Holds all settings for this plugin which must be saved and restored.
     /// </summary>
