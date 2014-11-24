@@ -9,10 +9,10 @@
 // </copyright>
 // <author>Zane McFate</author>
 //-----------------------------------------------------------------------
-using ff14bot.Helpers;
-using Newtonsoft.Json;
 using System.Configuration;
 using System.IO;
+using ff14bot.Helpers;
+using Newtonsoft.Json;
 
 namespace GatherAssist.Settings
 {

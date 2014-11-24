@@ -9,12 +9,12 @@
 // </copyright>
 // <author>Zane McFate</author>
 //-----------------------------------------------------------------------
-using Clio.Utilities;
-using GatherAssist.Settings;
 using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using Clio.Utilities;
+using GatherAssist.Settings;
 
 namespace GatherAssist
 {

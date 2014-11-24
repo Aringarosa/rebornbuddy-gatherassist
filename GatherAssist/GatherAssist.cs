@@ -11,27 +11,26 @@
 //-----------------------------------------------------------------------
 namespace GatherAssist
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Threading;
+    using System.Timers;
+    using System.Windows.Forms;
+    using System.Windows.Media;
+    using System.Xml.Linq;
     using ff14bot;
     using ff14bot.Enums;
     using ff14bot.Helpers;
     using ff14bot.Interfaces;
     using ff14bot.Managers;
-    using Settings;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Runtime.InteropServices;
-    using System.Timers;
-    using System.Windows.Forms;
-    using System.Windows.Media;
-
-    using Action = TreeSharp.Action;
-    using System.Xml.Linq;
     using ff14bot.NeoProfiles;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
+    using Settings;
+    using Action = TreeSharp.Action;
 
     /// <summary>
     /// RebornBuddy plugin for allowing the gathering of multiple counts of multiple items, from various gathering classes.
@@ -163,7 +162,9 @@ namespace GatherAssist
                 }
 
                 form.ShowDialog();
-                if (form.DialogResult == DialogResult.OK) // don't alter anything if the user cancelled the form
+
+                // don't alter anything if the user cancelled the form
+                if (form.DialogResult == DialogResult.OK)
                 {
                     InitializeRequestList(form.requestTable); // reinitialize from updated settings
                     gatherAssistTimer.Start();
