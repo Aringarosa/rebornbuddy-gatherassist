@@ -59,21 +59,6 @@ namespace GatherAssist
         private static System.Timers.Timer gatherAssistTimer = new System.Timers.Timer();
 
         /// <summary>
-        /// The color used for log messages which are meant to be visible and important.
-        /// </summary>
-        private Color logMajorColor = Colors.SkyBlue;
-
-        /// <summary>
-        /// The color used for log message which are less important.  Also for debug messages.
-        /// </summary>
-        private Color logMinorColor = Colors.Teal;
-
-        /// <summary>
-        /// The color used for log message indicating problems with the plugin.
-        /// </summary>
-        private Color logErrorColor = Colors.Red;
-
-        /// <summary>
         /// The list of all current gather requests.  Populated by the plugin entry form and status maintained during plugin execution.
         /// </summary>
         private List<GatherRequest> requestList;
@@ -146,6 +131,30 @@ namespace GatherAssist
         public string ButtonText
         {
             get { return this.Name + " Settings"; }
+        }
+
+        /// <summary>
+        /// Gets the color used for log messages which are meant to be visible and important.
+        /// </summary>
+        private static Color LogMajorColor
+        {
+            get { return Colors.SkyBlue; }
+        }
+
+        /// <summary>
+        /// Gets the color used for log message which are less important.  Also for debug messages.
+        /// </summary>
+        private static Color LogMinorColor
+        {
+            get { return Colors.Teal; }
+        }
+
+        /// <summary>
+        /// Gets the color used for log message indicating problems with the plugin.
+        /// </summary>
+        private static Color LogErrorColor
+        {
+            get { return Colors.Red; }
         }
 
         /// <summary>
@@ -226,7 +235,7 @@ namespace GatherAssist
         {
             try
             {
-                this.Log(this.logMajorColor, " v" + Version.ToString() + " Enabled");
+                this.Log(LogMajorColor, " v" + Version.ToString() + " Enabled");
             }
             catch (Exception ex)
             {
@@ -241,7 +250,7 @@ namespace GatherAssist
         {
             try
             {
-                this.Log(this.logMajorColor, " v" + Version.ToString() + " Disabled");
+                this.Log(LogMajorColor, " v" + Version.ToString() + " Disabled");
                 gatherAssistTimer.Stop();
                 //// TODO: Assess whether stopping the bot is the best idea here.  Perhaps we should see whether this plugin was executing logic?
                 this.BotStop();
@@ -292,7 +301,7 @@ namespace GatherAssist
                 // if no valid gather requests remain, stop the plugin execution
                 if (this.currentGatherRequest == null)
                 {
-                    this.Log(this.logMajorColor, "Gather requests complete!  GatherAssist will stop now.");
+                    this.Log(LogMajorColor, "Gather requests complete!  GatherAssist will stop now.");
                     gatherAssistTimer.Stop();
                     this.BotStop();
                     return;
@@ -322,7 +331,7 @@ namespace GatherAssist
 
                 foreach (DataRow dataRow in requestTable.Rows)
                 {
-                    this.Log(this.logMajorColor, "Adding " + dataRow["ItemName"] + " to request list", true);
+                    this.Log(LogMajorColor, "Adding " + dataRow["ItemName"] + " to request list", true);
                     this.requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToInt32(dataRow["Count"])));
                 }
             }
@@ -355,13 +364,13 @@ namespace GatherAssist
 
                 foreach (InventoryBagId curBagId in validBags)
                 {
-                    this.Log(this.logMajorColor, curBagId.ToString(), true);
+                    this.Log(LogMajorColor, curBagId.ToString(), true);
                     foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
                     {
                         var obj = this.requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
                         if (obj != null)
                         {
-                            this.Log(this.logMajorColor, "Updating count", true);
+                            this.Log(LogMajorColor, "Updating count", true);
                             obj.CurrentCount += curSlot.Count;
                         }
                     }
@@ -382,11 +391,11 @@ namespace GatherAssist
             {
                 foreach (GatherRequest curRequest in this.requestList)
                 {
-                    Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? this.logMinorColor : this.logMajorColor;
+                    Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? LogMinorColor : LogMajorColor;
                     this.Log(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
                     if (this.currentGatherRequest == null && curRequest.CurrentCount < curRequest.RequestedTotal)
                     {
-                        this.Log(this.logMajorColor, string.Format("Updating gather request to {0}", curRequest.ItemName), true);
+                        this.Log(LogMajorColor, string.Format("Updating gather request to {0}", curRequest.ItemName), true);
                         this.currentGatherRequest = curRequest;
                     }
                 }
@@ -408,15 +417,15 @@ namespace GatherAssist
 
                 if (this.currentGatherRequest == null)
                 {
-                    this.Log(this.logErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
+                    this.Log(LogErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
                     isValid = false;
                 }
 
-                this.Log(this.logMajorColor, string.Format("Current Gather Request is {0}", this.currentGatherRequest.ItemName), true);
+                this.Log(LogMajorColor, string.Format("Current Gather Request is {0}", this.currentGatherRequest.ItemName), true);
                 ItemRecord itemRecord = this.GetItemRecord(this.currentGatherRequest.ItemName);
                 if (itemRecord == null)
                 {
-                    this.Log(this.logErrorColor, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", this.currentGatherRequest.ItemName));
+                    this.Log(LogErrorColor, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", this.currentGatherRequest.ItemName));
                     isValid = false;
                 }
 
@@ -456,7 +465,7 @@ namespace GatherAssist
 
                     while (ff14bot.Managers.GatheringWindow.WindowOpen)
                     {
-                        this.Log(this.logMinorColor, "waiting for a window to close...", true);
+                        this.Log(LogMinorColor, "waiting for a window to close...", true);
                         Thread.Sleep(1000);
                     }
 
@@ -589,12 +598,12 @@ namespace GatherAssist
                 int itemCount = itemRows.Count<DataRow>();
                 if (itemCount > 1)
                 {
-                    this.Log(this.logErrorColor, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
+                    this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
                     isValid = false;
                 }
                 else if (itemCount == 0)
                 {
-                    this.Log(this.logErrorColor, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
+                    this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
                     isValid = false;
                 }
 
@@ -620,12 +629,12 @@ namespace GatherAssist
 
                     if (mapCount > 1)
                     {
-                        this.Log(this.logErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
+                        this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
                         isValid = false;
                     }
                     else if (mapCount == 0)
                     {
-                        this.Log(this.logErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
+                        this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
                         isValid = false;
                     }
 
@@ -659,7 +668,7 @@ namespace GatherAssist
         {
             while (ff14bot.Managers.GatheringWindow.WindowOpen)
             {
-                this.Log(this.logMinorColor, "waiting for a window to close...", true);
+                this.Log(LogMinorColor, "waiting for a window to close...", true);
                 Thread.Sleep(1000);
             }
 
@@ -672,7 +681,7 @@ namespace GatherAssist
         /// <param name="ex">The exception which should be communicated in the log.</param>
         private void LogException(Exception ex)
         {
-            this.Log(this.logErrorColor, string.Format("Exception in plugin {0}: {1} {2}", this.Name, ex.Message, ex.StackTrace));
+            this.Log(LogErrorColor, string.Format("Exception in plugin {0}: {1} {2}", this.Name, ex.Message, ex.StackTrace));
             gatherAssistTimer.Stop();
             this.BotStop();
         }
@@ -713,7 +722,7 @@ namespace GatherAssist
             {
                 if (Core.Me.CurrentJob.ToString() == newClass)
                 {
-                    this.Log(this.logMajorColor, string.Format("Class {0} is already chosen, bypassing SetClass logic", newClass), true);
+                    this.Log(LogMajorColor, string.Format("Class {0} is already chosen, bypassing SetClass logic", newClass), true);
                     return;
                 }
 
@@ -748,7 +757,7 @@ namespace GatherAssist
                         // if the class change didn't work, update gear sets; assuming the sets have been adjusted
                         if (newClass != Core.Me.CurrentJob.ToString())
                         {
-                            this.Log(this.logMajorColor, "Gear sets appear to have been adjusted, scanning gear sets for changes...");
+                            this.Log(LogMajorColor, "Gear sets appear to have been adjusted, scanning gear sets for changes...");
                             this.UpdateGearSets();
                             gearSetsUpdated = true;
                         }
@@ -800,12 +809,12 @@ namespace GatherAssist
 
                 settings.GearSets = gearSets; // save gear sets
 
-                this.Log(this.logMajorColor, "Gear sets acquired:");
+                this.Log(LogMajorColor, "Gear sets acquired:");
                 for (int i = 0; i < maxClasses; i++)
                 {
                     if (gearSets[i] != null)
                     {
-                        this.Log(this.logMajorColor, string.Format("{0}: {1}", i + 1, gearSets[i]));
+                        this.Log(LogMajorColor, string.Format("{0}: {1}", i + 1, gearSets[i]));
                     }
                 }
             }
