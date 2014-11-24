@@ -11,6 +11,11 @@
         public string ItemName { get; set; }
 
         /// <summary>
+        /// Class required to gather the item.
+        /// </summary>
+        public string ClassName { get; set; }
+
+        /// <summary>
         /// Aethernet ID, corresponds to the map number.
         /// </summary>
         public int AetheryteId { get; set; }
