@@ -29,11 +29,6 @@ namespace GatherAssist
         private static GatherAssistSettings settings = GatherAssistSettings.Instance;
 
         /// <summary>
-        /// The table for all gather requests.
-        /// </summary>
-        public DataTable RequestTable { get; set; }
-
-        /// <summary>
         /// The search results for possible items to add to the request table.  Shows everything if no search is present.
         /// </summary>
         private DataTable resultsTable;
@@ -44,7 +39,7 @@ namespace GatherAssist
         private DataTable itemsTable;
 
         /// <summary>
-        /// Constructor.  Loads the provided list of possible gather items into the searchable items table.
+        /// Initializes a new instance of the <see cref="GatherAssist_Form" /> class.  Loads the provided list of possible gather items into the searchable items table.
         /// </summary>
         /// <param name="inItemsTable">A table of all possible items to be gathered.  Should contain an ItemName field.</param>
         public GatherAssist_Form(DataTable inItemsTable)
@@ -76,10 +71,30 @@ namespace GatherAssist
         }
 
         /// <summary>
-        /// Prevent default constructor from being called.
+        /// Prevents a default instance of the <see cref="GatherAssist_Form" /> class from being created.
         /// </summary>
         private GatherAssist_Form()
         {
+        }
+
+        /// <summary>
+        /// Gets or sets the table containing all gather requests.
+        /// </summary>
+        public DataTable RequestTable { get; set; }
+
+        /// <summary>
+        /// Sorts a DataTable.
+        /// </summary>
+        /// <param name="inTable">The table to be sorted.</param>
+        /// <param name="colName">The column which should be used to sort the table.</param>
+        /// <param name="direction">The sort direction.  ASC or DESC.</param>
+        /// <returns>The newly sorted table.</returns>
+        private static DataTable ReSort(DataTable inTable, string colName, string direction)
+        {
+            // TODO: validate all parameters.
+            inTable.DefaultView.Sort = colName + " " + direction;
+            inTable = inTable.DefaultView.ToTable();
+            return inTable;
         }
 
         /// <summary>
@@ -174,21 +189,6 @@ namespace GatherAssist
             this.RequestTable = ReSort(this.RequestTable, "ItemName", "ASC");
             this.RequestTable.Columns[0].ReadOnly = true;
             this.dataGridViewRequests.DataSource = this.RequestTable;
-        }
-
-        /// <summary>
-        /// Sorts a DataTable.
-        /// </summary>
-        /// <param name="inTable">The table to be sorted.</param>
-        /// <param name="colName">The column which should be used to sort the table.</param>
-        /// <param name="direction">The sort direction.  ASC or DESC.</param>
-        /// <returns>The newly sorted table.</returns>
-        private static DataTable ReSort(DataTable inTable, string colName, string direction)
-        {
-            // TODO: validate all parameters.
-            inTable.DefaultView.Sort = colName + " " + direction;
-            inTable = inTable.DefaultView.ToTable();
-            return inTable;
         }
     }
 }

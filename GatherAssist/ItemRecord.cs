@@ -11,6 +11,8 @@
 //-----------------------------------------------------------------------
 namespace GatherAssist
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Contains information required to gather a specific item, to be used in generating profiles.  ItemName is used in comparison operations.
     /// </summary>
@@ -29,6 +31,7 @@ namespace GatherAssist
         /// <summary>
         /// Gets or sets the aethernet ID, which corresponds to the map number.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Aethernet is a FFXIV term.")]
         public int AetheryteId { get; set; }
 
         /// <summary>
@@ -39,6 +42,7 @@ namespace GatherAssist
         /// <summary>
         /// Gets or sets the aethernet name, corresponds to the aethernet ID.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Aethenet is a FFXIV term.")]
         public string AetheryteName { get; set; }
 
         /// <summary>

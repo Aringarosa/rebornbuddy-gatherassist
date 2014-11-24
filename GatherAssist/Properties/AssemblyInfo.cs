@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="GatherRequest.cs" company="Zane McFate">
+// <copyright file="AssemblyInfo.cs" company="Zane McFate">
 //      This code file, and this entire plugin, is uncopyrighted.  This means
 //       I've put them in the public domain, and released my copyright on all
 //       these works.  There is no need to email me for permission -- use my

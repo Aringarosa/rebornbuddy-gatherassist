@@ -18,25 +18,10 @@ namespace GatherAssist
     public class GatherRequest
     {
         /// <summary>
-        /// Gets or sets the name of the item to be gathered.
+        /// Initializes a new instance of the <see cref="GatherRequest" /> class.  Creates a new gather request with the supplied values,
+        ///  and a current count of zero, to be refreshed when the timer iterates.
         /// </summary>
-        public string ItemName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the current intentory count for this item.
-        /// </summary>
-        public uint CurrentCount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the requested count for this item.
-        /// </summary>
-        public int RequestedTotal { get; set; }
-
-        /// <summary>
-        /// The constructor for GatherRequest.  Creates a new gather request with the supplied values, and a current count of zero, to be
-        ///  refreshed when the timer iterates.
-        /// </summary>
-        /// <param name="itemName">The name of the item to be gahtered.</param>
+        /// <param name="itemName">The name of the item to be gathered.</param>
         /// <param name="requestedTotal">The requested count for this item.</param>
         public GatherRequest(string itemName, int requestedTotal)
         {
@@ -46,10 +31,25 @@ namespace GatherAssist
         }
 
         /// <summary>
-        /// Keeps the default constructor from being executed.
+        /// Prevents a default instance of the <see cref="GatherRequest" /> class from being created.
         /// </summary>
         private GatherRequest()
         {
         }
+
+        /// <summary>
+        /// Gets or sets the name of the item to be gathered.
+        /// </summary>
+        public string ItemName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current inventory count for this item.
+        /// </summary>
+        public uint CurrentCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the requested count for this item.
+        /// </summary>
+        public int RequestedTotal { get; set; }
     }
 }

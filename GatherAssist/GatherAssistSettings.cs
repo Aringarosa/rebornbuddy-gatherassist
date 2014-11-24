@@ -28,15 +28,20 @@ namespace GatherAssist.Settings
         private static GatherAssistSettings instance;
 
         /// <summary>
-        /// Gets the single settings instance for this plugin.  Creates a new settings instance if it does not exist.
-        /// </summary>
-        public static GatherAssistSettings Instance { get { return instance ?? (instance = new GatherAssistSettings("GatherAssistSettings")); } }
-
-        /// <summary>
-        /// The constructor for GatherAssistSettings class.  Sets the appropriate files location for these settings (per character).
+        /// Initializes a new instance of the GatherAssistSettings class.  Sets the appropriate files location for these settings (per character).
         /// </summary>
         /// <param name="filename">The parameter is not used.</param>
-        public GatherAssistSettings(string filename) : base(Path.Combine(CharacterSettingsDirectory, "GatherAssist.json")) { }
+        public GatherAssistSettings(string filename) : base(Path.Combine(JsonSettings.CharacterSettingsDirectory, "GatherAssist.json"))
+        {
+        }
+
+        /// <summary>
+        /// Gets the single settings instance for this plugin.  Creates a new settings instance if it does not exist.
+        /// </summary>
+        public static GatherAssistSettings Instance
+        {
+            get { return instance ?? (instance = new GatherAssistSettings("GatherAssistSettings")); }
+        }
 
         /// <summary>
         /// Gets or sets the interval, in minutes, when the gathering status should be checked, and the engine routines change to continue execution.
@@ -45,7 +50,7 @@ namespace GatherAssist.Settings
         public int UpdateIntervalMinutes { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of available gear sets.  Used when the plugin must swtich classes to gather items from different class skill sets.
+        /// Gets or sets the list of available gear sets.  Used when the plugin must switch classes to gather items from different class skill sets.
         /// </summary>
         [Setting]
         public string[] GearSets { get; set; }
