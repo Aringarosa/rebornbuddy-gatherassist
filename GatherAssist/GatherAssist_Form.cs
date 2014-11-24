@@ -12,8 +12,6 @@ namespace GatherAssist
     /// </summary>
     public partial class GatherAssist_Form : Form
     {
-        public static Vector3 vendorlocationtemp;
-
         /// <summary>
         /// The plugin settings.
         /// </summary>
@@ -74,10 +72,6 @@ namespace GatherAssist
         /// Prevent default constructor from being called.
         /// </summary>
         private GatherAssist_Form()
-        {
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
         {
         }
 
