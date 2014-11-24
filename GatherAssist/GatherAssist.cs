@@ -1,26 +1,38 @@
-﻿using System.Threading;
-using ff14bot;
-using ff14bot.Enums;
-using ff14bot.Helpers;
-using ff14bot.Interfaces;
-using ff14bot.Managers;
-using GatherAssist.Settings;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Timers;
-using System.Windows.Forms;
-using System.Windows.Media;
-
-using Action = TreeSharp.Action;
-using System.Xml.Linq;
-using ff14bot.NeoProfiles;
-using System.Data;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="GatherAssist.cs" company="Zane McFate">
+//      This code file, and this entire plugin, is uncopyrighted.  This means
+//       I've put them in the public domain, and released my copyright on all
+//       these works.  There is no need to email me for permission -- use my
+//       content however you want!  Email it, share it, reprint it with or
+//       without credit.  Change it around, break it, and attribute it to me.
+//       It's okay.  Attribution is appreciated, but not required.
+// </copyright>
+// <author>Zane McFate</author>
+//-----------------------------------------------------------------------
 namespace GatherAssist
 {
+    using System.Threading;
+    using ff14bot;
+    using ff14bot.Enums;
+    using ff14bot.Helpers;
+    using ff14bot.Interfaces;
+    using ff14bot.Managers;
+    using Settings;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.InteropServices;
+    using System.Timers;
+    using System.Windows.Forms;
+    using System.Windows.Media;
+
+    using Action = TreeSharp.Action;
+    using System.Xml.Linq;
+    using ff14bot.NeoProfiles;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// RebornBuddy plugin for allowing the gathering of multiple counts of multiple items, from various gathering classes.
     /// </summary>
@@ -29,47 +41,59 @@ namespace GatherAssist
         /// <summary>
         /// The maximum number of gear sets possible in FFXIV.  May need to adjust this as new classes are added.
         /// </summary>
-        const int maxGearSets = 35;
+        public const int MaxGearSets = 35;
 
         /// <summary>
         /// The color used for log messages which are meant to be visible and important.
         /// </summary>
-        Color LogMajorColor = Colors.SkyBlue;
+        private Color logMajorColor = Colors.SkyBlue;
 
         /// <summary>
         /// The color used for log message which are less important.  Also for debug messages.
         /// </summary>
-        Color LogMinorColor = Colors.Teal;
+        private Color logMinorColor = Colors.Teal;
 
         /// <summary>
         /// The color used for log message indicating problems with the plugin.
         /// </summary>
-        Color LogErrorColor = Colors.Red;
+        private Color logErrorColor = Colors.Red;
 
         /// <summary>
-        /// The author of this plugin.
+        /// Gets the author of this plugin.
         /// </summary>
-        public string Author { get { return " Zane McFate"; } }
+        public string Author
+        {
+            get { return " Zane McFate"; }
+        }
 
         /// <summary>
-        /// Description of the plugin.
+        /// Gets the description of the plugin.
         /// </summary>
-        public string Description { get { return "Extends OrderBot gathering functionality to seek multiple items with a single command."; } }
+        public string Description
+        {
+            get { return "Extends OrderBot gathering functionality to seek multiple items with a single command."; }
+        }
 
         /// <summary>
-        /// Current plugin version.
+        /// Gets the current plugin version.
         /// </summary>
-        public Version Version { get { return new Version(0, 1, 4); } }
+        public Version Version
+        {
+            get { return new Version(0, 1, 4); }
+        }
 
         /// <summary>
-        /// The plugin name.
+        /// Gets the plugin name.
         /// </summary>
-        public string Name { get { return "GatherAssist"; } }
+        public string Name
+        {
+            get { return "GatherAssist"; }
+        }
 
         /// <summary>
-        /// Saveable settings for this plugin.
+        /// Settings for this plugin which should be saved for later use.
         /// </summary>
-        public static GatherAssistSettings settings = GatherAssistSettings.instance;
+        private static GatherAssistSettings settings = GatherAssistSettings.instance;
 
         /// <summary>
         /// The list of all current gather requests.  Populated by the plugin entry form and status maintained during plugin execution.
@@ -88,23 +112,24 @@ namespace GatherAssist
         private GatherRequest currentGatherRequest = null;
 
         /// <summary>
-        /// The timer used to periodically check on the gathering status and guide the engine in the proper direcition.
+        /// The timer used to periodically check on the gathering status and guide the engine in the proper direction.
         /// </summary>
-        private static System.Timers.Timer GatherAssistTimer = new System.Timers.Timer();
+        private static System.Timers.Timer gatherAssistTimer = new System.Timers.Timer();
 
         /// <summary>
         /// A table containing all possible maps, organized by aetheryte ID.  Entries should be unique.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Aetheryte is a FFXIV term.")]
         private DataTable mapsTable;
 
         /// <summary>
-        /// A table contianing all items which can be gathered by this plugin.  Includes values necessary to construct and execute
+        /// A table containing all items which can be gathered by this plugin.  Includes values necessary to construct and execute
         ///  gathering profiles.
         /// </summary>
         private DataTable itemsTable;
 
         /// <summary>
-        /// A value for the plugin interface.  True because we do want a settings button.
+        /// Gets a value indicating whether we want a settings button.  True because we do want a button.
         /// </summary>
         public bool WantButton
         {
@@ -112,7 +137,7 @@ namespace GatherAssist
         }
 
         /// <summary>
-        /// Text of the plugin's requisite button.
+        /// Gets the text value for the plugin's requisite button.
         /// </summary>
         public string ButtonText
         {
@@ -127,15 +152,16 @@ namespace GatherAssist
         {
             try
             {
-                if (_form == null || _form.IsDisposed || _form.Disposing)
-                    _form = new GatherAssist_Form(itemsTable);
-
-                _form.ShowDialog();
-                if (_form.DialogResult == DialogResult.OK) // don't alter anything if the user cancelled the form
+                if (form == null || form.IsDisposed || form.Disposing)
                 {
-                    InitializeRequestList(_form.requestTable); // reinitialize from updated settings
-                    GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
-                    GatherAssistTimer.Start();
+                    form = new GatherAssist_Form(itemsTable);
+                }
+
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK) // don't alter anything if the user cancelled the form
+                {
+                    InitializeRequestList(form.requestTable); // reinitialize from updated settings
+                    gatherAssistTimer.Start();
                     ElapseTimer(); // immediately elapse timer to check item counts and set correct profile
                 }
             }
@@ -148,8 +174,8 @@ namespace GatherAssist
         /// <summary>
         /// Used to compare this plugin to other plugins.  Not currently implemented.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The parameter is not used.</param>
+        /// <returns>The parameter is not used.</returns>
         public bool Equals(IBotPlugin other)
         {
             throw new NotImplementedException();
@@ -158,7 +184,7 @@ namespace GatherAssist
         /// <summary>
         /// The form for user-provided settings.
         /// </summary>
-        private GatherAssist_Form _form;
+        private GatherAssist_Form form;
 
         /// <summary>
         /// Handles the IBotPlugin.OnInitialize event.  Initializes data tables, initializes required settings, and prepares the timer for
@@ -176,8 +202,8 @@ namespace GatherAssist
                     settings.UpdateIntervalMinutes = 1;
                 }
 
-                GatherAssistTimer.Elapsed += GatherAssistTimer_Elapsed;
-                GatherAssistTimer.Interval = (settings.UpdateIntervalMinutes * 60000);
+                gatherAssistTimer.Elapsed += GatherAssistTimer_Elapsed;
+                gatherAssistTimer.Interval = settings.UpdateIntervalMinutes * 60000;
             }
             catch (Exception ex)
             {
@@ -199,7 +225,7 @@ namespace GatherAssist
         {
             try
             {
-                Log(LogMajorColor, " v" + Version.ToString() + " Enabled");
+                Log(logMajorColor, " v" + Version.ToString() + " Enabled");
             }
             catch (Exception ex)
             {
@@ -212,7 +238,7 @@ namespace GatherAssist
         /// </summary>
         /// <param name="sender">The parameter is not used.</param>
         /// <param name="e">The parameter is not used.</param>
-        void GatherAssistTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void GatherAssistTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             try
             {
@@ -229,7 +255,7 @@ namespace GatherAssist
         ///  request status and loads the next profile if necessary.  If all gather requests have been fulfilled, moves plugin to finished
         ///  state.
         /// </summary>
-        void ElapseTimer()
+        public void ElapseTimer()
         {
             try
             {
@@ -239,8 +265,8 @@ namespace GatherAssist
 
                 if (currentGatherRequest == null) // if no valid gather requests remain
                 {
-                    Log(LogMajorColor, "Gather requests complete!  GatherAssist will stop now.");
-                    GatherAssistTimer.Stop();
+                    Log(logMajorColor, "Gather requests complete!  GatherAssist will stop now.");
+                    gatherAssistTimer.Stop();
                     BotStop();
                     return;
                 }
@@ -262,9 +288,9 @@ namespace GatherAssist
         {
             try
             {
-                Log(LogMajorColor, " v" + Version.ToString() + " Disabled");
-                GatherAssistTimer.Stop();
-                // TODO: Assess whether stopping the bot is the best idea here.  Perhaps we should see whether this plugin was executing logic?
+                Log(logMajorColor, " v" + Version.ToString() + " Disabled");
+                gatherAssistTimer.Stop();
+                //// TODO: Assess whether stopping the bot is the best idea here.  Perhaps we should see whether this plugin was executing logic?
                 BotStop();
             }
             catch (Exception ex)
@@ -293,7 +319,7 @@ namespace GatherAssist
 
                 foreach (DataRow dataRow in requestTable.Rows)
                 {
-                    Log(LogMajorColor, "Adding " + dataRow["ItemName"] + " to request list", true);
+                    Log(logMajorColor, "Adding " + dataRow["ItemName"] + " to request list", true);
                     requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToInt32(dataRow["Count"])));
                 }
             }
@@ -326,13 +352,13 @@ namespace GatherAssist
 
                 foreach (InventoryBagId curBagId in validBags)
                 {
-                    Log(LogMajorColor, curBagId.ToString(), true);
+                    Log(logMajorColor, curBagId.ToString(), true);
                     foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
                     {
                         var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
                         if (obj != null)
                         {
-                            Log(LogMajorColor, "Updating count", true);
+                            Log(logMajorColor, "Updating count", true);
                             obj.CurrentCount += curSlot.Count;
                         }
                     }
@@ -353,11 +379,11 @@ namespace GatherAssist
             {
                 foreach (GatherRequest curRequest in requestList)
                 {
-                    Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? LogMinorColor : LogMajorColor;
+                    Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? logMinorColor : logMajorColor;
                     Log(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
                     if (currentGatherRequest == null && curRequest.CurrentCount < curRequest.RequestedTotal)
                     {
-                        Log(LogMajorColor, string.Format("Updating gather request to {0}", curRequest.ItemName), true);
+                        Log(logMajorColor, string.Format("Updating gather request to {0}", curRequest.ItemName), true);
                         currentGatherRequest = curRequest;
                     }
                 }
@@ -379,21 +405,21 @@ namespace GatherAssist
 
                 if (currentGatherRequest == null)
                 {
-                    Log(LogErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
+                    Log(logErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
                     isValid = false;
                 }
 
-                Log(LogMajorColor, string.Format("Current Gather Request is {0}", currentGatherRequest.ItemName), true);
+                Log(logMajorColor, string.Format("Current Gather Request is {0}", currentGatherRequest.ItemName), true);
                 ItemRecord itemRecord = GetItemRecord(currentGatherRequest.ItemName);
                 if (itemRecord == null)
                 {
-                    Log(LogErrorColor, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", currentGatherRequest.ItemName));
+                    Log(logErrorColor, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", currentGatherRequest.ItemName));
                     isValid = false;
                 }
 
                 if (!isValid)
                 {
-                    GatherAssistTimer.Stop();
+                    gatherAssistTimer.Stop();
                     BotStop();
                 }
                 else
@@ -404,7 +430,8 @@ namespace GatherAssist
                     SetClass(itemRecord.ClassName); // switch class if necessary
                     string gatheringSpell = GetGatheringSpell(itemRecord.ClassName); // get a gathering spell appropriate for this class
                     // construct profile using the chosen item record
-                    string xmlContent = string.Format("<Profile><Name>{0}</Name><KillRadius>{1}</KillRadius><Order><If Condition=\"not IsOnMap({2}" +
+                    string xmlContent = string.Format(
+                        "<Profile><Name>{0}</Name><KillRadius>{1}</KillRadius><Order><If Condition=\"not IsOnMap({2}" +
                         ")\"><TeleportTo Name=\"{3}\" AetheryteId=\"{4}\" /></If><Gather while=\"True\"><GatherObject>{5}</GatherObject><HotSpots>" +
                         "<HotSpot Radius=\"{6}\" XYZ=\"{7}\" /></HotSpots><ItemNames><ItemName>{8}</ItemName></ItemNames><GatheringSkillOrder>" +
                         "<GatheringSkill SpellName=\"{9}\" TimesToCast=\"1\" /></GatheringSkillOrder></Gather></Order></Profile>",
@@ -417,8 +444,7 @@ namespace GatherAssist
                         itemRecord.HotspotRadius,
                         itemRecord.Location,
                         itemRecord.ItemName,
-                        gatheringSpell
-                        );
+                        gatheringSpell);
 
                     string targetXmlName = "gaCurrentProfile.xml";
                     string profilePath = System.IO.Path.GetTempPath();
@@ -427,7 +453,7 @@ namespace GatherAssist
 
                     while (ff14bot.Managers.GatheringWindow.WindowOpen)
                     {
-                        Log(LogMinorColor, "waiting for a window to close...", true);
+                        Log(logMinorColor, "waiting for a window to close...", true);
                         Thread.Sleep(1000);
                     }
 
@@ -445,6 +471,7 @@ namespace GatherAssist
         /// <summary>
         /// Populates map records for aetheryte teleporting.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Aetheryte is a FFXIV term.")]
         public void InitializeMaps()
         {
             try
@@ -507,16 +534,16 @@ namespace GatherAssist
                 itemsTable.Rows.Add("Bomb Ash", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923");
                 itemsTable.Rows.Add("Brown Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 itemsTable.Rows.Add("Copper Ore", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
-                //itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
+                ////itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
                 itemsTable.Rows.Add("Earth Crystal", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 itemsTable.Rows.Add("Electrum Ore", "Miner", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521");
                 itemsTable.Rows.Add("Electrum Sand", "Miner", 15, "Rocky Outcrop", 60, "333.2277, -3.4, 45.06057");
-                //itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753"); // not at this location, find a new one
+                ////itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753"); // not at this location, find a new one
                 itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
                 itemsTable.Rows.Add("Flax", "Botanist", 6, "Lush Vegetation Patch", 80, "-258.2026, -0.427259, 368.3641");
                 itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
-                //itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137"); // walks to location and stands around, investigate
+                ////itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137"); // walks to location and stands around, investigate
                 itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
                 itemsTable.Rows.Add("Iron Ore", "Miner", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282");
                 itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
@@ -533,9 +560,9 @@ namespace GatherAssist
                 itemsTable.Rows.Add("Soiled Femur", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
                 itemsTable.Rows.Add("Tin Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
                 itemsTable.Rows.Add("Water Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
-                //itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086");
+                ////itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086");
                 itemsTable.Rows.Add("Wind Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
-                //itemsTable.Rows.Add("Wyvern Obsidian", "Miner", 18, "Mineral Deposit", 60, "250.000,5.000,230.000"); // runs into a cliff and runs endlessly, investigate
+                ////itemsTable.Rows.Add("Wyvern Obsidian", "Miner", 18, "Mineral Deposit", 60, "250.000,5.000,230.000"); // runs into a cliff and runs endlessly, investigate
                 itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 itemsTable.Rows.Add("Zinc Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
             }
@@ -559,18 +586,18 @@ namespace GatherAssist
                 int itemCount = itemRows.Count<DataRow>();
                 if (itemCount > 1)
                 {
-                    Log(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
+                    Log(logErrorColor, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
                     isValid = false;
                 }
                 else if (itemCount == 0)
                 {
-                    Log(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
+                    Log(logErrorColor, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
                     isValid = false;
                 }
 
                 if (!isValid)
                 {
-                    GatherAssistTimer.Stop();
+                    gatherAssistTimer.Stop();
                     BotStop();
                 }
                 else
@@ -590,18 +617,18 @@ namespace GatherAssist
 
                     if (mapCount > 1)
                     {
-                        Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
+                        Log(logErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
                         isValid = false;
                     }
                     else if (mapCount == 0)
                     {
-                        Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
+                        Log(logErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
                         isValid = false;
                     }
 
                     if (!isValid)
                     {
-                        GatherAssistTimer.Stop();
+                        gatherAssistTimer.Stop();
                         BotStop();
                     }
                     else
@@ -617,6 +644,7 @@ namespace GatherAssist
             {
                 LogException(ex);
             }
+
             return null; // if valid ItemRecord was not returned or error was thrown, return null here
         }
 
@@ -628,20 +656,21 @@ namespace GatherAssist
         {
             while (ff14bot.Managers.GatheringWindow.WindowOpen)
             {
-                Log(LogMinorColor, "waiting for a window to close...", true);
+                Log(logMinorColor, "waiting for a window to close...", true);
                 Thread.Sleep(1000);
             }
+
             TreeRoot.Stop(); // stop the bot
         }
 
         /// <summary>
         /// Logs any exceptions encountered during plugin functions.  Stops the plugin timer and the bot.
         /// </summary>
-        /// <param name="ex"></param>
+        /// <param name="ex">The exception which should be communicated in the log.</param>
         public void LogException(Exception ex)
         {
-            Log(LogErrorColor, string.Format("Exception in plugin {0}: {1} {2}", this.Name, ex.Message, ex.StackTrace));
-            GatherAssistTimer.Stop();
+            Log(logErrorColor, string.Format("Exception in plugin {0}: {1} {2}", this.Name, ex.Message, ex.StackTrace));
+            gatherAssistTimer.Stop();
             BotStop();
         }
 
@@ -681,7 +710,7 @@ namespace GatherAssist
             {
                 if (Core.Me.CurrentJob.ToString() == newClass)
                 {
-                    Log(LogMajorColor, string.Format("Class {0} is already chosen, bypassing SetClass logic", newClass), true);
+                    Log(logMajorColor, string.Format("Class {0} is already chosen, bypassing SetClass logic", newClass), true);
                     return;
                 }
 
@@ -700,7 +729,7 @@ namespace GatherAssist
 
                 while (true)
                 {
-                    for (int i = 0; i < maxGearSets; i++)
+                    for (int i = 0; i < MaxGearSets; i++)
                     {
                         if (newClassString == settings.gearSets[i])
                         {
@@ -716,7 +745,7 @@ namespace GatherAssist
                         // if the class change didn't work, update gear sets; assuming the sets have been adjusted
                         if (newClass != Core.Me.CurrentJob.ToString())
                         {
-                            Log(LogMajorColor, "Gear sets appear to have been adjusted, scanning gear sets for changes...");
+                            Log(logMajorColor, "Gear sets appear to have been adjusted, scanning gear sets for changes...");
                             UpdateGearSets();
                             gearSetsUpdated = true;
                         }
@@ -743,8 +772,9 @@ namespace GatherAssist
         }
 
         /// <summary>
-        /// Updates the list of gear sets for the current character.  Do not overuse, as this requires changing into all gearsets and logging
+        /// Updates the list of gear sets for the current character.  Do not overuse, as this requires changing into all gear sets and logging
         ///  the class type of the gear set.
+        /// </summary>
         public void UpdateGearSets()
         {
             try
@@ -767,12 +797,12 @@ namespace GatherAssist
 
                 settings.gearSets = gearSets; // save gear sets
 
-                Log(LogMajorColor, "Gear sets acquired:");
+                Log(logMajorColor, "Gear sets acquired:");
                 for (int i = 0; i < maxClasses; i++)
                 {
                     if (gearSets[i] != null)
                     {
-                        Log(LogMajorColor, string.Format("{0}: {1}", i + 1, gearSets[i]));
+                        Log(logMajorColor, string.Format("{0}: {1}", i + 1, gearSets[i]));
                     }
                 }
             }
@@ -785,7 +815,7 @@ namespace GatherAssist
         /// <summary>
         /// Supplies an appropriate gathering spell for the supplied class.
         /// </summary>
-        /// <param name="className">The class name whose spellbook should be used.</param>
+        /// <param name="className">The class name whose spell book should be used.</param>
         /// <returns>A single spell that will work for the specified class name.</returns>
         public string GetGatheringSpell(string className)
         {
