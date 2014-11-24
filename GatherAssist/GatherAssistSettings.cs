@@ -38,6 +38,5 @@ namespace GatherAssist.Settings
         /// </summary>
         [Setting]
         public string[] gearSets { get; set; }
-//        public DataTable RequestTable { get; set; }
     }
 }
