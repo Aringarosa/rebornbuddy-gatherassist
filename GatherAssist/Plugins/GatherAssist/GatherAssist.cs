@@ -212,6 +212,16 @@ namespace GatherAssist
                     settings.UpdateIntervalMinutes = 1;
                 }
 
+                if (settings.AutoSkip == null)
+                {
+                    settings.AutoSkip = false;
+                }
+
+                if (settings.AutoSkipInterval == null || settings.AutoSkipInterval < 1)
+                {
+                    settings.AutoSkipInterval = 1;
+                }
+
                 gatherAssistTimer.Elapsed += this.GatherAssistTimer_Elapsed;
                 gatherAssistTimer.Interval = settings.UpdateIntervalMinutes * 60000;
             }
@@ -549,7 +559,7 @@ namespace GatherAssist
                 ////this.itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
                 this.itemsTable.Rows.Add("Earth Crystal", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
-                ////this.itemsTable.Rows.Add("Electrum Ore", "Miner", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521"); // walks to location and stands around
+                //this.itemsTable.Rows.Add("Electrum Ore", "Miner", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521"); // walks to location and stands around
                 this.itemsTable.Rows.Add("Electrum Sand", "Miner", 15, "Rocky Outcrop", 60, "333.2277, -3.4, 45.06057");
                 ////this.itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753"); // not at this location, find a new one
                 this.itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
@@ -741,7 +751,7 @@ namespace GatherAssist
 
                 while (true)
                 {
-                    for (int i = 0; i < MaxGearSets; i++)
+                    for (int i = 0; i < settings.GearSets.Length; i++)
                     {
                         if (newClassString == settings.GearSets[i])
                         {

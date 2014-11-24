@@ -54,5 +54,20 @@ namespace GatherAssist.Settings
         /// </summary>
         [Setting]
         public string[] GearSets { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether troublesome gather objects (nothing is being gathered) should be skipped after a specified interval.
+        /// </summary>
+        [Setting]
+        public bool AutoSkip { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of iterations of the standard update interval during which the
+        ///  overall gather status should be checked for trouble.  For example, if
+        ///  UpdateIntervalMinutes = 5 and AutoSkipInterval = 2, gather failure checks would occur
+        ///  every 10 minutes.
+        /// </summary>
+        [Setting]
+        public int AutoSkipInterval { get; set; }
     }
 }

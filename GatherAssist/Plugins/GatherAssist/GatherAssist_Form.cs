@@ -105,6 +105,8 @@ namespace GatherAssist
         private void ButtonOK_Click(object sender, EventArgs e)
         {
             settings.UpdateIntervalMinutes = System.Convert.ToInt32(this.textBoxUpdateInterval.Text);
+            settings.AutoSkip = this.checkBoxAutoSkip.Checked;
+            settings.AutoSkipInterval = System.Convert.ToInt32(this.textBoxAutoSkipInterval.Text);
             DataTable oldTable = ((DataTable)this.dataGridViewRequests.DataSource).Copy();
             this.RequestTable = oldTable.Clone();
             this.RequestTable.Columns[0].ReadOnly = true;

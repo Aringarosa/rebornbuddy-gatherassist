@@ -33,12 +33,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewRequests = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxAutoSkip = new System.Windows.Forms.CheckBox();
             this.dataGridViewResults = new System.Windows.Forms.DataGridView();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.labelSearch = new System.Windows.Forms.Label();
             this.labelRequestOptions = new System.Windows.Forms.Label();
             this.labelRequestList = new System.Windows.Forms.Label();
             this.labelInstructions = new System.Windows.Forms.Label();
+            this.textBoxAutoSkipInterval = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequests)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
@@ -56,7 +59,7 @@
             // 
             // textBoxUpdateInterval
             // 
-            this.textBoxUpdateInterval.Location = new System.Drawing.Point(146, 50);
+            this.textBoxUpdateInterval.Location = new System.Drawing.Point(146, 19);
             this.textBoxUpdateInterval.Name = "textBoxUpdateInterval";
             this.textBoxUpdateInterval.Size = new System.Drawing.Size(100, 20);
             this.textBoxUpdateInterval.TabIndex = 3;
@@ -64,7 +67,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 53);
+            this.label2.Location = new System.Drawing.Point(17, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 13);
             this.label2.TabIndex = 4;
@@ -80,14 +83,27 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxAutoSkip);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxUpdateInterval);
+            this.groupBox1.Controls.Add(this.textBoxAutoSkipInterval);
             this.groupBox1.Location = new System.Drawing.Point(12, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(252, 91);
+            this.groupBox1.Size = new System.Drawing.Size(252, 113);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
+            // 
+            // checkBoxAutoSkip
+            // 
+            this.checkBoxAutoSkip.AutoSize = true;
+            this.checkBoxAutoSkip.Location = new System.Drawing.Point(20, 47);
+            this.checkBoxAutoSkip.Name = "checkBoxAutoSkip";
+            this.checkBoxAutoSkip.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxAutoSkip.TabIndex = 14;
+            this.checkBoxAutoSkip.Text = "AutoSkip";
+            this.checkBoxAutoSkip.UseVisualStyleBackColor = true;
             // 
             // dataGridViewResults
             // 
@@ -142,6 +158,22 @@
             this.labelInstructions.TabIndex = 12;
             this.labelInstructions.Text = "instructions";
             // 
+            // textBoxAutoSkipInterval
+            // 
+            this.textBoxAutoSkipInterval.Location = new System.Drawing.Point(146, 68);
+            this.textBoxAutoSkipInterval.Name = "textBoxAutoSkipInterval";
+            this.textBoxAutoSkipInterval.Size = new System.Drawing.Size(100, 20);
+            this.textBoxAutoSkipInterval.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "AutoSkip Interval";
+            // 
             // GatherAssist_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,5 +212,8 @@
         private System.Windows.Forms.Label labelRequestOptions;
         private System.Windows.Forms.Label labelRequestList;
         private System.Windows.Forms.Label labelInstructions;
+        private System.Windows.Forms.CheckBox checkBoxAutoSkip;
+        private System.Windows.Forms.TextBox textBoxAutoSkipInterval;
+        private System.Windows.Forms.Label label1;
     }
 }
