@@ -47,36 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GatherAssist.cs" />
-    <Compile Include="GatherAssistSettings.cs" />
-    <Compile Include="GatherAssist_Form.cs">
+    <Compile Include="Plugins\GatherAssist\GatherAssist.cs" />
+    <Compile Include="Plugins\GatherAssist\Settings\GatherAssistSettings.cs" />
+    <Compile Include="Plugins\GatherAssist\GatherAssist_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GatherAssist_Form.Designer.cs">
+    <Compile Include="Plugins\GatherAssist\GatherAssist_Form.Designer.cs">
       <DependentUpon>GatherAssist_Form.cs</DependentUpon>
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="GatherRequest.cs" />
-    <Compile Include="ItemRecord.cs" />
+    <Compile Include="Plugins\GatherAssist\GatherRequest.cs" />
+    <Compile Include="Plugins\GatherAssist\ItemRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="GatherAssist_Form.resx">
-      <DependentUpon>GatherAssist_Form.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(TargetDir)Plugins\$(ProjectName)"
-mkdir "$(TargetDir)Plugins\$(ProjectName)\Settings"
-mkdir "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
-copy /Y "$(SolutionDir)$(ProjectName).cs" "$(TargetDir)Plugins\$(ProjectName)\$(ProjectName).cs"
-copy /Y "$(SolutionDir)GatherRequest.cs" "$(TargetDir)Plugins\$(ProjectName)\GatherRequest.cs"
-copy /Y "$(SolutionDir)ItemRecord.cs" "$(TargetDir)Plugins\$(ProjectName)\ItemRecord.cs"
-copy /Y "$(SolutionDir)$(ProjectName)_Form.cs" "$(TargetDir)Plugins\$(ProjectName)\$(ProjectName)_Form.cs"
-copy /Y "$(SolutionDir)$(ProjectName)_Form.Designer.cs" "$(TargetDir)Plugins\$(ProjectName)\$(ProjectName)_Form.Designer.cs"
-copy /Y "$(SolutionDir)$(ProjectName)Settings.cs" "$(TargetDir)Plugins\$(ProjectName)\Settings\$(ProjectName)Settings.cs"
-xcopy /S /Y "$(TargetDir)Plugins\$(ProjectName)" "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
+    <PostBuildEvent>mkdir "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
+xcopy /S /Y "$(SolutionDir)Plugins\$(ProjectName)" "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
