@@ -7,16 +7,40 @@ using System.Windows.Forms;
 
 namespace GatherAssist
 {
+    /// <summary>
+    /// The settings form to this plugin.  Allows the user to adjust plugin settings, as well as create the list of gather requests.
+    /// </summary>
     public partial class GatherAssist_Form : Form
     {
         public static Vector3 vendorlocationtemp;
+
+        /// <summary>
+        /// The plugin settings.
+        /// </summary>
         public static GatherAssistSettings settings = GatherAssistSettings.instance;
+
+        /// <summary>
+        /// The table for all gather requests.
+        /// </summary>
         public DataTable requestTable;
+
+        /// <summary>
+        /// The search results for possible items to add to the request table.  Shows everything if no search is present.
+        /// </summary>
         private DataTable resultsTable;
+
+        /// <summary>
+        /// The table containing all items which can be added to the list of gather requests.
+        /// </summary>
         private DataTable itemsTable;
 
+        /// <summary>
+        /// Constructor.  Loads the provided list of possible gather items into the searchable items table.
+        /// </summary>
+        /// <param name="inItemsTable">A table of all possible items to be gathered.  Should contain an ItemName field.</param>
         public GatherAssist_Form(DataTable inItemsTable)
         {
+            // TODO: validate inItemsTable parameter.
             this.itemsTable = inItemsTable.Copy();
             InitializeComponent();
             textBoxUpdateInterval.Text = Convert.ToString(settings.UpdateIntervalMinutes);
@@ -57,6 +81,11 @@ namespace GatherAssist
         {
         }
 
+        /// <summary>
+        /// Handles the buttonOK.Click event.  Filters the request list to requests with more than a zero count, and closes the form.
+        /// </summary>
+        /// <param name="sender">The parameter is not used.</param>
+        /// <param name="e">The parameter is not used.</param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
             settings.UpdateIntervalMinutes = System.Convert.ToInt32(textBoxUpdateInterval.Text);
@@ -76,11 +105,19 @@ namespace GatherAssist
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the textBoxSearch.TextChanged event.  Pass-through function calling the UpdateSearchBox function.
+        /// </summary>
+        /// <param name="sender">The parameter is not used.</param>
+        /// <param name="e">The parameter is not used.</param>
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
             UpdateSearchBox();
         }
 
+        /// <summary>
+        /// Updates the search box to reflect the currently entered search criteria.
+        /// </summary>
         private void UpdateSearchBox()
         {
             resultsTable = itemsTable.DefaultView.ToTable(false, "ItemName");
@@ -98,13 +135,20 @@ namespace GatherAssist
             dataGridViewResults.DataSource = resultsTable;
         }
 
+        /// <summary>
+        /// Handles the dataGridViewResults.CellClick event.  Pass-through function calling the AddSelectedCell function.
+        /// </summary>
+        /// <param name="sender">The parameter is not used.</param>
+        /// <param name="e">The parameter is not used.</param>
         private void dataGridViewResults_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             AddSelectedCell();
         }        
-        
 
-
+        /// <summary>
+        /// Adds the currently selected cell in the item list to the list of gather requests.  Only adds if the item is not already on the
+        ///  gather list (no duplicates).
+        /// </summary>
         private void AddSelectedCell()
         {
             //if (requestTable == null || requestTable.Columns.Count == 0)
@@ -135,8 +179,17 @@ namespace GatherAssist
             requestTable.Columns[0].ReadOnly = true;
             dataGridViewRequests.DataSource = requestTable;
         }
+
+        /// <summary>
+        /// Sorts a DataTable.
+        /// </summary>
+        /// <param name="inTable">The table to be sorted.</param>
+        /// <param name="colName">The column which should be used to sort the table.</param>
+        /// <param name="direction">The sort direction.  ASC or DESC.</param>
+        /// <returns>The newly sorted table.</returns>
         public static DataTable ReSort(DataTable inTable, string colName, string direction)
         {
+            // TODO: validate all parameters.
             inTable.DefaultView.Sort = colName + " " + direction;
             inTable = inTable.DefaultView.ToTable();
             return inTable;
