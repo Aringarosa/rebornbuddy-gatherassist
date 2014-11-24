@@ -26,7 +26,7 @@ namespace GatherAssist
         /// <summary>
         /// The plugin settings.
         /// </summary>
-        public static GatherAssistSettings settings = GatherAssistSettings.instance;
+        private static GatherAssistSettings settings = GatherAssistSettings.instance;
 
         /// <summary>
         /// The table for all gather requests.
@@ -192,7 +192,7 @@ namespace GatherAssist
         /// <param name="colName">The column which should be used to sort the table.</param>
         /// <param name="direction">The sort direction.  ASC or DESC.</param>
         /// <returns>The newly sorted table.</returns>
-        public static DataTable ReSort(DataTable inTable, string colName, string direction)
+        private static DataTable ReSort(DataTable inTable, string colName, string direction)
         {
             // TODO: validate all parameters.
             inTable.DefaultView.Sort = colName + " " + direction;
