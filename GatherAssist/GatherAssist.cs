@@ -27,14 +27,9 @@ namespace GatherAssist
     public class GatherAssist : IBotPlugin
     {
         /// <summary>
-        /// Name of this plugin, to prevent too much hard coding of the plugin name inside the code.
-        /// </summary>
-        const string pluginName = "GatherAssist";
-
-        /// <summary>
         /// The maximum number of gear sets possible in FFXIV.  May need to adjust this as new classes are added.
         /// </summary>
-        const int maxGearSets = 20;
+        const int maxGearSets = 35;
 
         /// <summary>
         /// The color used for log messages which are meant to be visible and important.
@@ -64,12 +59,12 @@ namespace GatherAssist
         /// <summary>
         /// Current plugin version.
         /// </summary>
-        public Version Version { get { return new Version(0, 1, 0); } }
+        public Version Version { get { return new Version(0, 1, 4); } }
 
         /// <summary>
         /// The plugin name.
         /// </summary>
-        public string Name { get { return pluginName; } }
+        public string Name { get { return "GatherAssist"; } }
 
         /// <summary>
         /// Saveable settings for this plugin.
@@ -108,9 +103,6 @@ namespace GatherAssist
         /// </summary>
         private DataTable itemsTable;
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
         /// <summary>
         /// A value for the plugin interface.  True because we do want a settings button.
         /// </summary>
@@ -124,7 +116,7 @@ namespace GatherAssist
         /// </summary>
         public string ButtonText
         {
-            get { return pluginName; }
+            get { return this.Name + " Settings"; }
         }
 
         /// <summary>
@@ -272,6 +264,8 @@ namespace GatherAssist
             {
                 Log(LogMajorColor, " v" + Version.ToString() + " Disabled");
                 GatherAssistTimer.Stop();
+                // TODO: Assess whether stopping the bot is the best idea here.  Perhaps we should see whether this plugin was executing logic?
+                BotStop();
             }
             catch (Exception ex)
             {
@@ -294,6 +288,7 @@ namespace GatherAssist
         {
             try
             {
+                // TODO: validate parameter requestTable to fit the parameter description.
                 requestList = new List<GatherRequest>();
 
                 foreach (DataRow dataRow in requestTable.Rows)
@@ -331,7 +326,7 @@ namespace GatherAssist
 
                 foreach (InventoryBagId curBagId in validBags)
                 {
-                    Log(LogMajorColor, "curBagId.ToString()", true);
+                    Log(LogMajorColor, curBagId.ToString(), true);
                     foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
                     {
                         var obj = requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
@@ -645,14 +640,9 @@ namespace GatherAssist
         /// <param name="ex"></param>
         public void LogException(Exception ex)
         {
-            Log(LogErrorColor, string.Format("Exception in plugin {0}: {1} {2}", pluginName, ex.Message, ex.StackTrace));
+            Log(LogErrorColor, string.Format("Exception in plugin {0}: {1} {2}", this.Name, ex.Message, ex.StackTrace));
             GatherAssistTimer.Stop();
             BotStop();
-        }
-
-        public static IEnumerable<T> GetValues<T>()
-        {
-            return Enum.GetValues(typeof(T)).Cast<T>();
         }
 
         /// <summary>
@@ -678,7 +668,7 @@ namespace GatherAssist
                 message = "DEBUG: " + message;
             }
 
-            Logging.Write(color, string.Format("[{0}] {1}", pluginName, message));
+            Logging.Write(color, string.Format("[{0}] {1}", this.Name, message));
         }
 
         /// <summary>
