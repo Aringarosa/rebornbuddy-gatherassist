@@ -323,7 +323,7 @@ namespace GatherAssist
                     && lastCount == this.currentGatherRequest.CurrentCount)
                 {
                     // this section reached if auto skip is on and the current request has been running for too long without results.
-                    this.Log(LogErrorColor, string.Format("AutoSkip - Item {0} has been running too long and nothing has been gathered, flagging and moving on.", currentGatherRequest.ItemName));
+                    this.Log(LogErrorColor, string.Format("AutoSkip - Item {0} has been running too long and nothing has been gathered, flagging and moving on.", this.currentGatherRequest.ItemName));
                     this.FlagBadItem(this.currentGatherRequest);
                     this.UpdateRequestedItemCounts();
                     this.ReportGatheringStatus();
