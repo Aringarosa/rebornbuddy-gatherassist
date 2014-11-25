@@ -317,14 +317,14 @@ namespace GatherAssist
                 this.ReportGatheringStatus();
 
                 if (
-                    currentGatherRequest != null
+                    this.currentGatherRequest != null
                     && settings.AutoSkip
                     && this.timerIterations % settings.AutoSkipInterval == 0
                     && lastCount == this.currentGatherRequest.CurrentCount)
                 {
                     // this section reached if auto skip is on and the current request has been running for too long without results.
-                    Log(LogErrorColor, string.Format("AutoSkip - Item {0} has been running too long and nothing has been gathered, flagging and moving on."));
-                    FlagBadItem(currentGatherRequest);
+                    this.Log(LogErrorColor, string.Format("AutoSkip - Item {0} has been running too long and nothing has been gathered, flagging and moving on."));
+                    this.FlagBadItem(this.currentGatherRequest);
                     this.UpdateRequestedItemCounts();
                     this.ReportGatheringStatus();
                 }
@@ -340,7 +340,7 @@ namespace GatherAssist
                         {
                             if (currentRequest.CurrentCount == BADITEM)
                             {
-                                Log(LogErrorColor, currentRequest.ItemName);
+                                this.Log(LogErrorColor, currentRequest.ItemName);
                             }
                         }
                     }
@@ -388,7 +388,7 @@ namespace GatherAssist
         /// <summary>
         /// Flags the specified gather request as unable to complete, allowing the bot to continue to the next request.
         /// </summary>
-        /// <param name="gatherRequest"></param>
+        /// <param name="gatherRequest">The gather requests referring to the trouble item.</param>
         private void FlagBadItem(GatherRequest gatherRequest)
         {
             foreach (GatherRequest curRequest in this.requestList)
