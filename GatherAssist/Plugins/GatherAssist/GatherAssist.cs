@@ -919,8 +919,6 @@ namespace GatherAssist
         {
             try
             {
-                string returnSpell = string.Empty;
-
                 if (Core.Me.CurrentJob.ToString() == "Miner")
                 {
                     if (Core.Me.ClassLevel >= 20)
@@ -940,36 +938,28 @@ namespace GatherAssist
                     }
 
                     // if no special shard spells have been applied, go with standard spells
-                    if (returnSpell == string.Empty)
-                    {
-                        returnSpell = "Sharp Vision II";
-                    }
+                    return "Sharp Vision II";
                 }
                 else if (Core.Me.CurrentJob.ToString() == "Botanist")
                 {
-                    switch (itemRecord.ItemName)
+                    if (Core.Me.ClassLevel >= 20)
                     {
-                        case "Ice Shard":
-                        case "Ice Crystal":
-                            return "Menphina's Ward";
-                        case "Wind Shard":
-                        case "Wind Crystal":
-                            return "Llymlaen's Ward";
-                        case "Earth Shard":
-                        case "Earth Crystal":
-                            return "Nophica's Ward";
+                        switch (itemRecord.ItemName)
+                        {
+                            case "Ice Shard":
+                            case "Ice Crystal":
+                                return "Menphina's Ward";
+                            case "Wind Shard":
+                            case "Wind Crystal":
+                                return "Llymlaen's Ward";
+                            case "Earth Shard":
+                            case "Earth Crystal":
+                                return "Nophica's Ward";
+                        }
                     }
 
                     // if no special shard spells have been applied, go with standard spells
-                    if (returnSpell == string.Empty)
-                    {
-                        returnSpell = "Leaf Turn 1";
-                    }
-                }
-
-                if (returnSpell != string.Empty)
-                {
-                    return returnSpell;
+                    return "Leaf Turn 1";
                 }
 
                 throw new ApplicationException(string.Format("CONTACT DEVELOPER!  Could not determine a gathering spell for class {0} and item {1}; please update code.", Core.Me.CurrentJob.ToString(), itemRecord.ItemName));
