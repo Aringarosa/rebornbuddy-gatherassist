@@ -117,7 +117,7 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
-            get { return new Version(0, 3, 4); }
+            get { return new Version(0, 3, 5); }
         }
 
         /// <summary>
@@ -431,7 +431,7 @@ namespace GatherAssist
                     foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
                     {
                         var obj = this.requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
-                        if (obj != null && (!settings.HqOnly || curSlot.HqFlag == 1))
+                        if (obj != null && obj.CurrentCount != BADITEM && (!settings.HqOnly || curSlot.HqFlag == 1))
                         {
                             this.Log(LogMajorColor, "Updating count", true);
                             obj.CurrentCount += curSlot.Count;
