@@ -323,7 +323,7 @@ namespace GatherAssist
                     && lastCount == this.currentGatherRequest.CurrentCount)
                 {
                     // this section reached if auto skip is on and the current request has been running for too long without results.
-                    this.Log(LogErrorColor, string.Format("AutoSkip - Item {0} has been running too long and nothing has been gathered, flagging and moving on."));
+                    this.Log(LogErrorColor, string.Format("AutoSkip - Item {0} has been running too long and nothing has been gathered, flagging and moving on.", currentGatherRequest.ItemName));
                     this.FlagBadItem(this.currentGatherRequest);
                     this.UpdateRequestedItemCounts();
                     this.ReportGatheringStatus();
@@ -453,7 +453,21 @@ namespace GatherAssist
             {
                 foreach (GatherRequest curRequest in this.requestList)
                 {
-                    Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? LogMinorColor : LogMajorColor;
+                    Color logColor;
+
+                    if (curRequest.RequestedTotal == BADITEM)
+                    {
+                        logColor = LogErrorColor;
+                    }
+                    else if (curRequest.RequestedTotal <= curRequest.CurrentCount)
+                    {
+                        logColor = LogMinorColor;
+                    }
+                    else
+                    {
+                        logColor = LogMajorColor;
+                    }
+
                     this.Log(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
                     if (this.currentGatherRequest == null && curRequest.CurrentCount < curRequest.RequestedTotal && curRequest.CurrentCount != BADITEM)
                     {
@@ -475,6 +489,7 @@ namespace GatherAssist
         {
             try
             {
+                this.timerIterations = 0; // reset iterations for AutoSkip feature
                 bool isValid = true;
 
                 if (this.currentGatherRequest == null)
@@ -607,40 +622,40 @@ namespace GatherAssist
                 this.itemsTable.Rows.Add("Black Alumen", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
                 this.itemsTable.Rows.Add("Bomb Ash", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923");
                 this.itemsTable.Rows.Add("Brown Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
-                this.itemsTable.Rows.Add("Button Mushroom", "Botanist", 18, "Lush Vegetation Patch", 80, "-344.0994, -28.06476, -41.86419"); // validate
+                this.itemsTable.Rows.Add("Button Mushroom", "Botanist", 18, "Lush Vegetation Patch", 80, "-344.0994, -28.06476, -41.86419");
                 this.itemsTable.Rows.Add("Copper Ore", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
-                this.itemsTable.Rows.Add("Desert Saffron", "Botanist", 19, "Lush Vegetation Patch", 80, "-41.3371, 2.250951, -645.2979"); // validate
-                ////this.itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
+                this.itemsTable.Rows.Add("Desert Saffron", "Botanist", 19, "Lush Vegetation Patch", 80, "-41.3371, 2.250951, -645.2979");
+                this.itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000"); // fix
                 this.itemsTable.Rows.Add("Earth Crystal", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 this.itemsTable.Rows.Add("Electrum Ore", "Miner", 15, "Mineral Deposit", 95, "425.5676, -2.748671, 180.2855");
                 this.itemsTable.Rows.Add("Electrum Sand", "Miner", 15, "Rocky Outcrop", 60, "333.2277, -3.4, 45.06057");
-                ////this.itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753"); // not at this location, find a new one
+                this.itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753");
                 this.itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
                 this.itemsTable.Rows.Add("Flax", "Botanist", 6, "Lush Vegetation Patch", 80, "-258.2026, -0.427259, 368.3641");
-                this.itemsTable.Rows.Add("Garlean Garlic", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108"); // item could not be located.  ??
+                this.itemsTable.Rows.Add("Garlean Garlic", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108");
                 this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
-                ////this.itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137"); // walks to location and stands around, investigate
+                this.itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137");
                 this.itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
                 this.itemsTable.Rows.Add("Iron Ore", "Miner", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282");
                 this.itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
                 this.itemsTable.Rows.Add("Marble", "Miner", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
-                this.itemsTable.Rows.Add("Midland Cabbage", "Botanist", 7, "Lush Vegetation Patch", 80, "87.74422, -35.93571, 237.9439"); // validate
+                this.itemsTable.Rows.Add("Midland Cabbage", "Botanist", 7, "Lush Vegetation Patch", 80, "87.74422, -35.93571, 237.9439");
                 this.itemsTable.Rows.Add("Muddy Water", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
                 this.itemsTable.Rows.Add("Mythril Ore", "Miner", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443");
                 this.itemsTable.Rows.Add("Obsidian", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
                 this.itemsTable.Rows.Add("Raw Fluorite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227");
                 this.itemsTable.Rows.Add("Raw Heliodor", "Miner", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443");
-                this.itemsTable.Rows.Add("Raw Malachite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227");
+                ////this.itemsTable.Rows.Add("Raw Malachite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227"); // flagged, investigate
                 this.itemsTable.Rows.Add("Raw Spinel", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
                 this.itemsTable.Rows.Add("Raw Tourmaline", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
-                this.itemsTable.Rows.Add("Ruby Tomato", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225"); // validate
+                this.itemsTable.Rows.Add("Ruby Tomato", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225");
                 this.itemsTable.Rows.Add("Silex", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923");
                 this.itemsTable.Rows.Add("Soiled Femur", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
                 this.itemsTable.Rows.Add("Tin Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
                 this.itemsTable.Rows.Add("Water Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
-                this.itemsTable.Rows.Add("Wild Onion", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108"); // validate
-                ////this.itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086");
+                this.itemsTable.Rows.Add("Wild Onion", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108");
+                ////this.itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086"); // fix
                 this.itemsTable.Rows.Add("Wind Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
                 ////this.itemsTable.Rows.Add("Wyvern Obsidian", "Miner", 18, "Mineral Deposit", 60, "250.000,5.000,230.000"); // runs into a cliff and runs endlessly, investigate
                 this.itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
@@ -742,6 +757,7 @@ namespace GatherAssist
             }
 
             TreeRoot.Stop(); // stop the bot
+            Thread.Sleep(1000); // give time for the change to register
         }
 
         /// <summary>
