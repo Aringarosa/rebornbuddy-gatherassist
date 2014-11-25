@@ -60,6 +60,11 @@
     <Compile Include="Plugins\GatherAssist\ItemRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Plugins\GatherAssist\GatherAssist_Form.resx">
+      <DependentUpon>GatherAssist_Form.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"

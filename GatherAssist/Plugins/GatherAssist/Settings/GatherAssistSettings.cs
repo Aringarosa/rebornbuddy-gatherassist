@@ -69,5 +69,11 @@ namespace GatherAssist.Settings
         /// </summary>
         [Setting]
         public int AutoSkipInterval { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether all item counts should refer to High Quality items only.
+        /// </summary>
+        [Setting]
+        public bool HqOnly { get; set; }
     }
 }

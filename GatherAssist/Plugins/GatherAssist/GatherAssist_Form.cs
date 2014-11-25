@@ -106,9 +106,12 @@ namespace GatherAssist
         /// <param name="e">The parameter is not used.</param>
         private void ButtonOK_Click(object sender, EventArgs e)
         {
+            // Update settings from the form.
             settings.UpdateIntervalMinutes = System.Convert.ToInt32(this.textBoxUpdateInterval.Text);
             settings.AutoSkip = this.checkBoxAutoSkip.Checked;
             settings.AutoSkipInterval = System.Convert.ToInt32(this.textBoxAutoSkipInterval.Text);
+            settings.HqOnly = this.checkBoxHqOnly.Checked;
+            
             DataTable oldTable = ((DataTable)this.dataGridViewRequests.DataSource).Copy();
             this.RequestTable = oldTable.Clone();
             this.RequestTable.Columns[0].ReadOnly = true;

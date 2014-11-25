@@ -218,6 +218,7 @@ namespace GatherAssist
                 this.InitializeItems();
                 this.InitializeMaps();
 
+                // Initialize all settings to default values if necessary
                 if (settings.UpdateIntervalMinutes == 0)
                 {
                     settings.UpdateIntervalMinutes = 1;
@@ -430,7 +431,7 @@ namespace GatherAssist
                     foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
                     {
                         var obj = this.requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
-                        if (obj != null)
+                        if (obj != null && (!settings.HqOnly || curSlot.HqFlag == 1))
                         {
                             this.Log(LogMajorColor, "Updating count", true);
                             obj.CurrentCount += curSlot.Count;
