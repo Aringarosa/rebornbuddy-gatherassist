@@ -29,6 +29,7 @@ namespace GatherAssist
     using ff14bot.Interfaces;
     using ff14bot.Managers;
     using ff14bot.NeoProfiles;
+    using ff14bot.Settings;
     using Settings;
     using Action = TreeSharp.Action;
 
@@ -468,10 +469,10 @@ namespace GatherAssist
                         itemRecord.ItemName,
                         gatheringSpell);
 
-                    string targetXmlName = "gaCurrentProfile.xml";
-                    string profilePath = System.IO.Path.GetTempPath();
-                    string targetXmlFile = profilePath + "/" + targetXmlName;
-                    File.WriteAllText(targetXmlFile, xmlContent);
+                    string targetXmlFile = Path.Combine(GlobalSettings.Instance.PluginsPath, "GatherAssist/Temp/gaCurrentProfile.xml");
+                    FileInfo profileFile = new FileInfo(targetXmlFile);
+                    profileFile.Directory.Create(); // If the directory already exists, this method does nothing.
+                    File.WriteAllText(profileFile.FullName, xmlContent);
 
                     while (ff14bot.Managers.GatheringWindow.WindowOpen)
                     {
@@ -559,7 +560,7 @@ namespace GatherAssist
                 ////this.itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
                 this.itemsTable.Rows.Add("Earth Crystal", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
-                //this.itemsTable.Rows.Add("Electrum Ore", "Miner", 15, "Mineral Deposit", 60, "431.936371, 6.170725, 153.524521"); // walks to location and stands around
+                this.itemsTable.Rows.Add("Electrum Ore", "Miner", 15, "Mineral Deposit", 95, "425.5676, -2.748671, 180.2855");
                 this.itemsTable.Rows.Add("Electrum Sand", "Miner", 15, "Rocky Outcrop", 60, "333.2277, -3.4, 45.06057");
                 ////this.itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753"); // not at this location, find a new one
                 this.itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
