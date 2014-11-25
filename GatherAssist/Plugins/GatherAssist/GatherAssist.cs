@@ -50,6 +50,11 @@ namespace GatherAssist
         private const int KillRadius = 50;
 
         /// <summary>
+        /// A code indicating that the current gather item was unable to complete and should be skipped.
+        /// </summary>
+        private const uint BADITEM = 99999;
+
+        /// <summary>
         /// Settings for this plugin which should be saved for later use.
         /// </summary>
         private static GatherAssistSettings settings = GatherAssistSettings.Instance;
@@ -85,6 +90,11 @@ namespace GatherAssist
         /// The form for user-provided settings.
         /// </summary>
         private GatherAssist_Form form;
+
+        /// <summary>
+        /// The number of iterations the timer has made so far.
+        /// </summary>
+        private int timerIterations = 0;
 
         /// <summary>
         /// Gets the author of this plugin.
@@ -213,12 +223,7 @@ namespace GatherAssist
                     settings.UpdateIntervalMinutes = 1;
                 }
 
-                if (settings.AutoSkip == null)
-                {
-                    settings.AutoSkip = false;
-                }
-
-                if (settings.AutoSkipInterval == null || settings.AutoSkipInterval < 1)
+                if (settings.AutoSkipInterval < 1)
                 {
                     settings.AutoSkipInterval = 1;
                 }
@@ -305,13 +310,41 @@ namespace GatherAssist
         {
             try
             {
+                this.timerIterations += 1;
+                uint lastCount = this.currentGatherRequest == null ? 0 : this.currentGatherRequest.CurrentCount;
                 string lastRequest = this.currentGatherRequest == null ? string.Empty : this.currentGatherRequest.ItemName;
                 this.UpdateRequestedItemCounts();
                 this.ReportGatheringStatus();
 
+                if (
+                    currentGatherRequest != null
+                    && settings.AutoSkip
+                    && this.timerIterations % settings.AutoSkipInterval == 0
+                    && lastCount == this.currentGatherRequest.CurrentCount)
+                {
+                    // this section reached if auto skip is on and the current request has been running for too long without results.
+                    Log(LogErrorColor, string.Format("AutoSkip - Item {0} has been running too long and nothing has been gathered, flagging and moving on."));
+                    FlagBadItem(currentGatherRequest);
+                    this.UpdateRequestedItemCounts();
+                    this.ReportGatheringStatus();
+                }
+
                 // if no valid gather requests remain, stop the plugin execution
                 if (this.currentGatherRequest == null)
                 {
+                    var obj = this.requestList.FirstOrDefault(x => x.CurrentCount == BADITEM);
+                    if (obj != null)
+                    {
+                        this.Log(LogErrorColor, "AutoSkip passed up requests which took too long to complete; these profiles may be bad, or you may not have the appropriate skills to gather these items:");
+                        foreach (GatherRequest currentRequest in this.requestList)
+                        {
+                            if (currentRequest.CurrentCount == BADITEM)
+                            {
+                                Log(LogErrorColor, currentRequest.ItemName);
+                            }
+                        }
+                    }
+
                     this.Log(LogMajorColor, "Gather requests complete!  GatherAssist will stop now.");
                     gatherAssistTimer.Stop();
                     this.BotStop();
@@ -353,6 +386,21 @@ namespace GatherAssist
         }
 
         /// <summary>
+        /// Flags the specified gather request as unable to complete, allowing the bot to continue to the next request.
+        /// </summary>
+        /// <param name="gatherRequest"></param>
+        private void FlagBadItem(GatherRequest gatherRequest)
+        {
+            foreach (GatherRequest curRequest in this.requestList)
+            {
+                if (gatherRequest.ItemName == curRequest.ItemName)
+                {
+                    curRequest.CurrentCount = BADITEM;
+                }
+            }
+        }
+
+        /// <summary>
         /// Updates item counts for all requested items.
         /// </summary>
         private void UpdateRequestedItemCounts()
@@ -363,7 +411,10 @@ namespace GatherAssist
 
                 foreach (GatherRequest curRequest in this.requestList)
                 {
-                    curRequest.CurrentCount = 0;
+                    if (curRequest.CurrentCount != BADITEM)
+                    {
+                        curRequest.CurrentCount = 0;
+                    }
                 }
 
                 List<InventoryBagId> validBags = new List<InventoryBagId>();
@@ -404,7 +455,7 @@ namespace GatherAssist
                 {
                     Color logColor = curRequest.RequestedTotal <= curRequest.CurrentCount ? LogMinorColor : LogMajorColor;
                     this.Log(logColor, string.Format("Item: {0}, Count: {1}, Requested: {2}", curRequest.ItemName, curRequest.CurrentCount, curRequest.RequestedTotal));
-                    if (this.currentGatherRequest == null && curRequest.CurrentCount < curRequest.RequestedTotal)
+                    if (this.currentGatherRequest == null && curRequest.CurrentCount < curRequest.RequestedTotal && curRequest.CurrentCount != BADITEM)
                     {
                         this.Log(LogMajorColor, string.Format("Updating gather request to {0}", curRequest.ItemName), true);
                         this.currentGatherRequest = curRequest;
@@ -556,7 +607,9 @@ namespace GatherAssist
                 this.itemsTable.Rows.Add("Black Alumen", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
                 this.itemsTable.Rows.Add("Bomb Ash", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923");
                 this.itemsTable.Rows.Add("Brown Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
+                this.itemsTable.Rows.Add("Button Mushroom", "Botanist", 18, "Lush Vegetation Patch", 80, "-344.0994, -28.06476, -41.86419"); // validate
                 this.itemsTable.Rows.Add("Copper Ore", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
+                this.itemsTable.Rows.Add("Desert Saffron", "Botanist", 19, "Lush Vegetation Patch", 80, "-41.3371, 2.250951, -645.2979"); // validate
                 ////this.itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000");
                 this.itemsTable.Rows.Add("Earth Crystal", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
@@ -565,12 +618,14 @@ namespace GatherAssist
                 ////this.itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753"); // not at this location, find a new one
                 this.itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
                 this.itemsTable.Rows.Add("Flax", "Botanist", 6, "Lush Vegetation Patch", 80, "-258.2026, -0.427259, 368.3641");
+                this.itemsTable.Rows.Add("Garlean Garlic", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108"); // item could not be located.  ??
                 this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 ////this.itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137"); // walks to location and stands around, investigate
                 this.itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
                 this.itemsTable.Rows.Add("Iron Ore", "Miner", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282");
                 this.itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
                 this.itemsTable.Rows.Add("Marble", "Miner", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000");
+                this.itemsTable.Rows.Add("Midland Cabbage", "Botanist", 7, "Lush Vegetation Patch", 80, "87.74422, -35.93571, 237.9439"); // validate
                 this.itemsTable.Rows.Add("Muddy Water", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
                 this.itemsTable.Rows.Add("Mythril Ore", "Miner", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443");
                 this.itemsTable.Rows.Add("Obsidian", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
@@ -579,15 +634,18 @@ namespace GatherAssist
                 this.itemsTable.Rows.Add("Raw Malachite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227");
                 this.itemsTable.Rows.Add("Raw Spinel", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
                 this.itemsTable.Rows.Add("Raw Tourmaline", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518");
+                this.itemsTable.Rows.Add("Ruby Tomato", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225"); // validate
                 this.itemsTable.Rows.Add("Silex", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923");
                 this.itemsTable.Rows.Add("Soiled Femur", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
                 this.itemsTable.Rows.Add("Tin Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
                 this.itemsTable.Rows.Add("Water Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519");
+                this.itemsTable.Rows.Add("Wild Onion", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108"); // validate
                 ////this.itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086");
                 this.itemsTable.Rows.Add("Wind Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551");
                 ////this.itemsTable.Rows.Add("Wyvern Obsidian", "Miner", 18, "Mineral Deposit", 60, "250.000,5.000,230.000"); // runs into a cliff and runs endlessly, investigate
                 this.itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752");
                 this.itemsTable.Rows.Add("Zinc Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928");
+                //// TODO: add items table syntax validation; this can be tested before compile, create a test project.
             }
             catch (Exception ex)
             {

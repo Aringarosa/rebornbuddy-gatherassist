@@ -48,6 +48,8 @@ namespace GatherAssist
             this.itemsTable = inItemsTable.Copy();
             this.InitializeComponent();
             this.textBoxUpdateInterval.Text = Convert.ToString(settings.UpdateIntervalMinutes);
+            this.textBoxAutoSkipInterval.Text = Convert.ToString(settings.AutoSkipInterval);
+            this.checkBoxAutoSkip.Checked = settings.AutoSkip;
             this.RequestTable = this.itemsTable.DefaultView.ToTable(false, "ItemName");
             this.RequestTable.Rows.Clear();
             this.RequestTable.Columns[0].ReadOnly = true;
