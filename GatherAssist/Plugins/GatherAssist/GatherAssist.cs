@@ -519,12 +519,13 @@ namespace GatherAssist
                     this.BotStop();
                     this.SetClass(itemRecord.ClassName); // switch class if necessary
                     string gatheringSpell = this.GetGatheringSpell(itemRecord); // get a gathering spell appropriate for this class
+                    int timesToCast = (gatheringSpell == "Prospect" || gatheringSpell == "Triangulate") ? 2 : 1;
                     // construct profile using the chosen item record
                     string xmlContent = string.Format(
                         "<Profile><Name>{0}</Name><KillRadius>{1}</KillRadius><Order><If Condition=\"not IsOnMap({2}" +
                         ")\"><TeleportTo Name=\"{3}\" AetheryteId=\"{4}\" /></If><Gather while=\"True\"><GatherObject>{5}</GatherObject><HotSpots>" +
                         "<HotSpot Radius=\"{6}\" XYZ=\"{7}\" /></HotSpots><ItemNames><ItemName>{8}</ItemName></ItemNames><GatheringSkillOrder>" +
-                        "<GatheringSkill SpellName=\"{9}\" TimesToCast=\"1\" /></GatheringSkillOrder></Gather></Order></Profile>",
+                        "<GatheringSkill SpellName=\"{9}\" TimesToCast=\"{10}\" /></GatheringSkillOrder></Gather></Order></Profile>",
                         "Mining: " + itemRecord.ItemName,
                         KillRadius,
                         itemRecord.MapNumber,
@@ -534,7 +535,8 @@ namespace GatherAssist
                         itemRecord.HotspotRadius,
                         itemRecord.Location,
                         itemRecord.ItemName,
-                        gatheringSpell);
+                        gatheringSpell,
+                        timesToCast);
 
                     string targetXmlFile = Path.Combine(GlobalSettings.Instance.PluginsPath, "GatherAssist/Temp/gaCurrentProfile.xml");
                     FileInfo profileFile = new FileInfo(targetXmlFile);
@@ -921,6 +923,7 @@ namespace GatherAssist
             {
                 if (Core.Me.CurrentJob.ToString() == "Miner")
                 {
+                    // handle shard-specific spells
                     if (Core.Me.ClassLevel >= 20)
                     {
                         switch (itemRecord.ItemName)
@@ -937,11 +940,35 @@ namespace GatherAssist
                         }
                     }
 
-                    // if no special shard spells have been applied, go with standard spells
-                    return "Sharp Vision II";
+                    // handle level-specific spells
+                    if (Core.Me.ClassLevel >= 35)
+                    {
+                        return "Unearth II";
+                    }
+                    else if (Core.Me.ClassLevel >= 15)
+                    {
+                        return "Unearth";
+                    }
+                    else if (Core.Me.ClassLevel >= 10)
+                    {
+                        return "Sharp Vision III";
+                    }
+                    else if (Core.Me.ClassLevel >= 5)
+                    {
+                        return "Sharp Vision II";
+                    }
+                    else if (Core.Me.ClassLevel >= 4)
+                    {
+                        return "Sharp Vision";
+                    }
+                    else
+                    {
+                        return "Prospect";
+                    }
                 }
                 else if (Core.Me.CurrentJob.ToString() == "Botanist")
                 {
+                    // handle shard-specific spells
                     if (Core.Me.ClassLevel >= 20)
                     {
                         switch (itemRecord.ItemName)
@@ -958,8 +985,31 @@ namespace GatherAssist
                         }
                     }
 
-                    // if no special shard spells have been applied, go with standard spells
-                    return "Leaf Turn 1";
+                    // handle level-specific spells
+                    if (Core.Me.ClassLevel >= 35)
+                    {
+                        return "Leaf Turn II";
+                    }
+                    else if (Core.Me.ClassLevel >= 15)
+                    {
+                        return "Leaf Turn";
+                    }
+                    else if (Core.Me.ClassLevel >= 10)
+                    {
+                        return "Field Mastery III";
+                    }
+                    else if (Core.Me.ClassLevel >= 5)
+                    {
+                        return "Field Mastery II";
+                    }
+                    else if (Core.Me.ClassLevel >= 4)
+                    {
+                        return "Field Mastery";
+                    }
+                    else
+                    {
+                        return "Triangulate";
+                    }
                 }
 
                 throw new ApplicationException(string.Format("CONTACT DEVELOPER!  Could not determine a gathering spell for class {0} and item {1}; please update code.", Core.Me.CurrentJob.ToString(), itemRecord.ItemName));
