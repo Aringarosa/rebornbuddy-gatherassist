@@ -518,7 +518,7 @@ namespace GatherAssist
                     //  bot does not update item names properly during a "live" profile swap.
                     this.BotStop();
                     this.SetClass(itemRecord.ClassName); // switch class if necessary
-                    string gatheringSpell = this.GetGatheringSpell(itemRecord.ClassName); // get a gathering spell appropriate for this class
+                    string gatheringSpell = this.GetGatheringSpell(itemRecord); // get a gathering spell appropriate for this class
                     // construct profile using the chosen item record
                     string xmlContent = string.Format(
                         "<Profile><Name>{0}</Name><KillRadius>{1}</KillRadius><Order><If Condition=\"not IsOnMap({2}" +
@@ -911,23 +911,68 @@ namespace GatherAssist
         }
 
         /// <summary>
-        /// Supplies an appropriate gathering spell for the supplied class.
+        /// Supplies an appropriate gathering spell for the current class and specified gather item.
         /// </summary>
-        /// <param name="className">The class name whose spell book should be used.</param>
+        /// <param name="itemRecord">The record for the gather item desired.</param>
         /// <returns>A single spell that will work for the specified class name.</returns>
-        private string GetGatheringSpell(string className)
+        private string GetGatheringSpell(ItemRecord itemRecord)
         {
             try
             {
-                switch (className)
+                string returnSpell = string.Empty;
+
+                if (Core.Me.CurrentJob.ToString() == "Miner")
                 {
-                    case "Miner":
-                        return "Sharp Vision II";
-                    case "Botanist":
-                        return "Leaf Turn I";
+                    if (Core.Me.ClassLevel >= 20)
+                    {
+                        switch (itemRecord.ItemName)
+                        {
+                            case "Fire Shard":
+                            case "Fire Crystal":
+                                return "Nald'thal's Ward";
+                            case "Lightning Shard":
+                            case "Lightning Crystal":
+                                return "Byregot's Ward";
+                            case "Water Shard":
+                            case "Water Crystal":
+                                return "Thaliak's Ward";
+                        }
+                    }
+
+                    // if no special shard spells have been applied, go with standard spells
+                    if (returnSpell == string.Empty)
+                    {
+                        returnSpell = "Sharp Vision II";
+                    }
+                }
+                else if (Core.Me.CurrentJob.ToString() == "Botanist")
+                {
+                    switch (itemRecord.ItemName)
+                    {
+                        case "Ice Shard":
+                        case "Ice Crystal":
+                            return "Menphina's Ward";
+                        case "Wind Shard":
+                        case "Wind Crystal":
+                            return "Llymlaen's Ward";
+                        case "Earth Shard":
+                        case "Earth Crystal":
+                            return "Nophica's Ward";
+                    }
+
+                    // if no special shard spells have been applied, go with standard spells
+                    if (returnSpell == string.Empty)
+                    {
+                        returnSpell = "Leaf Turn 1";
+                    }
                 }
 
-                throw new ApplicationException(string.Format("CONTACT DEVELOPER!  Could not determine a gathering spell for class type {0}; please update code.", className));
+                if (returnSpell != string.Empty)
+                {
+                    return returnSpell;
+                }
+
+                throw new ApplicationException(string.Format("CONTACT DEVELOPER!  Could not determine a gathering spell for class {0} and item {1}; please update code.", Core.Me.CurrentJob.ToString(), itemRecord.ItemName));
             }
             catch (Exception ex)
             {
