@@ -670,6 +670,7 @@ namespace GatherAssist
                 ////this.itemsTable.Rows.Add("Raw Malachite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227", NOSLOT); // flagged, investigate
                 this.itemsTable.Rows.Add("Raw Spinel", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", NOSLOT);
                 this.itemsTable.Rows.Add("Raw Tourmaline", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", NOSLOT);
+                this.itemsTable.Rows.Add("Rosewood Log", "Botanist", 4, "Mature Tree", 95, "-244.6034, 5.874526, 83.33171", 5);
                 this.itemsTable.Rows.Add("Ruby Tomato", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225", NOSLOT);
                 this.itemsTable.Rows.Add("Silex", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923", NOSLOT);
                 this.itemsTable.Rows.Add("Soiled Femur", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", NOSLOT);
@@ -678,6 +679,7 @@ namespace GatherAssist
                 this.itemsTable.Rows.Add("Wild Onion", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108", NOSLOT);
                 ////this.itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086", NOSLOT); // fix
                 this.itemsTable.Rows.Add("Wind Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", NOSLOT);
+                ////this.itemsTable.Rows.Add("Wind Shard", "Botanist", 4, "Mature Tree", 95, "-244.6034, 5.874526, 83.33171", 6); // need to support multiple items, not sure how to approach it.  Use this to test.
                 ////this.itemsTable.Rows.Add("Wyvern Obsidian", "Miner", 18, "Mineral Deposit", 60, "250.000,5.000,230.000", NOSLOT); // runs into a cliff and runs endlessly, investigate
                 this.itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", NOSLOT);
                 this.itemsTable.Rows.Add("Zinc Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", NOSLOT);
