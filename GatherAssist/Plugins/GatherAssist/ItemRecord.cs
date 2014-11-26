@@ -59,5 +59,11 @@ namespace GatherAssist
         /// Gets or sets the target location to begin searching for gatherable objects.
         /// </summary>
         public string Location { get; set; }
+
+        /// <summary>
+        /// Gets or sets the slot number in the gather window where this item can be found.  This will allow
+        ///  the bot to work even if the item has never been gathered by the current character.
+        /// </summary>
+        public int SlotNumber { get; set; }
     }
 }
