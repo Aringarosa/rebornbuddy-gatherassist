@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Plugins\GatherAssist\Content.cs" />
     <Compile Include="Plugins\GatherAssist\GatherAssist.cs" />
     <Compile Include="Plugins\GatherAssist\Settings\GatherAssistSettings.cs" />
     <Compile Include="Plugins\GatherAssist\GatherAssist_Form.cs">
