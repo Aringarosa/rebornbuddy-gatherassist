@@ -45,12 +45,12 @@ namespace GatherAssist
         public GatherAssist_Form(DataTable inItemsTable)
         {
             // TODO: validate inItemsTable parameter.
-            this.itemsTable = inItemsTable.Copy();
+            this.itemsTable = ReSort(inItemsTable, "ItemName", "ASC");
             this.InitializeComponent();
             this.textBoxUpdateInterval.Text = Convert.ToString(settings.UpdateIntervalMinutes);
             this.textBoxAutoSkipInterval.Text = Convert.ToString(settings.AutoSkipInterval);
             this.checkBoxAutoSkip.Checked = settings.AutoSkip;
-            this.RequestTable = this.itemsTable.DefaultView.ToTable(false, "ItemName");
+            this.RequestTable = this.itemsTable.DefaultView.ToTable(true, "ItemName");
             this.RequestTable.Rows.Clear();
             this.RequestTable.Columns[0].ReadOnly = true;
             this.RequestTable.Columns.Add(new DataColumn("Count", typeof(int)) { DefaultValue = 0 }); // requested count, defaults to 0
@@ -143,7 +143,7 @@ namespace GatherAssist
         /// </summary>
         private void UpdateSearchBox()
         {
-            this.resultsTable = this.itemsTable.DefaultView.ToTable(false, "ItemName");
+            this.resultsTable = this.itemsTable.DefaultView.ToTable(true, "ItemName");
 
             if (this.textBoxSearch.Text != string.Empty)
             {
