@@ -520,6 +520,7 @@ namespace GatherAssist
                     this.SetClass(itemRecord.ClassName); // switch class if necessary
                     string gatheringSpell = this.GetGatheringSpell(itemRecord); // get a gathering spell appropriate for this class
                     int timesToCast = (gatheringSpell == "Prospect" || gatheringSpell == "Triangulate") ? 2 : 1;
+
                     // construct profile using the chosen item record
                     string xmlContent = string.Format(
                         "<Profile><Name>{0}</Name><KillRadius>{1}</KillRadius><Order><If Condition=\"not IsOnMap({2}" +
@@ -819,11 +820,10 @@ namespace GatherAssist
                 // make sure gear sets exist
                 if (settings.GearSets == null)
                 {
+                    this.Log(LogMinorColor, "Gear sets are null, updating for initial list", true);
                     this.UpdateGearSets();
                     gearSetsUpdated = true; // make sure gear sets are not updated again in this script
                 }
-
-                string newClassString = newClass.ToString();
 
                 int targetGearSet = 0;
 
@@ -831,18 +831,23 @@ namespace GatherAssist
                 {
                     for (int i = 0; i < settings.GearSets.Length; i++)
                     {
-                        if (newClassString == settings.GearSets[i])
+                        ////this.Log(LogMinorColor, string.Format("TROUBLESHOOTING: Comparing desired class {0} to current GearSet class {1}", newClass, settings.GearSets[i]), true); // remove
+                        if (newClass == settings.GearSets[i])
                         {
+                            this.Log(LogMinorColor, string.Format("Choosing gear set {0}", i + 1), true);
                             targetGearSet = i + 1;
+                            break; // otherwise, it will pick the buggy last gear set
                         }
                     }
 
                     if (targetGearSet != 0)
                     {
+                        ////this.Log(LogMinorColor, string.Format("TROUBLESHOOTING: changing gear sets"), true);
                         ChatManager.SendChat(string.Format("/gs change {0}", targetGearSet));
                         Thread.Sleep(3000); // give the system time to register the class change
 
                         // if the class change didn't work, update gear sets; assuming the sets have been adjusted
+                        ////this.Log(LogMinorColor, string.Format("TROUBLESHOOTING: Comparing desired class {0} to current class {1}", newClass, Core.Me.CurrentJob.ToString()), true); // remove
                         if (newClass != Core.Me.CurrentJob.ToString())
                         {
                             this.Log(LogMajorColor, "Gear sets appear to have been adjusted, scanning gear sets for changes...");
@@ -855,7 +860,7 @@ namespace GatherAssist
 
                     if (gearSetsUpdated)
                     {
-                        throw new ApplicationException(string.Format("No gear set is available for the specified job class {0}; please check your gear sets.", newClassString));
+                        throw new ApplicationException(string.Format("No gear set is available for the specified job class {0}; please check your gear sets.", newClass));
                     }
                     else
                     {
