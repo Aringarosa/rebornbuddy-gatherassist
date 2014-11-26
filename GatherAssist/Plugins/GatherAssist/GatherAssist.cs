@@ -548,7 +548,7 @@ namespace GatherAssist
                     // if there is no valid slot number, use item naming logic instead
                     if (itemRecord.SlotNumber == NOSLOT)
                     {
-                        nameSlotSection = string.Format("<ItemNames><ItemName>{0}</ItemName></ItemNames>", itemRecord.SlotNumber);
+                        nameSlotSection = string.Format("<ItemNames><ItemName>{0}</ItemName></ItemNames>", itemRecord.ItemName);
                     }
                     else
                     {
