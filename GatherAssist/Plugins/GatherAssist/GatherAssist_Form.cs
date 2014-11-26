@@ -148,7 +148,7 @@ namespace GatherAssist
             if (this.textBoxSearch.Text != string.Empty)
             {
                 this.resultsTable.Rows.Clear();
-                foreach (DataRow resultRow in this.itemsTable.Select(string.Format("ItemName LIKE '%{0}%'", this.textBoxSearch.Text)))
+                foreach (DataRow resultRow in this.itemsTable.Select(string.Format("ItemName LIKE '%{0}%'", GatherAssist.FixQueryField(this.textBoxSearch.Text, 2))))
                 {
                     this.resultsTable.Rows.Add(resultRow["ItemName"]);
                 }
@@ -188,7 +188,7 @@ namespace GatherAssist
             }
 
             string itemName = Convert.ToString(this.dataGridViewResults.Rows[rowIndex].Cells[columnIndex].Value);
-            if (this.RequestTable.Select(string.Format("ItemName = '{0}'", itemName)).Length == 0)
+            if (this.RequestTable.Select(string.Format("ItemName = '{0}'", GatherAssist.FixQueryField(itemName, 1))).Length == 0)
             {
                 this.RequestTable.Rows.Add(itemName, 0);
             }

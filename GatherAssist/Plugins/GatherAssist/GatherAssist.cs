@@ -122,7 +122,7 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
-            get { return new Version(0, 3, 7); }
+            get { return new Version(0, 3, 8); }
         }
 
         /// <summary>
@@ -171,6 +171,24 @@ namespace GatherAssist
         private static Color LogErrorColor
         {
             get { return Colors.Red; }
+        }
+
+        /// <summary>
+        /// Escapes special characters in data table query syntax.
+        /// </summary>
+        /// <param name="field">The field value to be fixed.</param>
+        /// <param name="numberTimes">The number of times values should be escaped.  This allows use in double escape situations.</param>
+        /// <returns>The updated field value.</returns>
+        public static string FixQueryField(string field, int numberTimes)
+        {
+            string returnValue = field;
+
+            for (int i = 0; i < numberTimes; i++)
+            {
+                returnValue = returnValue.Replace("'", "''");
+            }
+
+            return returnValue;
         }
 
         /// <summary>
@@ -684,6 +702,135 @@ namespace GatherAssist
                 this.itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", NOSLOT);
                 this.itemsTable.Rows.Add("Zinc Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", NOSLOT);
                 //// TODO: add items table syntax validation; this can be tested before compile, create a test project.
+
+                // Field Survey: AIDs 1-10
+                this.itemsTable.Rows.Add("Allagan Snail", "Botanist", 3, "Mature Tree", 60, "61.01541, 4.252214, -174.6979", 0);
+                this.itemsTable.Rows.Add("Alligator Pear", "Botanist", 5, "Mature Tree", 60, "224.0834, 17.33236, -122.0438", 0);
+                this.itemsTable.Rows.Add("Ash Branch", "Botanist", 3, "Mature Tree", 60, "233.9021, -9.287003, -59.2255", 0);
+                this.itemsTable.Rows.Add("Ash Branch", "Botanist", 7, "Mature Tree", 60, "281.881, -22.99627, 139.9542", 0);
+                this.itemsTable.Rows.Add("Ash Log", "Botanist", 3, "Mature Tree", 60, "233.9021, -9.287003, -59.2255", 0);
+                this.itemsTable.Rows.Add("Ash Log", "Botanist", 7, "Mature Tree", 60, "281.881, -22.99627, 139.9542", 0);
+                this.itemsTable.Rows.Add("Beehive Chip", "Botanist", 7, "Mature Tree", 60, "242.0697, -23.3774, 290.0143", 0);
+                this.itemsTable.Rows.Add("Belladonna", "Botanist", 4, "Lush Vegetation Patch", 60, "-150.4986, -1.924852, 334.645", 0);
+                this.itemsTable.Rows.Add("Black Alumen", "Miner", 5, "Mineral Deposit", 60, "364.1767, -4.775018, 69.99052", 0);
+                this.itemsTable.Rows.Add("Blood Currants", "Botanist", 6, "Lush Vegetation Patch", 60, "-29.22734, -0.4312079, 364.1402", 0);
+                this.itemsTable.Rows.Add("Brown Pigment", "Botanist", 7, "Mature Tree", 60, "252.646, -9.157417, 13.05055", 0);
+                this.itemsTable.Rows.Add("Brown Pigment", "Miner", 10, "Rocky Outcrop", 60, "267.9286, 74.66428, -302.3478", 0);
+                this.itemsTable.Rows.Add("Buffalo Beans", "Botanist", 3, "Lush Vegetation Patch", 50, "-159.9534, 1.306874, -102.8071", 0);
+                this.itemsTable.Rows.Add("Carnation", "Botanist", 3, "Lush Vegetation Patch", 80, "62.98865, -8.831064, 122.1805", 0);
+                this.itemsTable.Rows.Add("Chanterelle", "Botanist", 3, "Lush Vegetation Patch", 80, "62.98865, -8.831064, 122.1805", 0);
+                this.itemsTable.Rows.Add("Chocobo Feather", "Botanist", 5, "Mature Tree", 60, "224.0834, 17.33236, -122.0438", 0);
+                this.itemsTable.Rows.Add("Cieldalaes Spinach", "Botanist", 10, "Lush Vegeration Patch", 60, "266.3692, 45.04897, 34.22172", 0);
+                this.itemsTable.Rows.Add("Cinderfoot Olive", "Botanist", 10, "Lush Vegeration Patch", 60, "266.3692, 45.04897, 34.22172", 0);
+                this.itemsTable.Rows.Add("Cinnamon", "Botanist", 7, "Mature Tree", 60, "242.0697, -23.3774, 290.0143", 0);
+                this.itemsTable.Rows.Add("Cotton Boll", "Botanist", 3, "Lush Vegetation Patch", 80, "62.98865, -8.831064, 122.1805", 0);
+                this.itemsTable.Rows.Add("Crow Feather", "Botanist", 3, "Mature Tree", 60, "233.9021, -9.287003, -59.2255", 0);
+                this.itemsTable.Rows.Add("Earth Rock", "Miner", 5, "Rocky Outcrop", 60, "55.40574, 5.669168, 12.8003", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Lush Vegeration Patch", 60, "266.3692, 45.04897, 34.22172", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 60, "530.2131, 75.17319, -277.4191", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 60, "664.8801, 65.41305, -216.592", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Lush Vegetation Patch", 60, "87.2282, -33.21325, 254.1546", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 60, "242.0697, -23.3774, 290.0143", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 60, "252.646, -9.157417, 13.05055", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 60, "281.881, -22.99627, 139.9542", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 60, "403.8246, -6.349792, 262.0765", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 60, "52.50433, -12.99726, -14.05974", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Mineral Deposit", 60, "308.8403, 68.79769, -143.7302", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "-7.995946, 41.8293, 684.2917", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "267.9286, 74.66428, -302.3478", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Miner", 7, "Mineral Deposit", 60, "203.0196, -4.636922, 29.95464", 0);
+                this.itemsTable.Rows.Add("Earth Shard", "Miner", 7, "Mineral Deposit", 60, "342.2458, -3.775561, 176.0148", 0);
+                this.itemsTable.Rows.Add("Effervescent Water", "Miner", 5, "Mineral Deposit", 60, "-271.2609, 15.10915, -84.62809", 0);
+                this.itemsTable.Rows.Add("Elm Log", "Botanist", 3, "Mature Tree", 50, "-43.49828, -6.881468, -74.46594", 0);
+                this.itemsTable.Rows.Add("Faerie Apple", "Botanist", 4, "Mature Tree", 60, "-325.5423, -0.854171, 275.6144", 0);
+                this.itemsTable.Rows.Add("Flax", "Botanist", 6, "Lush Vegetation Patch", 60, "-248.453, -0.4402871, 350.7661", 0);
+                this.itemsTable.Rows.Add("Galago Mint", "Botanist", 4, "Lush Vegetation Patch", 60, "-150.4986, -1.924852, 334.645", 0);
+                this.itemsTable.Rows.Add("Gil Bun", "Botanist", 4, "Lush Vegetation Patch", 60, "-150.4986, -1.924852, 334.645", 0);
+                this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Botanist", 3, "Mature Tree", 60, "158.9255, -24.59291, 471.9808", 0);
+                this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Botanist", 5, "Mature Tree", 60, "-209.3807, 8.241471, 14.18696", 0);
+                this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Botanist", 7, "Mature Tree", 60, "252.646, -9.157417, 13.05055", 0);
+                this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "267.9286, 74.66428, -302.3478", 0);
+                this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 4, "Rocky Outcrop", 60, "-62.15393, -10.53283, 288.2905", 0);
+                this.itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "-7.995946, 41.8293, 684.2917", 0);
+                this.itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 4, "Rocky Outcrop", 60, "-162.7803, -1.348187, 168.7855", 0);
+                this.itemsTable.Rows.Add("Granite", "Miner", 3, "Mineral Deposit", 60, "-380.6211, 50.77991, 20.49316", 0);
+                this.itemsTable.Rows.Add("Green Pigment", "Botanist", 3, "Mature Tree", 60, "158.9255, -24.59291, 471.9808", 0);
+                this.itemsTable.Rows.Add("Green Pigment", "Miner", 4, "Rocky Outcrop", 60, "-62.15393, -10.53283, 288.2905", 0);
+                this.itemsTable.Rows.Add("Grey Pigment", "Botanist", 5, "Mature Tree", 60, "-209.3807, 8.241471, 14.18696", 0);
+                this.itemsTable.Rows.Add("Gridanian Chestnut", "Botanist", 3, "Mature Tree", 50, "-43.49828, -6.881468, -74.46594", 0);
+                this.itemsTable.Rows.Add("Gridanian Walnut", "Botanist", 5, "Mature Tree", 60, "54.04222, 6.036263, 7.647984", 0);
+                this.itemsTable.Rows.Add("Highland Parsley", "Botanist", 10, "Lush Vegeration Patch", 60, "266.3692, 45.04897, 34.22172", 0);
+                this.itemsTable.Rows.Add("Humus", "Botanist", 3, "Lush Vegetation Patch", 50, "-159.9534, 1.306874, -102.8071", 0);
+                this.itemsTable.Rows.Add("Ice Rock", "Miner", 5, "Rocky Outcrop", 60, "55.40574, 5.669168, 12.8003", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Botanist", 3, "Mature Tree", 60, "61.01541, 4.252214, -174.6979", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 60, "-209.3807, 8.241471, 14.18696", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 60, "224.0834, 17.33236, -122.0438", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 60, "54.04222, 6.036263, 7.647984", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Lush Vegetation Patch", 60, "-248.453, -0.4402871, 350.7661", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Lush Vegetation Patch", 60, "-29.22734, -0.4312079, 364.1402", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Mature Tree", 60, "-229.608, -0.03202128, 443.5553", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 60, "-271.2609, 15.10915, -84.62809", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 60, "364.1767, -4.775018, 69.99052", 0);
+                this.itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Rocky Outcrop", 60, "55.40574, 5.669168, 12.8003", 0);
+                this.itemsTable.Rows.Add("Jade Peas", "Botanist", 7, "Lush Vegetation Patch", 60, "87.2282, -33.21325, 254.1546", 0);
+                this.itemsTable.Rows.Add("Kukuru Bean", "Botanist", 10, "Mature Tree", 60, "530.2131, 75.17319, -277.4191", 0);
+                this.itemsTable.Rows.Add("La Noscean Orange", "Botanist", 10, "Mature Tree", 60, "530.2131, 75.17319, -277.4191", 0);
+                this.itemsTable.Rows.Add("Latex", "Botanist", 3, "Mature Tree", 60, "61.01541, 4.252214, -174.6979", 0);
+                this.itemsTable.Rows.Add("Latex", "Botanist", 7, "Mature Tree", 60, "403.8246, -6.349792, 262.0765", 0);
+                this.itemsTable.Rows.Add("Lavender", "Botanist", 3, "Lush Vegetation Patch", 80, "62.98865, -8.831064, 122.1805", 0);
+                this.itemsTable.Rows.Add("Lowland Grapes", "Botanist", 10, "Lush Vegeration Patch", 60, "266.3692, 45.04897, 34.22172", 0);
+                this.itemsTable.Rows.Add("Maple Branch", "Botanist", 3, "Mature Tree", 60, "61.01541, 4.252214, -174.6979", 0);
+                this.itemsTable.Rows.Add("Maple Branch", "Botanist", 7, "Mature Tree", 60, "403.8246, -6.349792, 262.0765", 0);
+                this.itemsTable.Rows.Add("Maple Log", "Botanist", 3, "Mature Tree", 60, "61.01541, 4.252214, -174.6979", 0);
+                this.itemsTable.Rows.Add("Maple Log", "Botanist", 7, "Mature Tree", 60, "403.8246, -6.349792, 262.0765", 0);
+                this.itemsTable.Rows.Add("Maple Sap", "Botanist", 7, "Mature Tree", 60, "242.0697, -23.3774, 290.0143", 0);
+                this.itemsTable.Rows.Add("Marjoram", "Botanist", 3, "Lush Vegetation Patch", 50, "-159.9534, 1.306874, -102.8071", 0);
+                this.itemsTable.Rows.Add("Matron's Mistletoe", "Botanist", 5, "Mature Tree", 60, "54.04222, 6.036263, 7.647984", 0);
+                this.itemsTable.Rows.Add("Midland Cabbage", "Botanist", 7, "Lush Vegetation Patch", 60, "87.2282, -33.21325, 254.1546", 0);
+                this.itemsTable.Rows.Add("Moor Leech", "Botanist", 7, "Lush Vegetation Patch", 60, "87.2282, -33.21325, 254.1546", 0);
+                this.itemsTable.Rows.Add("Oak Branch", "Botanist", 6, "Mature Tree", 60, "-229.608, -0.03202128, 443.5553", 0);
+                this.itemsTable.Rows.Add("Oak Log", "Botanist", 6, "Mature Tree", 60, "-229.608, -0.03202128, 443.5553", 0);
+                this.itemsTable.Rows.Add("Potter's Clay", "Miner", 7, "Mineral Deposit", 60, "342.2458, -3.775561, 176.0148", 0);
+                this.itemsTable.Rows.Add("Raw Amethyst", "Miner", 3, "Mineral Deposit", 60, "-380.6211, 50.77991, 20.49316", 0);
+                this.itemsTable.Rows.Add("Raw Lapis Lazuli", "Miner", 7, "Mineral Deposit", 60, "342.2458, -3.775561, 176.0148", 0);
+                this.itemsTable.Rows.Add("Raw Peridot", "Miner", 3, "Mineral Deposit", 60, "-380.6211, 50.77991, 20.49316", 0);
+                this.itemsTable.Rows.Add("Raw Spinel", "Miner", 5, "Mineral Deposit", 60, "364.1767, -4.775018, 69.99052", 0);
+                this.itemsTable.Rows.Add("Raw Sunstone", "Miner", 10, "Mineral Deposit", 60, "308.8403, 68.79769, -143.7302", 0);
+                this.itemsTable.Rows.Add("Raw Tourmaline", "Miner", 5, "Mineral Deposit", 60, "364.1767, -4.775018, 69.99052", 0);
+                this.itemsTable.Rows.Add("Rosewood Branch", "Botanist", 4, "Mature Tree", 60, "-252.335, 6.061327, 85.4445", 0);
+                this.itemsTable.Rows.Add("Rosewood Log", "Botanist", 4, "Mature Tree", 60, "-252.335, 6.061327, 85.4445", 0);
+                this.itemsTable.Rows.Add("Shroud Seedling", "Botanist", 4, "Lush Vegetation Patch", 60, "-150.4986, -1.924852, 334.645", 0);
+                this.itemsTable.Rows.Add("Silver Ore", "Miner", 5, "Mineral Deposit", 60, "-271.2609, 15.10915, -84.62809", 0);
+                this.itemsTable.Rows.Add("Silver Sand", "Miner", 5, "Rocky Outcrop", 60, "55.40574, 5.669168, 12.8003", 0);
+                this.itemsTable.Rows.Add("Sun Lemon", "Botanist", 10, "Mature Tree", 60, "664.8801, 65.41305, -216.592", 0);
+                this.itemsTable.Rows.Add("Tatantula", "Botanist", 6, "Mature Tree", 60, "-229.608, -0.03202128, 443.5553", 0);
+                this.itemsTable.Rows.Add("Thyme", "Botanist", 6, "Lush Vegetation Patch", 60, "-29.22734, -0.4312079, 364.1402", 0);
+                this.itemsTable.Rows.Add("Tinolqa Mistletoe", "Botanist", 3, "Mature Tree", 60, "233.9021, -9.287003, -59.2255", 0);
+                this.itemsTable.Rows.Add("Tinolqa Mistletoe", "Botanist", 7, "Mature Tree", 60, "281.881, -22.99627, 139.9542", 0);
+                this.itemsTable.Rows.Add("Tree Toad", "Botanist", 3, "Lush Vegetation Patch", 50, "-159.9534, 1.306874, -102.8071", 0);
+                this.itemsTable.Rows.Add("Walnut Log", "Botanist", 5, "Mature Tree", 60, "54.04222, 6.036263, 7.647984", 0);
+                this.itemsTable.Rows.Add("White Truffle", "Botanist", 6, "Lush Vegetation Patch", 60, "-248.453, -0.4402871, 350.7661", 0);
+                this.itemsTable.Rows.Add("Wildfowl Feather", "Botanist", 6, "Lush Vegetation Patch", 60, "-248.453, -0.4402871, 350.7661", 0);
+                this.itemsTable.Rows.Add("Wind Crystal", "Botanist", 3, "Mature Tree", 60, "158.9255, -24.59291, 471.9808", 0);
+                this.itemsTable.Rows.Add("Wind Crystal", "Miner", 4, "Rocky Outcrop", 60, "-162.7803, -1.348187, 168.7855", 0);
+                this.itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 60, "55.40574, 5.669168, 12.8003", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Lush Vegetation Patch", 50, "-159.9534, 1.306874, -102.8071", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Lush Vegetation Patch", 80, "62.98865, -8.831064, 122.1805", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 50, "-43.49828, -6.881468, -74.46594", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 60, "158.9255, -24.59291, 471.9808", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 60, "233.9021, -9.287003, -59.2255", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 60, "61.01541, 4.252214, -174.6979", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 4, "Lush Vegetation Patch", 60, "-150.4986, -1.924852, 334.645", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 4, "Mature Tree", 60, "-252.335, 6.061327, 85.4445", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Botanist", 4, "Mature Tree", 60, "-325.5423, -0.854171, 275.6144", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Miner", 3, "Mineral Deposit", 60, "-380.6211, 50.77991, 20.49316", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Miner", 4, "Rocky Outcrop", 60, "-162.7803, -1.348187, 168.7855", 0);
+                this.itemsTable.Rows.Add("Wind Shard", "Miner", 4, "Rocky Outcrop", 60, "-62.15393, -10.53283, 288.2905", 0);
+                this.itemsTable.Rows.Add("Wizard Eggplant", "Botanist", 7, "Lush Vegetation Patch", 60, "87.2282, -33.21325, 254.1546", 0);
+                this.itemsTable.Rows.Add("Yellow Pigment", "Botanist", 7, "Mature Tree", 60, "252.646, -9.157417, 13.05055", 0);
+                this.itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 60, "267.9286, 74.66428, -302.3478", 0);
+                this.itemsTable.Rows.Add("Yew Branch", "Botanist", 4, "Mature Tree", 60, "-325.5423, -0.854171, 275.6144", 0);
+                this.itemsTable.Rows.Add("Yew Log", "Botanist", 4, "Mature Tree", 60, "-325.5423, -0.854171, 275.6144", 0);
             }
             catch (Exception ex)
             {
@@ -701,63 +848,68 @@ namespace GatherAssist
             try
             {
                 bool isValid = true;
-                DataRow[] itemRows = this.itemsTable.Select(string.Format("ItemName = '{0}'", itemName));
+                DataRow[] itemRows = this.itemsTable.Select(string.Format("ItemName = '{0}'", FixQueryField(itemName, 1)));
                 int itemCount = itemRows.Count<DataRow>();
-                if (itemCount > 1)
-                {
-                    this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item record {0} exists in {1} records; remove duplicates for this item before continuing.", itemName, itemCount));
-                    isValid = false;
-                }
-                else if (itemCount == 0)
+
+                if (itemCount == 0)
                 {
                     this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER! Requested item name {0} does not exist in the item table; plesae create a record for this item before continuing.", itemName));
-                    isValid = false;
-                }
-
-                if (!isValid)
-                {
                     gatherAssistTimer.Stop();
                     this.BotStop();
                 }
                 else
                 {
-                    DataRow itemRow = itemRows[0];
-                    ItemRecord itemRecord = new ItemRecord();
-                    itemRecord.ItemName = Convert.ToString(itemRow["ItemName"]);
-                    itemRecord.ClassName = Convert.ToString(itemRow["ClassName"]);
-                    itemRecord.AetheryteId = Convert.ToInt32(itemRow["AetheryteId"]);
-
-                    itemRecord.GatherObject = Convert.ToString(itemRow["GatherObject"]);
-                    itemRecord.HotspotRadius = Convert.ToInt32(itemRow["HotspotRadius"]);
-                    itemRecord.Location = Convert.ToString(itemRow["Location"]);
-                    itemRecord.SlotNumber = Convert.ToInt32(itemRow["SlotNumber"]);
-
-                    DataRow[] mapRows = this.mapsTable.Select(string.Format("AetheryteId = '{0}'", itemRecord.AetheryteId));
-                    int mapCount = mapRows.Count<DataRow>();
-
-                    if (mapCount > 1)
+                    foreach (DataRow curRow in itemRows)
                     {
-                        this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
-                        isValid = false;
-                    }
-                    else if (mapCount == 0)
-                    {
-                        this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
-                        isValid = false;
+                        if (WorldManager.HasAetheryteId(Convert.ToUInt32(curRow["AetheryteId"])))
+                        {
+                            DataRow itemRow = itemRows[0];
+                            ItemRecord itemRecord = new ItemRecord();
+                            itemRecord.ItemName = Convert.ToString(itemRow["ItemName"]);
+                            itemRecord.ClassName = Convert.ToString(itemRow["ClassName"]);
+                            itemRecord.AetheryteId = Convert.ToInt32(itemRow["AetheryteId"]);
+
+                            itemRecord.GatherObject = Convert.ToString(itemRow["GatherObject"]);
+                            itemRecord.HotspotRadius = Convert.ToInt32(itemRow["HotspotRadius"]);
+                            itemRecord.Location = Convert.ToString(itemRow["Location"]);
+                            itemRecord.SlotNumber = Convert.ToInt32(itemRow["SlotNumber"]);
+
+                            DataRow[] mapRows = this.mapsTable.Select(string.Format("AetheryteId = '{0}'", itemRecord.AetheryteId));
+                            int mapCount = mapRows.Count<DataRow>();
+
+                            if (mapCount > 1)
+                            {
+                                this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} exists in {1} records; remove duplicates for this aetheryte before continuing.", itemRecord.AetheryteId, mapCount));
+                                isValid = false;
+                            }
+                            else if (mapCount == 0)
+                            {
+                                this.Log(LogErrorColor, string.Format("CONTACT DEVELOPER!  Requested Aetheryte ID {0} does not exist in the maps table; please create a record for this aetheryte before continuing.", itemRecord.AetheryteId));
+                                isValid = false;
+                            }
+
+                            if (!isValid)
+                            {
+                                gatherAssistTimer.Stop();
+                                this.BotStop();
+                            }
+                            else
+                            {
+                                DataRow mapRow = mapRows[0];
+                                itemRecord.AetheryteName = Convert.ToString(mapRow["AetheryteName"]);
+                                itemRecord.MapNumber = Convert.ToInt32(mapRow["MapNumber"]);
+                                return itemRecord; // return completed itemRow
+                            }
+                        }
+                        else
+                        {
+                            this.Log(LogMinorColor, string.Format("Aetheryte ID {0} is not available, skipping this item record"), true);
+                        }
                     }
 
-                    if (!isValid)
-                    {
-                        gatherAssistTimer.Stop();
-                        this.BotStop();
-                    }
-                    else
-                    {
-                        DataRow mapRow = mapRows[0];
-                        itemRecord.AetheryteName = Convert.ToString(mapRow["AetheryteName"]);
-                        itemRecord.MapNumber = Convert.ToInt32(mapRow["MapNumber"]);
-                        return itemRecord; // return completed itemRow
-                    }
+                    this.Log(LogErrorColor, string.Format("No items records existed that could be gathered by this user.  Please check available Aetheryte IDs and update before continuing.", itemName));
+                    gatherAssistTimer.Stop();
+                    this.BotStop();
                 }
             }
             catch (Exception ex)
