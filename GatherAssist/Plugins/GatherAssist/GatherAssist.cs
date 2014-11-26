@@ -603,37 +603,7 @@ namespace GatherAssist
         {
             try
             {
-                this.mapsTable = new DataTable("maps");
-                this.mapsTable.Columns.Add("AetheryteId");
-                this.mapsTable.Columns.Add("AetheryteName");
-                this.mapsTable.Columns.Add("MapNumber");
-
-                this.mapsTable.Rows.Add(2, "New Gridania", 132);
-                this.mapsTable.Rows.Add(3, "Bentbranch Meadows", 148);
-                this.mapsTable.Rows.Add(4, "Hawthorne Hut", 152);
-                this.mapsTable.Rows.Add(5, "Quarrymill", 153);
-                this.mapsTable.Rows.Add(6, "Camp Tranquil", 153);
-                this.mapsTable.Rows.Add(7, "Fallgourd Float", 154);
-                this.mapsTable.Rows.Add(8, "Limsa Lominsa", 129);
-                this.mapsTable.Rows.Add(9, "Ul'dah", 130);
-                this.mapsTable.Rows.Add(10, "Moraby drydocks", 135);
-                this.mapsTable.Rows.Add(11, "Costa Del Sol", 137);
-                this.mapsTable.Rows.Add(12, "Wineport", 137);
-                this.mapsTable.Rows.Add(13, "Swiftperch", 138);
-                this.mapsTable.Rows.Add(14, "Aleport", 138);
-                this.mapsTable.Rows.Add(15, "Camp Bronze Lake", 139);
-                this.mapsTable.Rows.Add(16, "Camp Overlook", 180);
-                this.mapsTable.Rows.Add(17, "Horizon", 140);
-                this.mapsTable.Rows.Add(18, "Camp Drybone", 145);
-                this.mapsTable.Rows.Add(19, "Little Ala Mhigo", 146);
-                this.mapsTable.Rows.Add(20, "Forgotten Springs", 146);
-                this.mapsTable.Rows.Add(21, "Camp Bluefog", 147);
-                this.mapsTable.Rows.Add(22, "Ceruleum Processing Plant", 147);
-                this.mapsTable.Rows.Add(23, "Camp Dragonhead", 155);
-                this.mapsTable.Rows.Add(24, "Revenant's Toll", 154);
-                this.mapsTable.Rows.Add(52, "Summerford Farms", 134);
-                this.mapsTable.Rows.Add(53, "Black Brush Station", 141);
-                this.mapsTable.Rows.Add(55, "Wolves' Den Pier", 250);
+                this.mapsTable = Content.CreateMapsTable();
             }
             catch (Exception ex)
             {

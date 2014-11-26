@@ -212,5 +212,48 @@ namespace GatherAssist
 
             return itemsTable;
         }
+
+        /// <summary>
+        /// Creates and populates the Maps Table.
+        /// </summary>
+        /// <returns>A newly populated Maps Table.</returns>
+        public static DataTable CreateMapsTable()
+        {
+            DataTable mapsTable = new DataTable();
+
+            mapsTable = new DataTable("maps");
+            mapsTable.Columns.Add("AetheryteId");
+            mapsTable.Columns.Add("AetheryteName");
+            mapsTable.Columns.Add("MapNumber");
+
+            mapsTable.Rows.Add(2, "New Gridania", 132);
+            mapsTable.Rows.Add(3, "Bentbranch Meadows", 148);
+            mapsTable.Rows.Add(4, "Hawthorne Hut", 152);
+            mapsTable.Rows.Add(5, "Quarrymill", 153);
+            mapsTable.Rows.Add(6, "Camp Tranquil", 153);
+            mapsTable.Rows.Add(7, "Fallgourd Float", 154);
+            mapsTable.Rows.Add(8, "Limsa Lominsa", 129);
+            mapsTable.Rows.Add(9, "Ul'dah", 130);
+            mapsTable.Rows.Add(10, "Moraby drydocks", 135);
+            mapsTable.Rows.Add(11, "Costa Del Sol", 137);
+            mapsTable.Rows.Add(12, "Wineport", 137);
+            mapsTable.Rows.Add(13, "Swiftperch", 138);
+            mapsTable.Rows.Add(14, "Aleport", 138);
+            mapsTable.Rows.Add(15, "Camp Bronze Lake", 139);
+            mapsTable.Rows.Add(16, "Camp Overlook", 180);
+            mapsTable.Rows.Add(17, "Horizon", 140);
+            mapsTable.Rows.Add(18, "Camp Drybone", 145);
+            mapsTable.Rows.Add(19, "Little Ala Mhigo", 146);
+            mapsTable.Rows.Add(20, "Forgotten Springs", 146);
+            mapsTable.Rows.Add(21, "Camp Bluefog", 147);
+            mapsTable.Rows.Add(22, "Ceruleum Processing Plant", 147);
+            mapsTable.Rows.Add(23, "Camp Dragonhead", 155);
+            mapsTable.Rows.Add(24, "Revenant's Toll", 154);
+            mapsTable.Rows.Add(52, "Summerford Farms", 134);
+            mapsTable.Rows.Add(53, "Black Brush Station", 141);
+            mapsTable.Rows.Add(55, "Wolves' Den Pier", 250);
+
+            return mapsTable;
+        }
     }
 }
