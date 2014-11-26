@@ -561,7 +561,7 @@ namespace GatherAssist
                         ")\"><TeleportTo Name=\"{3}\" AetheryteId=\"{4}\" /></If><Gather while=\"True\"><GatherObject>{5}</GatherObject><HotSpots>" +
                         "<HotSpot Radius=\"{6}\" XYZ=\"{7}\" /></HotSpots>{8}<GatheringSkillOrder>" +
                         "<GatheringSkill SpellName=\"{9}\" TimesToCast=\"{10}\" /></GatheringSkillOrder></Gather></Order></Profile>",
-                        "Mining: " + itemRecord.ItemName,
+                        string.Format("{0}: {1}", itemRecord.ClassName, itemRecord.ItemName),
                         KillRadius,
                         itemRecord.MapNumber,
                         itemRecord.AetheryteName,
