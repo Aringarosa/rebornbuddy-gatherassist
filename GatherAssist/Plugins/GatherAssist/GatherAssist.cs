@@ -55,6 +55,11 @@ namespace GatherAssist
         private const uint BADITEM = 99999;
 
         /// <summary>
+        /// A code indicating that an item record slot number means nothing, and should not be used.
+        /// </summary>
+        private const int NOSLOT = -1;
+
+        /// <summary>
         /// Settings for this plugin which should be saved for later use.
         /// </summary>
         private static GatherAssistSettings settings = GatherAssistSettings.Instance;
@@ -523,7 +528,7 @@ namespace GatherAssist
                     string nameSlotSection = string.Empty; // to store the item name / slot portion of the profile
 
                     // if there is no valid slot number, use item naming logic instead
-                    if (itemRecord.SlotNumber == 0)
+                    if (itemRecord.SlotNumber == NOSLOT)
                     {
                         nameSlotSection = string.Format("<ItemNames><ItemName>{0}</ItemName></ItemNames>", itemRecord.SlotNumber);
                     }
@@ -634,48 +639,48 @@ namespace GatherAssist
                 this.itemsTable.Columns.Add("Location");
                 this.itemsTable.Columns.Add("SlotNumber");
 
-                this.itemsTable.Rows.Add("Alumen", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227", 0);
-                this.itemsTable.Rows.Add("Black Alumen", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", 0);
-                this.itemsTable.Rows.Add("Bomb Ash", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923", 0);
-                this.itemsTable.Rows.Add("Brown Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", 0);
-                this.itemsTable.Rows.Add("Button Mushroom", "Botanist", 18, "Lush Vegetation Patch", 80, "-344.0994, -28.06476, -41.86419", 0);
-                this.itemsTable.Rows.Add("Copper Ore", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519", 0);
-                this.itemsTable.Rows.Add("Desert Saffron", "Botanist", 19, "Lush Vegetation Patch", 80, "-41.3371, 2.250951, -645.2979", 0);
-                this.itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000", 0); // fix
-                this.itemsTable.Rows.Add("Earth Crystal", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", 0);
-                this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", 0);
-                this.itemsTable.Rows.Add("Electrum Ore", "Miner", 15, "Mineral Deposit", 95, "425.5676, -2.748671, 180.2855", 0);
-                this.itemsTable.Rows.Add("Electrum Sand", "Miner", 15, "Rocky Outcrop", 60, "333.2277, -3.4, 45.06057", 0);
-                this.itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753", 0);
-                this.itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519", 0);
-                this.itemsTable.Rows.Add("Flax", "Botanist", 6, "Lush Vegetation Patch", 80, "-258.2026, -0.427259, 368.3641", 0);
-                this.itemsTable.Rows.Add("Garlean Garlic", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108", 0);
-                this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", 0);
-                this.itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137", 0);
-                this.itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", 0);
-                this.itemsTable.Rows.Add("Iron Ore", "Miner", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282", 0);
-                this.itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", 0);
-                this.itemsTable.Rows.Add("Marble", "Miner", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000", 0);
-                this.itemsTable.Rows.Add("Midland Cabbage", "Botanist", 7, "Lush Vegetation Patch", 80, "87.74422, -35.93571, 237.9439", 0);
-                this.itemsTable.Rows.Add("Muddy Water", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519", 0);
-                this.itemsTable.Rows.Add("Mythril Ore", "Miner", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443", 0);
-                this.itemsTable.Rows.Add("Obsidian", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", 0);
-                this.itemsTable.Rows.Add("Raw Fluorite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227", 0);
-                this.itemsTable.Rows.Add("Raw Heliodor", "Miner", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443", 0);
-                ////this.itemsTable.Rows.Add("Raw Malachite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227", 0); // flagged, investigate
-                this.itemsTable.Rows.Add("Raw Spinel", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", 0);
-                this.itemsTable.Rows.Add("Raw Tourmaline", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", 0);
-                this.itemsTable.Rows.Add("Ruby Tomato", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225", 0);
-                this.itemsTable.Rows.Add("Silex", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923", 0);
-                this.itemsTable.Rows.Add("Soiled Femur", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", 0);
-                this.itemsTable.Rows.Add("Tin Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", 0);
-                this.itemsTable.Rows.Add("Water Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519", 0);
-                this.itemsTable.Rows.Add("Wild Onion", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108", 0);
-                ////this.itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086", 0); // fix
-                this.itemsTable.Rows.Add("Wind Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", 0);
-                ////this.itemsTable.Rows.Add("Wyvern Obsidian", "Miner", 18, "Mineral Deposit", 60, "250.000,5.000,230.000", 0); // runs into a cliff and runs endlessly, investigate
-                this.itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", 0);
-                this.itemsTable.Rows.Add("Zinc Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", 0);
+                this.itemsTable.Rows.Add("Alumen", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227", NOSLOT);
+                this.itemsTable.Rows.Add("Black Alumen", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", NOSLOT);
+                this.itemsTable.Rows.Add("Bomb Ash", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923", NOSLOT);
+                this.itemsTable.Rows.Add("Brown Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", NOSLOT);
+                this.itemsTable.Rows.Add("Button Mushroom", "Botanist", 18, "Lush Vegetation Patch", 80, "-344.0994, -28.06476, -41.86419", NOSLOT);
+                this.itemsTable.Rows.Add("Copper Ore", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519", NOSLOT);
+                this.itemsTable.Rows.Add("Desert Saffron", "Botanist", 19, "Lush Vegetation Patch", 80, "-41.3371, 2.250951, -645.2979", NOSLOT);
+                this.itemsTable.Rows.Add("Earth Cluster", "Miner", 10, "Rocky Outcrop", 60, "30.000,700.000,40.000", NOSLOT); // fix
+                this.itemsTable.Rows.Add("Earth Crystal", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", NOSLOT);
+                this.itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", NOSLOT);
+                this.itemsTable.Rows.Add("Electrum Ore", "Miner", 15, "Mineral Deposit", 95, "425.5676, -2.748671, 180.2855", NOSLOT);
+                this.itemsTable.Rows.Add("Electrum Sand", "Miner", 15, "Rocky Outcrop", 60, "333.2277, -3.4, 45.06057", NOSLOT);
+                this.itemsTable.Rows.Add("Fire Crystal", "Miner", 18, "Rocky Outcrop", 95, "140.7642, 7.528731, -98.47753", NOSLOT);
+                this.itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519", NOSLOT);
+                this.itemsTable.Rows.Add("Flax", "Botanist", 6, "Lush Vegetation Patch", 80, "-258.2026, -0.427259, 368.3641", NOSLOT);
+                this.itemsTable.Rows.Add("Garlean Garlic", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108", NOSLOT);
+                this.itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", NOSLOT);
+                this.itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 60, "21.32569, 43.12733, 717.137", NOSLOT);
+                this.itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", NOSLOT);
+                this.itemsTable.Rows.Add("Iron Ore", "Miner", 17, "Mineral Deposit", 95, "288.9167, 62.34205, -218.6282", NOSLOT);
+                this.itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", NOSLOT);
+                this.itemsTable.Rows.Add("Marble", "Miner", 15, "Rocky Outcrop", 60, "350.000,-3.000,40.000", NOSLOT);
+                this.itemsTable.Rows.Add("Midland Cabbage", "Botanist", 7, "Lush Vegetation Patch", 80, "87.74422, -35.93571, 237.9439", NOSLOT);
+                this.itemsTable.Rows.Add("Muddy Water", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519", NOSLOT);
+                this.itemsTable.Rows.Add("Mythril Ore", "Miner", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443", NOSLOT);
+                this.itemsTable.Rows.Add("Obsidian", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", NOSLOT);
+                this.itemsTable.Rows.Add("Raw Fluorite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227", NOSLOT);
+                this.itemsTable.Rows.Add("Raw Heliodor", "Miner", 20, "Mineral Deposit", 95, "181.7675, 3.287047, 962.0443", NOSLOT);
+                ////this.itemsTable.Rows.Add("Raw Malachite", "Miner", 18, "Mineral Deposit", 95, "-183.1978, -34.69329, -37.8227", NOSLOT); // flagged, investigate
+                this.itemsTable.Rows.Add("Raw Spinel", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", NOSLOT);
+                this.itemsTable.Rows.Add("Raw Tourmaline", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", NOSLOT);
+                this.itemsTable.Rows.Add("Ruby Tomato", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225", NOSLOT);
+                this.itemsTable.Rows.Add("Silex", "Miner", 20, "Rocky Outcrop", 95, "26.02704, 8.851164, 399.923", NOSLOT);
+                this.itemsTable.Rows.Add("Soiled Femur", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", NOSLOT);
+                this.itemsTable.Rows.Add("Tin Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", NOSLOT);
+                this.itemsTable.Rows.Add("Water Shard", "Miner", 17, "Mineral Deposit", 95, "264.0081,56.19608,206.0519", NOSLOT);
+                this.itemsTable.Rows.Add("Wild Onion", "Botanist", 17, "Lush Vegetation Patch", 80, "89.10497, 20.50989, 99.95108", NOSLOT);
+                ////this.itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 95, "45.63465, 6.407045, 8.635086", NOSLOT); // fix
+                this.itemsTable.Rows.Add("Wind Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", NOSLOT);
+                ////this.itemsTable.Rows.Add("Wyvern Obsidian", "Miner", 18, "Mineral Deposit", 60, "250.000,5.000,230.000", NOSLOT); // runs into a cliff and runs endlessly, investigate
+                this.itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 60, "232.073792, 73.82699, -289.451752", NOSLOT);
+                this.itemsTable.Rows.Add("Zinc Ore", "Miner", 17, "Mineral Deposit", 95, "42.69921,56.98661,349.928", NOSLOT);
                 //// TODO: add items table syntax validation; this can be tested before compile, create a test project.
             }
             catch (Exception ex)
