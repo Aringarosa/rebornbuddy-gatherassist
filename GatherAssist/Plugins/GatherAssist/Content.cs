@@ -32,6 +32,7 @@ namespace GatherAssist
             itemsTable.Columns.Add("ClassName");
             itemsTable.Columns.Add("AetheryteId");
             itemsTable.Columns.Add("GatherObject");
+            itemsTable.Columns.Add("ObjectLevel");
             itemsTable.Columns.Add("HotspotRadius");
             itemsTable.Columns.Add("Location");
             itemsTable.Columns.Add("SlotNumber");
