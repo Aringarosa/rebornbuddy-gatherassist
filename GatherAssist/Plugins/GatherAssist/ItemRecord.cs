@@ -51,6 +51,11 @@ namespace GatherAssist
         public string GatherObject { get; set; }
 
         /// <summary>
+        /// Gets or sets the level of the gather object.
+        /// </summary>
+        public int ObjectLevel { get; set; }
+
+        /// <summary>
         /// Gets or sets the radius from the target location where gather objects should be searched.
         /// </summary>
         public int HotspotRadius { get; set; }

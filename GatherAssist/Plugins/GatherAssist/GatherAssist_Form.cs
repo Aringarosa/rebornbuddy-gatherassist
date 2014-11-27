@@ -197,5 +197,18 @@ namespace GatherAssist
             this.RequestTable.Columns[0].ReadOnly = true;
             this.dataGridViewRequests.DataSource = this.RequestTable;
         }
+
+        /// <summary>
+        /// Handles the buttonValidationMode.Click event.  Loads all gatherable items into the request list with a present count.
+        ///  This is meant for validation only, and will likely be removed from the beta or production release.
+        /// </summary>
+        /// <param name="sender">The parameter is not used.</param>
+        /// <param name="e">The parameter is not used.</param>
+        private void ButtonValidationMode_Click(object sender, EventArgs e)
+        {
+            this.RequestTable = this.itemsTable.DefaultView.ToTable(true, "ItemName");
+            this.RequestTable.Columns.Add(new DataColumn() { ColumnName = "Count", DefaultValue = 1 });
+            this.dataGridViewRequests.DataSource = this.RequestTable;
+        }
     }
 }

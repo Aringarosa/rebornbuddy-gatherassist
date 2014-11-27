@@ -33,8 +33,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewRequests = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBoxAutoSkip = new System.Windows.Forms.CheckBox();
+            this.checkBoxHqOnly = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkBoxAutoSkip = new System.Windows.Forms.CheckBox();
             this.textBoxAutoSkipInterval = new System.Windows.Forms.TextBox();
             this.dataGridViewResults = new System.Windows.Forms.DataGridView();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
@@ -42,7 +43,7 @@
             this.labelRequestOptions = new System.Windows.Forms.Label();
             this.labelRequestList = new System.Windows.Forms.Label();
             this.labelInstructions = new System.Windows.Forms.Label();
-            this.checkBoxHqOnly = new System.Windows.Forms.CheckBox();
+            this.buttonValidationMode = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequests)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
@@ -97,15 +98,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
-            // checkBoxAutoSkip
+            // checkBoxHqOnly
             // 
-            this.checkBoxAutoSkip.AutoSize = true;
-            this.checkBoxAutoSkip.Location = new System.Drawing.Point(20, 19);
-            this.checkBoxAutoSkip.Name = "checkBoxAutoSkip";
-            this.checkBoxAutoSkip.Size = new System.Drawing.Size(69, 17);
-            this.checkBoxAutoSkip.TabIndex = 14;
-            this.checkBoxAutoSkip.Text = "AutoSkip";
-            this.checkBoxAutoSkip.UseVisualStyleBackColor = true;
+            this.checkBoxHqOnly.AutoSize = true;
+            this.checkBoxHqOnly.Location = new System.Drawing.Point(95, 19);
+            this.checkBoxHqOnly.Name = "checkBoxHqOnly";
+            this.checkBoxHqOnly.Size = new System.Drawing.Size(66, 17);
+            this.checkBoxHqOnly.TabIndex = 13;
+            this.checkBoxHqOnly.Text = "HQ Only";
+            this.checkBoxHqOnly.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -115,6 +116,16 @@
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 13;
             this.label1.Text = "AutoSkip Interval";
+            // 
+            // checkBoxAutoSkip
+            // 
+            this.checkBoxAutoSkip.AutoSize = true;
+            this.checkBoxAutoSkip.Location = new System.Drawing.Point(20, 19);
+            this.checkBoxAutoSkip.Name = "checkBoxAutoSkip";
+            this.checkBoxAutoSkip.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxAutoSkip.TabIndex = 14;
+            this.checkBoxAutoSkip.Text = "AutoSkip";
+            this.checkBoxAutoSkip.UseVisualStyleBackColor = true;
             // 
             // textBoxAutoSkipInterval
             // 
@@ -176,21 +187,22 @@
             this.labelInstructions.TabIndex = 12;
             this.labelInstructions.Text = "instructions";
             // 
-            // checkBoxHqOnly
+            // buttonValidationMode
             // 
-            this.checkBoxHqOnly.AutoSize = true;
-            this.checkBoxHqOnly.Location = new System.Drawing.Point(95, 19);
-            this.checkBoxHqOnly.Name = "checkBoxHqOnly";
-            this.checkBoxHqOnly.Size = new System.Drawing.Size(66, 17);
-            this.checkBoxHqOnly.TabIndex = 13;
-            this.checkBoxHqOnly.Text = "HQ Only";
-            this.checkBoxHqOnly.UseVisualStyleBackColor = true;
+            this.buttonValidationMode.Location = new System.Drawing.Point(158, 138);
+            this.buttonValidationMode.Name = "buttonValidationMode";
+            this.buttonValidationMode.Size = new System.Drawing.Size(107, 23);
+            this.buttonValidationMode.TabIndex = 13;
+            this.buttonValidationMode.Text = "Validation Mode";
+            this.buttonValidationMode.UseVisualStyleBackColor = true;
+            this.buttonValidationMode.Click += new System.EventHandler(this.ButtonValidationMode_Click);
             // 
             // GatherAssist_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(473, 619);
+            this.Controls.Add(this.buttonValidationMode);
             this.Controls.Add(this.labelInstructions);
             this.Controls.Add(this.labelRequestList);
             this.Controls.Add(this.labelRequestOptions);
@@ -228,5 +240,6 @@
         private System.Windows.Forms.TextBox textBoxAutoSkipInterval;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxHqOnly;
+        private System.Windows.Forms.Button buttonValidationMode;
     }
 }

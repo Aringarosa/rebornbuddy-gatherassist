@@ -658,6 +658,7 @@ namespace GatherAssist
                             itemRecord.AetheryteId = Convert.ToInt32(itemRow["AetheryteId"]);
 
                             itemRecord.GatherObject = Convert.ToString(itemRow["GatherObject"]);
+                            itemRecord.ObjectLevel = Convert.ToInt32(itemRow["ObjectLevel"]);
                             itemRecord.HotspotRadius = Convert.ToInt32(itemRow["HotspotRadius"]);
                             itemRecord.Location = Convert.ToString(itemRow["Location"]);
                             itemRecord.SlotNumber = Convert.ToInt32(itemRow["SlotNumber"]);
