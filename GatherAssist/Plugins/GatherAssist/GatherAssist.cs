@@ -122,7 +122,7 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
-            get { return new Version(0, 3, 8); }
+            get { return new Version(0, 3, 9); }
         }
 
         /// <summary>
