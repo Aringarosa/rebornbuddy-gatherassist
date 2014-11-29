@@ -152,6 +152,8 @@ namespace GatherAssist
                 {
                     this.resultsTable.Rows.Add(resultRow["ItemName"]);
                 }
+
+                this.resultsTable = this.resultsTable.DefaultView.ToTable(true); // remove duplicates
             }
 
             this.resultsTable.Columns[0].ReadOnly = true;
