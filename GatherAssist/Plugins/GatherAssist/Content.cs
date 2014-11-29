@@ -96,11 +96,11 @@ namespace GatherAssist
             itemsTable.Rows.Add("Dragon Pepper", "Botanist", 11, "Lush Vegetation Patch", 35, 80, "259.4367, 40.34094, 430.9537", 2);
             itemsTable.Rows.Add("Earth Rock", "Miner", 5, "Rocky Outcrop", 25, 60, "55.40574, 5.669168, 12.8003", 3);
             //itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Lush Vegetation Patch", 15, 60, "266.3692, 45.04897, 34.22172", 4); // buggy and too few nodes, don't use this one
-            //itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 10, 60, "530.2131, 75.17319, -277.4191", 4); // need to validate
-            //itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 20, 60, "664.8801, 65.41305, -216.592", 4); // need to validate
+            itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 10, 60, "530.2131, 75.17319, -277.4191", 4);
+            itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 20, 60, "664.8801, 65.41305, -216.592", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 15, "Lush Vegetation Patch", 45, 80, "638.3107, -3.304667, 153.4811", 4);
-            //itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Lush Vegetation Patch", 30, 80, "87.2282, -33.21325, 254.1546", 4); // need to validate
-            //itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 10, 60, "242.0697, -23.3774, 290.0143", 4); // need to validate
+            itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Lush Vegetation Patch", 30, 80, "87.2282, -33.21325, 254.1546", 4);
+            itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 10, 60, "242.0697, -23.3774, 290.0143", 4);
             //itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 30, 80, "252.646, -9.157417, 13.05055", 4); // need to validate
             //itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 5, 60, "281.881, -22.99627, 139.9542", 4); // need to validate
             //itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 5, 60, "403.8246, -6.349792, 262.0765", 4); // need to validate
@@ -120,17 +120,17 @@ namespace GatherAssist
             itemsTable.Rows.Add("Fine Sand", "Miner", 53, "Rocky Outcrop", 15, 80, "-356.4178, 0.6453676, 69.35533", 2);
             itemsTable.Rows.Add("Fire Shard", "Botanist", 18, "Lush Vegetation Patch", 20, 80, "-283.7762, -33.72977, 278.3234", 4);
             itemsTable.Rows.Add("Fire Shard", "Botanist", 18, "Lush Vegetation Patch", 25, 80, "-342.9444, -26.28499, -33.79862", 5);
-            //itemsTable.Rows.Add("Fire Shard", "Botanist", 52, "Mature Tree", 30, 80, "-230.5813, 14.96386, -368.5225", 4); // need to validate
-            //itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 5, 60, "264.2455, 56.165, 216.7509", 4); // need to validate
-            //itemsTable.Rows.Add("Fire Shard", "Miner", 18, "Mineral Deposit", 20, 80, "-182.4681, -34.45182, -41.76479", 4); // need to validate
-            //itemsTable.Rows.Add("Fire Shard", "Miner", 18, "Mineral Deposit", 30, 80, "254.8704, 5.450076, -220.241", 4); // need to validate
+            itemsTable.Rows.Add("Fire Shard", "Botanist", 52, "Mature Tree", 30, 80, "-230.5813, 14.96386, -368.5225", 4);
+            itemsTable.Rows.Add("Fire Shard", "Miner", 17, "Mineral Deposit", 5, 60, "264.2455, 56.165, 216.7509", 4);
+            itemsTable.Rows.Add("Fire Shard", "Miner", 18, "Mineral Deposit", 20, 80, "-182.4681, -34.45182, -41.76479", 4);
+            itemsTable.Rows.Add("Fire Shard", "Miner", 18, "Mineral Deposit", 30, 80, "254.8704, 5.450076, -220.241", 4);
             //itemsTable.Rows.Add("Fire Shard", "Miner", 18, "Mineral Deposit", 45, 80, "-451.0229, -13.26132, -118.5514", 4); // need to validate
             //itemsTable.Rows.Add("Fire Shard", "Miner", 18, "Rocky Outcrop", 30, 80, "138.6984, 7.975479, -92.46308", 4); // need to validate
             //itemsTable.Rows.Add("Fire Shard", "Miner", 52, "Lush Vegetation Patch", 15, 80, "51.5785, 52.90682, -112.3378", 4); // need to validate
             //itemsTable.Rows.Add("Fire Shard", "Miner", 52, "Rocky Outcrop", 20, 80, "-283.2861, 32.35982, -574.6313", 4); // need to validate
             itemsTable.Rows.Add("Flax", "Botanist", 6, "Lush Vegetation Patch", 35, 80, "-248.453, -0.4402871, 350.7661", 3);
             itemsTable.Rows.Add("Galago Mint", "Botanist", 4, "Lush Vegetation Patch", 20, 60, "-150.4986, -1.924852, 334.645", 5);
-            //itemsTable.Rows.Add("Garlean Garlic", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "98.04959, 19.84293, 95.2293", 2); // flagged
+            itemsTable.Rows.Add("Garlean Garlic", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "98.04959, 19.84293, 95.2293", 2);
             itemsTable.Rows.Add("Gil Bun", "Botanist", 4, "Lush Vegetation Patch", 20, 80, "-150.4986, -1.924852, 334.645", 6);
             itemsTable.Rows.Add("Grade 1 Carbonized Matter", "Botanist", 14, "Mature Tree", 20, 80, "269.2184, -14.18528, 131.3953", 0);
             itemsTable.Rows.Add("Grade 1 Carbonized Matter", "Miner", 52, "Rocky Outcrop", 20, 80, "-283.2861, 32.35982, -574.6313", 0);
@@ -140,10 +140,10 @@ namespace GatherAssist
             itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Botanist", 52, "Mature Tree", 30, 80, "-230.5813, 14.96386, -368.5225", 0);
             itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Botanist", 53, "Mature Tree", 30, 60, "159.5731, 10.81703, 453.5827", 0);
             itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Botanist", 7, "Mature Tree", 30, 80, "252.646, -9.157417, 13.05055", 0);
-            //itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 30, 60, "267.9286, 74.66428, -302.3478", 0); // need to validate
-            //itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 13, "Rocky Outcrop", 30, 80, "508.7396, 18.32228, 328.447", 0); // need to validate
-            //itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 17, "Rocky Outcrop", 30, 80, "88.5679, 20.55661, 100.7672", 0); // need to validate
-            //itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 18, "Rocky Outcrop", 30, 80, "138.6984, 7.975479, -92.46308", 0); // need to validate
+            itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 30, 60, "267.9286, 74.66428, -302.3478", 0);
+            itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 13, "Rocky Outcrop", 30, 80, "508.7396, 18.32228, 328.447", 0);
+            itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 17, "Rocky Outcrop", 30, 80, "88.5679, 20.55661, 100.7672", 0);
+            itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 18, "Rocky Outcrop", 30, 80, "138.6984, 7.975479, -92.46308", 0);
             //itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 19, "Rocky Outcrop", 30, 80, "-123.4877, 19.20007, -520.1481", 0); // need to validate
             //itemsTable.Rows.Add("Grade 2 Carbonized Matter", "Miner", 4, "Rocky Outcrop", 30, 60, "-62.15393, -10.53283, 288.2905", 0); // need to validate
             itemsTable.Rows.Add("Grade 3 Carbonized Matter", "Miner", 10, "Rocky Outcrop", 50, 60, "-7.995946, 41.8293, 684.2917", 0);
@@ -159,16 +159,16 @@ namespace GatherAssist
             itemsTable.Rows.Add("Grey Pigment", "Miner", 13, "Rocky Outcrop", 30, 80, "508.7396, 18.32228, 328.447", 5);
             itemsTable.Rows.Add("Gridanian Chestnut", "Botanist", 3, "Mature Tree", 15, 80, "-43.49828, -6.881468, -74.46594", 1);
             itemsTable.Rows.Add("Gridanian Walnut", "Botanist", 5, "Mature Tree", 25, 80, "54.04222, 6.036263, 7.647984", 1);
-            //itemsTable.Rows.Add("Highland Parsley", "Botanist", 10, "Lush Vegetation Patch", 15, 80, "266.3692, 45.04897, 34.22172", 6); // flagged
+            itemsTable.Rows.Add("Highland Parsley", "Botanist", 10, "Lush Vegetation Patch", 15, 80, "266.3692, 45.04897, 34.22172", 6);
             itemsTable.Rows.Add("Humus", "Botanist", 3, "Lush Vegetation Patch", 15, 80, "-159.9534, 1.306874, -102.8071", 6);
             //itemsTable.Rows.Add("Ice Crystal", "Miner", 13, "Rocky Outcrop", 50, 80, "711.1254, 28.62663, 409.9852", 5); // is this always here?
             itemsTable.Rows.Add("Ice Rock", "Miner", 5, "Rocky Outcrop", 25, 60, "55.40574, 5.669168, 12.8003", 5);
             itemsTable.Rows.Add("Ice Shard", "Botanist", 13, "Lush Vegetation Patch", 20, 80, "518.6508, 16.50845, 361.1047", 4);
             itemsTable.Rows.Add("Ice Shard", "Botanist", 14, "Mature Tree", 20, 80, "269.2184, -14.18528, 131.3953", 4);
-            //itemsTable.Rows.Add("Ice Shard", "Botanist", 3, "Mature Tree", 5, 60, "61.01541, 4.252214, -174.6979", 4); // need to validate
-            //itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 25, 60, "-209.3807, 8.241471, 14.18696", 4); // need to validate
-            //itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 30, 60, "224.0834, 17.33236, -122.0438", 4); // need to validate
-            //itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 30, 60, "54.04222, 6.036263, 7.647984", 4); // need to validate
+            itemsTable.Rows.Add("Ice Shard", "Botanist", 3, "Mature Tree", 5, 60, "61.01541, 4.252214, -174.6979", 4);
+            itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 25, 60, "-209.3807, 8.241471, 14.18696", 4);
+            itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 30, 60, "224.0834, 17.33236, -122.0438", 4);
+            itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 30, 60, "54.04222, 6.036263, 7.647984", 4);
             //itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Lush Vegetation Patch", 35, 60, "-248.453, -0.4402871, 350.7661", 4); // need to validate
             //itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Lush Vegetation Patch", 40, 60, "-29.22734, -0.4312079, 364.1402", 4); // need to validate
             //itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Mature Tree", 35, 60, "-229.608, -0.03202128, 443.5553", 4); // need to validate
@@ -187,7 +187,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Jade Peas", "Botanist", 7, "Lush Vegetation Patch", 30, 80, "87.2282, -33.21325, 254.1546", 2);
             itemsTable.Rows.Add("Jade", "Miner", 23, "Mineral Deposit", 40, 50, "127.6247, 286.0522, -71.48206", 6);
             itemsTable.Rows.Add("Kukuru Bean", "Botanist", 10, "Mature Tree", 10, 60, "530.2131, 75.17319, -277.4191", 1);
-            //itemsTable.Rows.Add("La Noscean Lettuce", "Miner", 52, "Lush Vegetation Patch", 15, 80, "51.5785, 52.90682, -112.3378", 5); // flagged
+            itemsTable.Rows.Add("La Noscean Lettuce", "Botanist", 52, "Lush Vegetation Patch", 15, 80, "51.5785, 52.90682, -112.3378", 5);
             itemsTable.Rows.Add("La Noscean Orange", "Botanist", 10, "Mature Tree", 10, 60, "530.2131, 75.17319, -277.4191", 2);
             itemsTable.Rows.Add("Lalafellin Lentil", "Botanist", 13, "Lush Vegetation Patch", 20, 80, "518.6508, 16.50845, 361.1047", 1);
             itemsTable.Rows.Add("Latex", "Botanist", 3, "Mature Tree", 5, 60, "61.01541, 4.252214, -174.6979", 3);
@@ -198,9 +198,9 @@ namespace GatherAssist
             itemsTable.Rows.Add("Lightning Shard", "Botanist", 19, "Lush Vegetation Patch", 30, 80, "-65.45716, 5.075618, -639.4241", 5);
             itemsTable.Rows.Add("Lightning Shard", "Botanist", 20, "Lush Vegetation Patch", 50, 80, "-385.8557, 9.669127, 526.6115", 4);
             itemsTable.Rows.Add("Lightning Shard", "Botanist", 53, "Lush Vegetation Patch", 15, 80, "178.4647, 0.9053299, -56.35048", 4);
-            //itemsTable.Rows.Add("Lightning Shard", "Botanist", 53, "Mature Tree", 10, 60, "68.77254, 1.497645, 240.9623", 4); // need to validate
-            //itemsTable.Rows.Add("Lightning Shard", "Botanist", 53, "Mature Tree", 20, 80, "-33.39082, -8.737234, -74.28648", 4); // need to validate
-            //itemsTable.Rows.Add("Lightning Shard", "Botanist", 53, "Mature Tree", 30, 60, "159.5731, 10.81703, 453.5827", 4); // need to validate
+            itemsTable.Rows.Add("Lightning Shard", "Botanist", 53, "Mature Tree", 10, 60, "68.77254, 1.497645, 240.9623", 4);
+            itemsTable.Rows.Add("Lightning Shard", "Botanist", 53, "Mature Tree", 20, 80, "-33.39082, -8.737234, -74.28648", 4);
+            itemsTable.Rows.Add("Lightning Shard", "Botanist", 53, "Mature Tree", 30, 60, "159.5731, 10.81703, 453.5827", 4);
             //itemsTable.Rows.Add("Lightning Shard", "Miner", 19, "Rocky Outcrop", 30, 80, "-123.4877, 19.20007, -520.1481", 4); // need to validate
             //itemsTable.Rows.Add("Lightning Shard", "Miner", 20, "Mineral Deposit", 35, 80, "191.0426, 3.207396, 946.3534", 4); // need to validate
             //itemsTable.Rows.Add("Lightning Shard", "Miner", 20, "Rocky Outcrop", 30, 80, "49.74483, 8.958487, 407.0746", 4); // need to validate
@@ -208,7 +208,7 @@ namespace GatherAssist
             //itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Mineral Deposit", 5, 80, "-128.7192, 3.458603, 215.4033", 5); // need to validate
             //itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Mineral Deposit", 5, 80, "113.5488, 1.701878, 281.9428", 5); // need to validate
             //itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Rocky Outcrop", 15, 80, "-356.4178, 0.6453676, 69.35533", 4); // need to validate
-            //itemsTable.Rows.Add("Limestone", "Miner", 14, "Rocky Outcrop", 20, 80, "267.3307, -15.57352, 142.8833", 3); // flagged
+            itemsTable.Rows.Add("Limestone", "Miner", 14, "Rocky Outcrop", 20, 80, "267.3307, -15.57352, 142.8833", 3);
             itemsTable.Rows.Add("Lowland Grapes", "Botanist", 10, "Lush Vegetation Patch", 15, 60, "266.3692, 45.04897, 34.22172", 2);
             itemsTable.Rows.Add("Mahogany Log", "Botanist", 12, "Mature Tree", 40, 80, "-101.0265, 42.08762, 192.7253", 5);
             itemsTable.Rows.Add("Maiden Artichoke", "Botanist", 12, "Lush Vegetation Patch", 40, 80, "-16.87076, 40.45821, 376.23", 0);
@@ -244,7 +244,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Popoto", "Botanist", 18, "Lush Vegetation Patch", 20, 80, "-283.7762, -33.72977, 278.3234", 6);
             itemsTable.Rows.Add("Potter's Clay", "Miner", 7, "Mineral Deposit", 10, 60, "342.2458, -3.775561, 176.0148", 3);
             itemsTable.Rows.Add("Purple Pigment", "Botanist", 53, "Mature Tree", 30, 60, "159.5731, 10.81703, 453.5827", 5);
-            //itemsTable.Rows.Add("Purple Pigment", "Miner", 19, "Rocky Outcrop", 30, 80, "-123.4877, 19.20007, -520.1481", 5); // need to validate
+            itemsTable.Rows.Add("Purple Pigment", "Miner", 19, "Rocky Outcrop", 30, 80, "-123.4877, 19.20007, -520.1481", 5);
             itemsTable.Rows.Add("Ragstone", "Miner", 53, "Rocky Outcrop", 15, 80, "-356.4178, 0.6453676, 69.35533", 1);
             itemsTable.Rows.Add("Ramhorn Zucchini", "Botanist", 12, "Lush Vegetation Patch", 40, 80, "-16.87076, 40.45821, 376.23", 1);
             itemsTable.Rows.Add("Raw Amber", "Miner", 18, "Mineral Deposit", 45, 80, "-451.0229, -13.26132, -118.5514", 5);
@@ -270,33 +270,33 @@ namespace GatherAssist
             itemsTable.Rows.Add("Rolanberry", "Botanist", 15, "Lush Vegetation Patch", 45, 80, "638.3107, -3.304667, 153.4811", 1);
             itemsTable.Rows.Add("Rosewood Branch", "Botanist", 4, "Mature Tree", 50, 80, "-252.335, 6.061327, 85.4445", 2);
             itemsTable.Rows.Add("Rosewood Log", "Botanist", 4, "Mature Tree", 50, 60, "-252.335, 6.061327, 85.4445", 5);
-            //itemsTable.Rows.Add("Ruby Tomato", "Miner", 52, "Lush Vegetation Patch", 15, 80, "51.5785, 52.90682, -112.3378", 1); // flagged
+            itemsTable.Rows.Add("Ruby Tomato", "Botanist", 52, "Lush Vegetation Patch", 15, 80, "51.5785, 52.90682, -112.3378", 1);
             itemsTable.Rows.Add("Rye", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "146.4175, 49.39901, -111.9525", 2);
             itemsTable.Rows.Add("Sagolii Sage", "Botanist", 15, "Lush Vegetation Patch", 45, 80, "638.3107, -3.304667, 153.4811", 5);
-            //itemsTable.Rows.Add("Salk Leek", "Botanist", 11, "Lush Vegetation Patch", 35, 80, "259.4367, 40.34094, 430.9537", 6); // flagged
+            itemsTable.Rows.Add("Salt Leek", "Botanist", 11, "Lush Vegetation Patch", 35, 80, "259.4367, 40.34094, 430.9537", 6);
             itemsTable.Rows.Add("Shroud Seedling", "Botanist", 4, "Lush Vegetation Patch", 20, 80, "-150.4986, -1.924852, 334.645", 7);
             itemsTable.Rows.Add("Silex", "Miner", 20, "Rocky Outcrop", 30, 80, "49.74483, 8.958487, 407.0746", 1);
             itemsTable.Rows.Add("Silver Ore", "Miner", 5, "Mineral Deposit", 25, 60, "-271.2609, 15.10915, -84.62809", 5);
             itemsTable.Rows.Add("Silver Sand", "Miner", 5, "Rocky Outcrop", 25, 60, "55.40574, 5.669168, 12.8003", 1);
-            //itemsTable.Rows.Add("Soiled Femur", "Miner", 17, "Mineral Deposit", 10, 70, "42.55082, 57.27194, 353.5192", 3); // flagged
+            itemsTable.Rows.Add("Soiled Femur", "Miner", 17, "Mineral Deposit", 10, 70, "42.55082, 57.27194, 353.5192", 3);
             itemsTable.Rows.Add("Soiled Femur", "Miner", 53, "Mineral Deposit", 10, 60, "-66.32383, -4.023734, 45.27408", 3);
             itemsTable.Rows.Add("Straw", "Botanist", 52, "Lush Vegetation Patch", 15, 80, "51.5785, 52.90682, -112.3378", 3);
             itemsTable.Rows.Add("Sun Lemon", "Botanist", 10, "Mature Tree", 20, 60, "664.8801, 65.41305, -216.592", 1);
-            //itemsTable.Rows.Add("Sunrise Tellin", "Miner", 14, "Mineral Deposit", 20, 80, "353.6206, 2.336102, 74.7085", 0); // flagged
+            itemsTable.Rows.Add("Sunrise Tellin", "Miner", 14, "Mineral Deposit", 20, 80, "353.6206, 2.336102, 74.7085", 0);
             itemsTable.Rows.Add("Sunset Wheat", "Botanist", 52, "Lush Vegetation Patch", 15, 80, "51.5785, 52.90682, -112.3378", 2);
             itemsTable.Rows.Add("Tarantula", "Botanist", 6, "Mature Tree", 35, 60, "-229.608, -0.03202128, 443.5553", 0);
             itemsTable.Rows.Add("Thanalan Tea Leaves", "Botanist", 20, "Lush Vegetation Patch", 50, 80, "-385.8557, 9.669127, 526.6115", 5);
             itemsTable.Rows.Add("Thyme", "Botanist", 6, "Lush Vegetation Patch", 40, 60, "-29.22734, -0.4312079, 364.1402", 5);
             itemsTable.Rows.Add("Tin Ore", "Miner", 17, "Mineral Deposit", 10, 70, "42.55082, 57.27194, 353.5192", 1);
-            //itemsTable.Rows.Add("Tin Ore", "Miner", 53, "Mineral Deposit", 10, 60, "-66.32383, -4.023734, 45.27408", 1); // need to validate
+            itemsTable.Rows.Add("Tin Ore", "Miner", 53, "Mineral Deposit", 10, 60, "-66.32383, -4.023734, 45.27408", 1);
             itemsTable.Rows.Add("Tinolqa Mistletoe", "Botanist", 3, "Mature Tree", 10, 60, "233.9021, -9.287003, -59.2255", 7);
             itemsTable.Rows.Add("Tinolqa Mistletoe", "Botanist", 7, "Mature Tree", 10, 60, "281.881, -22.99627, 139.9542", 7);
             itemsTable.Rows.Add("Tree Toad", "Botanist", 3, "Lush Vegetation Patch", 15, 50, "-159.9534, 1.306874, -102.8071", 7);
             itemsTable.Rows.Add("Walnut Log", "Botanist", 5, "Mature Tree", 25, 60, "54.04222, 6.036263, 7.647984", 5);
             itemsTable.Rows.Add("Water Shard", "Botanist", 11, "Lush Vegetation Patch", 35, 80, "259.4367, 40.34094, 430.9537", 4);
-            //itemsTable.Rows.Add("Water Shard", "Botanist", 11, "Mature Tree", 30, 80, "313.3577, 34.86708, 612.363", 4); // need to validate
-            //itemsTable.Rows.Add("Water Shard", "Botanist", 12, "Lush Vegetation Patch", 40, 80, "-16.87076, 40.45821, 376.23", 4); // need to validate
-            //itemsTable.Rows.Add("Water Shard", "Botanist", 12, "Mature Tree", 40, 80, "-101.0265, 42.08762, 192.7253", 4); // need to validate
+            itemsTable.Rows.Add("Water Shard", "Botanist", 11, "Mature Tree", 30, 80, "313.3577, 34.86708, 612.363", 4);
+            itemsTable.Rows.Add("Water Shard", "Botanist", 12, "Lush Vegetation Patch", 40, 80, "-16.87076, 40.45821, 376.23", 4);
+            itemsTable.Rows.Add("Water Shard", "Botanist", 12, "Mature Tree", 40, 80, "-101.0265, 42.08762, 192.7253", 4);
             //itemsTable.Rows.Add("Water Shard", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "146.4175, 49.39901, -111.9525", 4); // need to validate
             //itemsTable.Rows.Add("Water Shard", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "98.04959, 19.84293, 95.2293", 4); // need to validate
             //itemsTable.Rows.Add("Water Shard", "Miner", 11, "Mineral Deposit", 35, 80, "395.1724, 28.4377, 299.5383", 4); // need to validate
@@ -310,14 +310,14 @@ namespace GatherAssist
             itemsTable.Rows.Add("White Truffle", "Botanist", 6, "Lush Vegetation Patch", 35, 60, "-248.453, -0.4402871, 350.7661", 6);
             itemsTable.Rows.Add("Wild Onion", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "98.04959, 19.84293, 95.2293", 7);
             itemsTable.Rows.Add("Wildfowl Feather", "Botanist", 6, "Lush Vegetation Patch", 35, 60, "-248.453, -0.4402871, 350.7661", 0);
-            itemsTable.Rows.Add("Wind Crystal", "Botanist", 3, "Mature Tree", 30, 60, "158.9255, -24.59291, 471.9808", 6);
-            //itemsTable.Rows.Add("Wind Crystal", "Miner", 4, "Rocky Outcrop", 50, 60, "-162.7803, -1.348187, 168.7855", 5); // item not present here, not sure what happened
+            //itemsTable.Rows.Add("Wind Crystal", "Botanist", 3, "Mature Tree", 30, 60, "158.9255, -24.59291, 471.9808", 6); // rethink crystals, the positions move.
+            //itemsTable.Rows.Add("Wind Crystal", "Miner", 4, "Rocky Outcrop", 50, 60, "-162.7803, -1.348187, 168.7855", 5); // rethink crystals, the positions move.
             itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 25, 60, "55.40574, 5.669168, 12.8003", 6);
             //itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Lush Vegetation Patch", 15, 50, "-159.9534, 1.306874, -102.8071", 4); //nothing in range, don't use this one
-            //itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Lush Vegetation Patch", 15, 80, "62.98865, -8.831064, 122.1805", 4); // need to validate
-            //itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 10, 50, "-43.49828, -6.881468, -74.46594", 4); // need to validate
-            //itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 15, 60, "158.9255, -24.59291, 471.9808", 4); // need to validate
-            //itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 30, 60, "233.9021, -9.287003, -59.2255", 4); // need to validate
+            itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Lush Vegetation Patch", 15, 80, "62.98865, -8.831064, 122.1805", 4);
+            itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 10, 50, "-43.49828, -6.881468, -74.46594", 4);
+            itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 15, 60, "158.9255, -24.59291, 471.9808", 4);
+            itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 30, 60, "233.9021, -9.287003, -59.2255", 4);
             //itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 5, 60, "61.01541, 4.252214, -174.6979", 5); // need to validate
             //itemsTable.Rows.Add("Wind Shard", "Botanist", 4, "Lush Vegetation Patch", 20, 60, "-150.4986, -1.924852, 334.645", 4); // need to validate
             //itemsTable.Rows.Add("Wind Shard", "Botanist", 4, "Mature Tree", 15, 60, "-325.5423, -0.854171, 275.6144", 4); // need to validate
@@ -331,13 +331,13 @@ namespace GatherAssist
             //itemsTable.Rows.Add("Wind Shard", "Miner", 53, "Mineral Deposit", 5, 80, "113.5488, 1.701878, 281.9428", 4); // need to validate
             itemsTable.Rows.Add("Wizard Eggplant", "Botanist", 7, "Lush Vegetation Patch", 30, 80, "87.2282, -33.21325, 254.1546", 1);
             itemsTable.Rows.Add("Wyvern Obsidian", "Miner", 18, "Mineral Deposit", 30, 80, "254.8704, 5.450076, -220.241", 7);
-            //itemsTable.Rows.Add("Yellow Ginseng", "Botanist", 53, "Lush Vegetation Patch", 15, 80, "178.4647, 0.9053299, -56.35048", 5); // flagged
+            itemsTable.Rows.Add("Yellow Ginseng", "Botanist", 53, "Lush Vegetation Patch", 15, 80, "178.4647, 0.9053299, -56.35048", 5);
             itemsTable.Rows.Add("Yellow Pigment", "Botanist", 7, "Mature Tree", 30, 80, "252.646, -9.157417, 13.05055", 5);
             itemsTable.Rows.Add("Yellow Pigment", "Miner", 10, "Rocky Outcrop", 30, 60, "267.9286, 74.66428, -302.3478", 5);
             itemsTable.Rows.Add("Yew Branch", "Botanist", 4, "Mature Tree", 20, 60, "-325.5423, -0.854171, 275.6144", 2);
             itemsTable.Rows.Add("Yew Log", "Botanist", 4, "Mature Tree", 20, 60, "-325.5423, -0.854171, 275.6144", 5);
             itemsTable.Rows.Add("Zinc Ore", "Miner", 17, "Mineral Deposit", 10, 70, "42.55082, 57.27194, 353.5192", 2);
-            //itemsTable.Rows.Add("Zinc Ore", "Miner", 53, "Mineral Deposit", 10, 60, "-66.32383, -4.023734, 45.27408", 2); // need to validate
+            itemsTable.Rows.Add("Zinc Ore", "Miner", 53, "Mineral Deposit", 10, 60, "-66.32383, -4.023734, 45.27408", 2);
 
             return itemsTable;
         }
