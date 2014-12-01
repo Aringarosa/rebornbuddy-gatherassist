@@ -122,7 +122,7 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
-            get { return new Version(0, 4, 0); }
+            get { return new Version(0, 9, 0); }
         }
 
         /// <summary>
@@ -210,6 +210,7 @@ namespace GatherAssist
                 if (this.form.DialogResult == DialogResult.OK)
                 {
                     this.InitializeRequestList(this.form.RequestTable); // reinitialize from updated settings
+                    gatherAssistTimer.Interval = settings.UpdateIntervalMinutes * 60000;
                     gatherAssistTimer.Start();
                     this.ElapseTimer(); // immediately elapse timer to check item counts and set correct profile
                 }
@@ -887,25 +888,61 @@ namespace GatherAssist
         {
             try
             {
+                // handle shard-specific spells.  Allows for any class, if the cross-class skills are enabled.
+                switch (itemRecord.ItemName)
+                {
+                    case "Fire Shard":
+                    case "Fire Crystal":
+                    case "Fire Cluster":
+                        if (Actionmanager.HasSpell("Nald'thal's Ward"))
+                        {
+                            return "Nald'thal's Ward";
+                        }
+                        break;
+                    case "Lightning Shard":
+                    case "Lightning Crystal":
+                    case "Lightning Cluster":
+                        if (Actionmanager.HasSpell("Byregot's Ward"))
+                        {
+                            return "Byregot's Ward";
+                        }
+                        break;
+                    case "Water Shard":
+                    case "Water Crystal":
+                    case "Water Cluster":
+                        if (Actionmanager.HasSpell("Thaliak's Ward"))
+                        {
+                            return "Thaliak's Ward";
+                        }
+                        break;
+                    case "Ice Shard":
+                    case "Ice Crystal":
+                    case "Ice Cluster":
+                        if (Actionmanager.HasSpell("Menphina's Ward"))
+                        {
+                            return "Menphina's Ward";
+                        }
+                        break;
+                    case "Wind Shard":
+                    case "Wind Crystal":
+                    case "Wind Cluster":
+                        if (Actionmanager.HasSpell("Llymlaen's Ward"))
+                        {
+                            return "Llymlaen's Ward";
+                        }
+                        break;
+                    case "Earth Shard":
+                    case "Earth Crystal":
+                    case "Earth Cluster":
+                        if (Actionmanager.HasSpell("Nophica's Ward"))
+                        {
+                            return "Nophica's Ward";
+                        }
+                        break;
+                }
+
                 if (Core.Me.CurrentJob.ToString() == "Miner")
                 {
-                    // handle shard-specific spells
-                    if (Core.Me.ClassLevel >= 20)
-                    {
-                        switch (itemRecord.ItemName)
-                        {
-                            case "Fire Shard":
-                            case "Fire Crystal":
-                                return "Nald'thal's Ward";
-                            case "Lightning Shard":
-                            case "Lightning Crystal":
-                                return "Byregot's Ward";
-                            case "Water Shard":
-                            case "Water Crystal":
-                                return "Thaliak's Ward";
-                        }
-                    }
-
                     // handle level-specific spells
                     if (Core.Me.ClassLevel >= 35)
                     {
@@ -934,23 +971,6 @@ namespace GatherAssist
                 }
                 else if (Core.Me.CurrentJob.ToString() == "Botanist")
                 {
-                    // handle shard-specific spells
-                    if (Core.Me.ClassLevel >= 20)
-                    {
-                        switch (itemRecord.ItemName)
-                        {
-                            case "Ice Shard":
-                            case "Ice Crystal":
-                                return "Menphina's Ward";
-                            case "Wind Shard":
-                            case "Wind Crystal":
-                                return "Llymlaen's Ward";
-                            case "Earth Shard":
-                            case "Earth Crystal":
-                                return "Nophica's Ward";
-                        }
-                    }
-
                     // handle level-specific spells
                     if (Core.Me.ClassLevel >= 35)
                     {
