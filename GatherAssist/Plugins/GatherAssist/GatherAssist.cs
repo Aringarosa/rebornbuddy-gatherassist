@@ -898,6 +898,7 @@ namespace GatherAssist
                         {
                             return "Nald'thal's Ward";
                         }
+                        
                         break;
                     case "Lightning Shard":
                     case "Lightning Crystal":
@@ -906,6 +907,7 @@ namespace GatherAssist
                         {
                             return "Byregot's Ward";
                         }
+
                         break;
                     case "Water Shard":
                     case "Water Crystal":
@@ -914,6 +916,7 @@ namespace GatherAssist
                         {
                             return "Thaliak's Ward";
                         }
+
                         break;
                     case "Ice Shard":
                     case "Ice Crystal":
@@ -922,6 +925,7 @@ namespace GatherAssist
                         {
                             return "Menphina's Ward";
                         }
+
                         break;
                     case "Wind Shard":
                     case "Wind Crystal":
@@ -930,6 +934,7 @@ namespace GatherAssist
                         {
                             return "Llymlaen's Ward";
                         }
+
                         break;
                     case "Earth Shard":
                     case "Earth Crystal":
@@ -938,6 +943,7 @@ namespace GatherAssist
                         {
                             return "Nophica's Ward";
                         }
+
                         break;
                 }
 
