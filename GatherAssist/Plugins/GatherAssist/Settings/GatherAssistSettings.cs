@@ -75,5 +75,17 @@ namespace GatherAssist.Settings
         /// </summary>
         [Setting]
         public bool HqOnly { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the app should log out when gathering is complete.
+        /// </summary>
+        [Setting]
+        public bool LogoutWhenFinished { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the app should play an alert sound when gathering is complete.
+        /// </summary>
+        [Setting]
+        public bool SoundWhenFinished { get; set; }
     }
 }

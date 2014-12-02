@@ -50,6 +50,9 @@ namespace GatherAssist
             this.textBoxUpdateInterval.Text = Convert.ToString(settings.UpdateIntervalMinutes);
             this.textBoxAutoSkipInterval.Text = Convert.ToString(settings.AutoSkipInterval);
             this.checkBoxAutoSkip.Checked = settings.AutoSkip;
+            this.checkBoxHqOnly.Checked = settings.HqOnly;
+            this.checkBoxLogoutWhenFinished.Checked = settings.LogoutWhenFinished;
+            this.checkBoxSoundWhenFinished.Checked = settings.SoundWhenFinished;
             this.RequestTable = this.itemsTable.DefaultView.ToTable(true, "ItemName");
             this.RequestTable.Rows.Clear();
             this.RequestTable.Columns[0].ReadOnly = true;
@@ -111,6 +114,8 @@ namespace GatherAssist
             settings.AutoSkip = this.checkBoxAutoSkip.Checked;
             settings.AutoSkipInterval = System.Convert.ToInt32(this.textBoxAutoSkipInterval.Text);
             settings.HqOnly = this.checkBoxHqOnly.Checked;
+            settings.LogoutWhenFinished = this.checkBoxLogoutWhenFinished.Checked;
+            settings.SoundWhenFinished = this.checkBoxSoundWhenFinished.Checked;
             
             DataTable oldTable = ((DataTable)this.dataGridViewRequests.DataSource).Copy();
             this.RequestTable = oldTable.Clone();

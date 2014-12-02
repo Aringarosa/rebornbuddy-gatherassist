@@ -174,6 +174,19 @@ namespace GatherAssist
         }
 
         /// <summary>
+        /// Allows the program to send key strokes directly to FFXIV.
+        /// </summary>
+        /// <param name="hWnd">Handle for the FFXIV window.</param>
+        /// <param name="Msg">The instruction.  Key down or key up for this purpose.</param>
+        /// <param name="wParam">The key which should be sent.</param>
+        /// <param name="lParam">Not used.</param>
+        /// <returns>The result of the message.  Not used in this program.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Using Win32 naming for consistency.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter", Justification = "Using Win32 naming for consistency.")]
+        [DllImport("user32.dll")]
+        public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        /// <summary>
         /// Escapes special characters in data table query syntax.
         /// </summary>
         /// <param name="field">The field value to be fixed.</param>
@@ -373,6 +386,33 @@ namespace GatherAssist
                     this.Log(LogMajorColor, "Gather requests complete!  GatherAssist will stop now.");
                     gatherAssistTimer.Stop();
                     this.BotStop();
+
+                    if (settings.SoundWhenFinished)
+                    {
+                        Console.Beep(1000, 500);
+                        Console.Beep(1500, 500);
+                        Console.Beep(1000, 1000);
+                    }
+
+                    if (settings.LogoutWhenFinished)
+                    {
+                        const uint WM_KEYDOWN = 0x100;
+                        const uint WM_KEYUP = 0x0101;
+                        IntPtr handle = Core.Memory.Process.MainWindowHandle;
+
+                        ChatManager.SendChat("/shutdown");
+                        Thread.Sleep(1000);
+                        PostMessage(handle, WM_KEYDOWN, (IntPtr)Keys.NumPad4, IntPtr.Zero);
+                        PostMessage(handle, WM_KEYUP, (IntPtr)Keys.NumPad4, IntPtr.Zero);
+                        Thread.Sleep(1000);
+                        PostMessage(handle, WM_KEYDOWN, (IntPtr)Keys.NumPad4, IntPtr.Zero);
+                        PostMessage(handle, WM_KEYUP, (IntPtr)Keys.NumPad4, IntPtr.Zero);
+                        Thread.Sleep(1000);
+                        PostMessage(handle, WM_KEYDOWN, (IntPtr)Keys.NumPad0, IntPtr.Zero);
+                        PostMessage(handle, WM_KEYUP, (IntPtr)Keys.NumPad0, IntPtr.Zero);
+                        Thread.Sleep(1000);
+                    }
+
                     return;
                 }
                 else if (this.currentGatherRequest.ItemName != lastRequest)

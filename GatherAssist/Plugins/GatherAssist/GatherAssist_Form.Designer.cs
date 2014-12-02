@@ -44,6 +44,8 @@
             this.labelRequestList = new System.Windows.Forms.Label();
             this.labelInstructions = new System.Windows.Forms.Label();
             this.buttonValidationMode = new System.Windows.Forms.Button();
+            this.checkBoxSoundWhenFinished = new System.Windows.Forms.CheckBox();
+            this.checkBoxLogoutWhenFinished = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequests)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
@@ -61,7 +63,7 @@
             // 
             // textBoxUpdateInterval
             // 
-            this.textBoxUpdateInterval.Location = new System.Drawing.Point(146, 42);
+            this.textBoxUpdateInterval.Location = new System.Drawing.Point(146, 94);
             this.textBoxUpdateInterval.Name = "textBoxUpdateInterval";
             this.textBoxUpdateInterval.Size = new System.Drawing.Size(100, 20);
             this.textBoxUpdateInterval.TabIndex = 3;
@@ -69,7 +71,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 45);
+            this.label2.Location = new System.Drawing.Point(17, 97);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 13);
             this.label2.TabIndex = 4;
@@ -78,13 +80,16 @@
             // dataGridViewRequests
             // 
             this.dataGridViewRequests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRequests.Location = new System.Drawing.Point(12, 180);
+            this.dataGridViewRequests.Location = new System.Drawing.Point(12, 209);
             this.dataGridViewRequests.Name = "dataGridViewRequests";
-            this.dataGridViewRequests.Size = new System.Drawing.Size(252, 399);
+            this.dataGridViewRequests.Size = new System.Drawing.Size(252, 370);
             this.dataGridViewRequests.TabIndex = 5;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxLogoutWhenFinished);
+            this.groupBox1.Controls.Add(this.buttonValidationMode);
+            this.groupBox1.Controls.Add(this.checkBoxSoundWhenFinished);
             this.groupBox1.Controls.Add(this.checkBoxHqOnly);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.checkBoxAutoSkip);
@@ -93,7 +98,7 @@
             this.groupBox1.Controls.Add(this.textBoxAutoSkipInterval);
             this.groupBox1.Location = new System.Drawing.Point(12, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(252, 113);
+            this.groupBox1.Size = new System.Drawing.Size(252, 175);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
@@ -111,7 +116,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 71);
+            this.label1.Location = new System.Drawing.Point(17, 123);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 13;
@@ -129,7 +134,7 @@
             // 
             // textBoxAutoSkipInterval
             // 
-            this.textBoxAutoSkipInterval.Location = new System.Drawing.Point(146, 68);
+            this.textBoxAutoSkipInterval.Location = new System.Drawing.Point(146, 120);
             this.textBoxAutoSkipInterval.Name = "textBoxAutoSkipInterval";
             this.textBoxAutoSkipInterval.Size = new System.Drawing.Size(100, 20);
             this.textBoxAutoSkipInterval.TabIndex = 13;
@@ -137,15 +142,15 @@
             // dataGridViewResults
             // 
             this.dataGridViewResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewResults.Location = new System.Drawing.Point(270, 180);
+            this.dataGridViewResults.Location = new System.Drawing.Point(270, 209);
             this.dataGridViewResults.Name = "dataGridViewResults";
-            this.dataGridViewResults.Size = new System.Drawing.Size(187, 398);
+            this.dataGridViewResults.Size = new System.Drawing.Size(187, 369);
             this.dataGridViewResults.TabIndex = 7;
             this.dataGridViewResults.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewResults_CellClick);
             // 
             // textBoxSearch
             // 
-            this.textBoxSearch.Location = new System.Drawing.Point(318, 141);
+            this.textBoxSearch.Location = new System.Drawing.Point(314, 170);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(100, 20);
             this.textBoxSearch.TabIndex = 8;
@@ -154,7 +159,7 @@
             // labelSearch
             // 
             this.labelSearch.AutoSize = true;
-            this.labelSearch.Location = new System.Drawing.Point(271, 144);
+            this.labelSearch.Location = new System.Drawing.Point(267, 173);
             this.labelSearch.Name = "labelSearch";
             this.labelSearch.Size = new System.Drawing.Size(41, 13);
             this.labelSearch.TabIndex = 9;
@@ -163,7 +168,7 @@
             // labelRequestOptions
             // 
             this.labelRequestOptions.AutoSize = true;
-            this.labelRequestOptions.Location = new System.Drawing.Point(269, 164);
+            this.labelRequestOptions.Location = new System.Drawing.Point(267, 193);
             this.labelRequestOptions.Name = "labelRequestOptions";
             this.labelRequestOptions.Size = new System.Drawing.Size(86, 13);
             this.labelRequestOptions.TabIndex = 10;
@@ -172,7 +177,7 @@
             // labelRequestList
             // 
             this.labelRequestList.AutoSize = true;
-            this.labelRequestList.Location = new System.Drawing.Point(12, 164);
+            this.labelRequestList.Location = new System.Drawing.Point(12, 193);
             this.labelRequestList.Name = "labelRequestList";
             this.labelRequestList.Size = new System.Drawing.Size(66, 13);
             this.labelRequestList.TabIndex = 11;
@@ -189,7 +194,7 @@
             // 
             // buttonValidationMode
             // 
-            this.buttonValidationMode.Location = new System.Drawing.Point(158, 138);
+            this.buttonValidationMode.Location = new System.Drawing.Point(139, 146);
             this.buttonValidationMode.Name = "buttonValidationMode";
             this.buttonValidationMode.Size = new System.Drawing.Size(107, 23);
             this.buttonValidationMode.TabIndex = 13;
@@ -197,12 +202,31 @@
             this.buttonValidationMode.UseVisualStyleBackColor = true;
             this.buttonValidationMode.Click += new System.EventHandler(this.ButtonValidationMode_Click);
             // 
+            // checkBoxSoundWhenFinished
+            // 
+            this.checkBoxSoundWhenFinished.AutoSize = true;
+            this.checkBoxSoundWhenFinished.Location = new System.Drawing.Point(20, 41);
+            this.checkBoxSoundWhenFinished.Name = "checkBoxSoundWhenFinished";
+            this.checkBoxSoundWhenFinished.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxSoundWhenFinished.TabIndex = 14;
+            this.checkBoxSoundWhenFinished.Text = "Play Sound When Finished";
+            this.checkBoxSoundWhenFinished.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxLogoutWhenFinished
+            // 
+            this.checkBoxLogoutWhenFinished.AutoSize = true;
+            this.checkBoxLogoutWhenFinished.Location = new System.Drawing.Point(20, 64);
+            this.checkBoxLogoutWhenFinished.Name = "checkBoxLogoutWhenFinished";
+            this.checkBoxLogoutWhenFinished.Size = new System.Drawing.Size(133, 17);
+            this.checkBoxLogoutWhenFinished.TabIndex = 13;
+            this.checkBoxLogoutWhenFinished.Text = "Logout When Finished";
+            this.checkBoxLogoutWhenFinished.UseVisualStyleBackColor = true;
+            // 
             // GatherAssist_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(473, 619);
-            this.Controls.Add(this.buttonValidationMode);
             this.Controls.Add(this.labelInstructions);
             this.Controls.Add(this.labelRequestList);
             this.Controls.Add(this.labelRequestOptions);
@@ -241,5 +265,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxHqOnly;
         private System.Windows.Forms.Button buttonValidationMode;
+        private System.Windows.Forms.CheckBox checkBoxSoundWhenFinished;
+        private System.Windows.Forms.CheckBox checkBoxLogoutWhenFinished;
     }
 }
