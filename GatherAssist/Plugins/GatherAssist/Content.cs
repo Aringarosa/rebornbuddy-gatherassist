@@ -95,7 +95,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Desert Seedling", "Botanist", 18, "Lush Vegetation Patch", 20, 80, "-283.7762, -33.72977, 278.3234", 5);
             itemsTable.Rows.Add("Dragon Pepper", "Botanist", 11, "Lush Vegetation Patch", 35, 80, "259.4367, 40.34094, 430.9537", 2);
             itemsTable.Rows.Add("Earth Rock", "Miner", 5, "Rocky Outcrop", 25, 60, "55.40574, 5.669168, 12.8003", 3);
-            //itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Lush Vegetation Patch", 15, 60, "266.3692, 45.04897, 34.22172", 4); // buggy and too few nodes, don't use this one
+            ////itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Lush Vegetation Patch", 15, 60, "266.3692, 45.04897, 34.22172", 4); // buggy and too few nodes, don't use this one
             itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 10, 60, "530.2131, 75.17319, -277.4191", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 20, 60, "664.8801, 65.41305, -216.592", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 15, "Lush Vegetation Patch", 45, 80, "638.3107, -3.304667, 153.4811", 4);
@@ -161,7 +161,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Gridanian Walnut", "Botanist", 5, "Mature Tree", 25, 80, "54.04222, 6.036263, 7.647984", 1);
             itemsTable.Rows.Add("Highland Parsley", "Botanist", 10, "Lush Vegetation Patch", 15, 80, "266.3692, 45.04897, 34.22172", 6);
             itemsTable.Rows.Add("Humus", "Botanist", 3, "Lush Vegetation Patch", 15, 80, "-159.9534, 1.306874, -102.8071", 6);
-            //itemsTable.Rows.Add("Ice Crystal", "Miner", 13, "Rocky Outcrop", 50, 80, "711.1254, 28.62663, 409.9852", 5); // is this always here?
+            ////itemsTable.Rows.Add("Ice Crystal", "Miner", 13, "Rocky Outcrop", 50, 80, "711.1254, 28.62663, 409.9852", 5); // is this always here?
             itemsTable.Rows.Add("Ice Rock", "Miner", 5, "Rocky Outcrop", 25, 60, "55.40574, 5.669168, 12.8003", 5);
             itemsTable.Rows.Add("Ice Shard", "Botanist", 13, "Lush Vegetation Patch", 20, 80, "518.6508, 16.50845, 361.1047", 4);
             itemsTable.Rows.Add("Ice Shard", "Botanist", 14, "Mature Tree", 20, 80, "269.2184, -14.18528, 131.3953", 4);
@@ -170,7 +170,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 30, 60, "224.0834, 17.33236, -122.0438", 4);
             itemsTable.Rows.Add("Ice Shard", "Botanist", 5, "Mature Tree", 30, 60, "54.04222, 6.036263, 7.647984", 4);
             itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Lush Vegetation Patch", 35, 60, "-248.453, -0.4402871, 350.7661", 4);
-            //itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Lush Vegetation Patch", 40, 60, "-29.22734, -0.4312079, 364.1402", 4); // not enough nodes, don't use this one
+            ////itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Lush Vegetation Patch", 40, 60, "-29.22734, -0.4312079, 364.1402", 4); // not enough nodes, don't use this one
             itemsTable.Rows.Add("Ice Shard", "Botanist", 6, "Mature Tree", 35, 60, "-229.608, -0.03202128, 443.5553", 4);
             itemsTable.Rows.Add("Ice Shard", "Miner", 13, "Rocky Outcrop", 30, 80, "508.7396, 18.32228, 328.447", 4);
             itemsTable.Rows.Add("Ice Shard", "Miner", 13, "Rocky Outcrop", 50, 80, "711.1254, 28.62663, 409.9852", 4);
@@ -310,10 +310,10 @@ namespace GatherAssist
             itemsTable.Rows.Add("White Truffle", "Botanist", 6, "Lush Vegetation Patch", 35, 60, "-248.453, -0.4402871, 350.7661", 6);
             itemsTable.Rows.Add("Wild Onion", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "98.04959, 19.84293, 95.2293", 7);
             itemsTable.Rows.Add("Wildfowl Feather", "Botanist", 6, "Lush Vegetation Patch", 35, 60, "-248.453, -0.4402871, 350.7661", 0);
-            //itemsTable.Rows.Add("Wind Crystal", "Botanist", 3, "Mature Tree", 30, 60, "158.9255, -24.59291, 471.9808", 6); // rethink crystals, the positions move.
-            //itemsTable.Rows.Add("Wind Crystal", "Miner", 4, "Rocky Outcrop", 50, 60, "-162.7803, -1.348187, 168.7855", 5); // rethink crystals, the positions move.
+            ////itemsTable.Rows.Add("Wind Crystal", "Botanist", 3, "Mature Tree", 30, 60, "158.9255, -24.59291, 471.9808", 6); // rethink crystals, the positions move.
+            ////itemsTable.Rows.Add("Wind Crystal", "Miner", 4, "Rocky Outcrop", 50, 60, "-162.7803, -1.348187, 168.7855", 5); // rethink crystals, the positions move.
             itemsTable.Rows.Add("Wind Rock", "Miner", 5, "Rocky Outcrop", 25, 60, "55.40574, 5.669168, 12.8003", 6);
-            //itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Lush Vegetation Patch", 15, 50, "-159.9534, 1.306874, -102.8071", 4); //nothing in range, don't use this one
+            ////itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Lush Vegetation Patch", 15, 50, "-159.9534, 1.306874, -102.8071", 4); //nothing in range, don't use this one
             itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Lush Vegetation Patch", 15, 80, "62.98865, -8.831064, 122.1805", 4);
             itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 10, 50, "-43.49828, -6.881468, -74.46594", 4);
             itemsTable.Rows.Add("Wind Shard", "Botanist", 3, "Mature Tree", 15, 60, "158.9255, -24.59291, 471.9808", 4);
