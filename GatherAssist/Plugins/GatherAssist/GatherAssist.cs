@@ -480,13 +480,18 @@ namespace GatherAssist
                     {
                         curRequest.CurrentCount = 0;
                     }
-                    else if (settings.HqOnly)
+                    else
                     {
-                        curRequest.CurrentCount = ConditionParser.ItemCount(curRequest.ItemName);
+                        continue;
+                    }
+
+                    if (settings.HqOnly)
+                    {
+                        curRequest.CurrentCount = ConditionParser.HqItemCount(curRequest.ItemName);
                     }
                     else
                     {
-                        curRequest.CurrentCount = ConditionParser.HqItemCount(curRequest.ItemName);
+                        curRequest.CurrentCount = ConditionParser.ItemCount(curRequest.ItemName);
                     }
                 }
             }
