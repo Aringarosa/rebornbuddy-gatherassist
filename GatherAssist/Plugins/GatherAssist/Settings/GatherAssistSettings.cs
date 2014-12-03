@@ -71,7 +71,7 @@ namespace GatherAssist.Settings
         public int AutoSkipInterval { get; set; }
 
         /// <summary>
-        /// Gets or sets a valud indicating whether RB's Equipment Manager should be turned on during
+        /// Gets or sets a value indicating whether RB's Equipment Manager should be turned on during
         ///  profile execution.
         /// </summary>
         [Setting]
