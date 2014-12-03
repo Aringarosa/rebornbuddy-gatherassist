@@ -482,7 +482,7 @@ namespace GatherAssist
                     }
                     else if (settings.HqOnly)
                     {
-                        curRequest.CurrentCount = ConditionParser.NqItemCount(curRequest.ItemName);
+                        curRequest.CurrentCount = ConditionParser.ItemCount(curRequest.ItemName);
                     }
                     else
                     {
