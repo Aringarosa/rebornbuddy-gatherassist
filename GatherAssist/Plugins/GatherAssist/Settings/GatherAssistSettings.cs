@@ -94,5 +94,11 @@ namespace GatherAssist.Settings
         /// </summary>
         [Setting]
         public bool SoundWhenFinished { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether debugger options (like extra output) should be enabled).
+        /// </summary>
+        [Setting]
+        public bool Debug { get; set; }
     }
 }

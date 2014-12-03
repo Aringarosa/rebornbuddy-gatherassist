@@ -53,6 +53,7 @@ namespace GatherAssist
             this.checkBoxAutoSkip.Checked = settings.AutoSkip;
             this.checkBoxHqOnly.Checked = settings.HqOnly;
             this.checkBoxAutoEquip.Checked = settings.AutoEquip;
+            this.checkBoxDebug.Checked = settings.Debug;
             this.checkBoxLogoutWhenFinished.Checked = settings.LogoutWhenFinished;
             this.checkBoxSoundWhenFinished.Checked = settings.SoundWhenFinished;
             this.RequestTable = this.itemsTable.DefaultView.ToTable(true, "ItemName");
@@ -117,6 +118,7 @@ namespace GatherAssist
             settings.AutoSkipInterval = System.Convert.ToInt32(this.textBoxAutoSkipInterval.Text);
             settings.HqOnly = this.checkBoxHqOnly.Checked;
             settings.AutoEquip = this.checkBoxAutoEquip.Checked;
+            settings.Debug = this.checkBoxDebug.Checked;
             settings.LogoutWhenFinished = this.checkBoxLogoutWhenFinished.Checked;
             settings.SoundWhenFinished = this.checkBoxSoundWhenFinished.Checked;
             

@@ -47,6 +47,7 @@
             this.labelRequestList = new System.Windows.Forms.Label();
             this.labelInstructions = new System.Windows.Forms.Label();
             this.checkBoxAutoEquip = new System.Windows.Forms.CheckBox();
+            this.checkBoxDebug = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequests)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
@@ -88,6 +89,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxDebug);
             this.groupBox1.Controls.Add(this.checkBoxAutoEquip);
             this.groupBox1.Controls.Add(this.checkBoxLogoutWhenFinished);
             this.groupBox1.Controls.Add(this.buttonValidationMode);
@@ -235,6 +237,16 @@
             this.checkBoxAutoEquip.Text = "AutoEquip";
             this.checkBoxAutoEquip.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDebug
+            // 
+            this.checkBoxDebug.AutoSize = true;
+            this.checkBoxDebug.Location = new System.Drawing.Point(176, 41);
+            this.checkBoxDebug.Name = "checkBoxDebug";
+            this.checkBoxDebug.Size = new System.Drawing.Size(58, 17);
+            this.checkBoxDebug.TabIndex = 13;
+            this.checkBoxDebug.Text = "Debug";
+            this.checkBoxDebug.UseVisualStyleBackColor = true;
+            // 
             // GatherAssist_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,5 +293,6 @@
         private System.Windows.Forms.CheckBox checkBoxSoundWhenFinished;
         private System.Windows.Forms.CheckBox checkBoxLogoutWhenFinished;
         private System.Windows.Forms.CheckBox checkBoxAutoEquip;
+        private System.Windows.Forms.CheckBox checkBoxDebug;
     }
 }

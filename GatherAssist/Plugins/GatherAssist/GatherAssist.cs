@@ -783,6 +783,12 @@ namespace GatherAssist
         /// <param name="debug">When true, appends a DEBUG: tag to the log message.</param>
         private void Log(Color color, string message, bool debug)
         {
+            // don't output debug messages only Debug is on.
+            if (debug && !settings.Debug)
+            {
+                return;
+            }
+
             if (debug)
             {
                 message = "DEBUG: " + message;
