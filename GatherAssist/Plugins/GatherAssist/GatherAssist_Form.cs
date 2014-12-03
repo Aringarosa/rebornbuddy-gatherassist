@@ -16,6 +16,7 @@ namespace GatherAssist
     using System.Drawing;
     using System.Windows.Forms;
     using Clio.Utilities;
+    using ff14bot.NeoProfiles;
     using Settings;
 
     /// <summary>
@@ -206,7 +207,7 @@ namespace GatherAssist
         }
 
         /// <summary>
-        /// Handles the buttonValidationMode.Click event.  Loads all gatherable items into the request list with a present count.
+        /// Handles the buttonValidationMode.Click event.  Loads all gatherable items into the request list with a small requested increase.
         ///  This is meant for validation only, and will likely be removed from the beta or production release.
         /// </summary>
         /// <param name="sender">The parameter is not used.</param>
@@ -215,6 +216,12 @@ namespace GatherAssist
         {
             this.RequestTable = this.itemsTable.DefaultView.ToTable(true, "ItemName");
             this.RequestTable.Columns.Add(new DataColumn() { ColumnName = "Count", DefaultValue = 1 });
+
+            foreach (DataRow curRow in this.RequestTable.Rows)
+            {
+                curRow["Count"] = ConditionParser.ItemCount(Convert.ToString(curRow["ItemName"])) + 1;
+            }
+
             this.dataGridViewRequests.DataSource = this.RequestTable;
         }
     }
