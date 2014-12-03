@@ -45,7 +45,7 @@ namespace GatherAssist
         /// <summary>
         /// Gets or sets the current inventory count for this item.
         /// </summary>
-        public uint CurrentCount { get; set; }
+        public int CurrentCount { get; set; }
 
         /// <summary>
         /// Gets or sets the requested count for this item.

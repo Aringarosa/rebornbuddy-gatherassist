@@ -57,7 +57,7 @@ namespace GatherAssist
         /// <summary>
         /// A code indicating that the current gather item was unable to complete and should be skipped.
         /// </summary>
-        private const uint BADITEM = 99999;
+        private const int BADITEM = 99999;
 
         /// <summary>
         /// Settings for this plugin which should be saved for later use.
@@ -349,7 +349,7 @@ namespace GatherAssist
             try
             {
                 this.timerIterations += 1;
-                uint lastCount = this.currentGatherRequest == null ? 0 : this.currentGatherRequest.CurrentCount;
+                int lastCount = this.currentGatherRequest == null ? 0 : this.currentGatherRequest.CurrentCount;
                 string lastRequest = this.currentGatherRequest == null ? string.Empty : this.currentGatherRequest.ItemName;
                 this.UpdateRequestedItemCounts();
                 this.ReportGatheringStatus();
@@ -480,26 +480,13 @@ namespace GatherAssist
                     {
                         curRequest.CurrentCount = 0;
                     }
-                }
-
-                List<InventoryBagId> validBags = new List<InventoryBagId>();
-                validBags.Add(InventoryBagId.Bag1);
-                validBags.Add(InventoryBagId.Bag2);
-                validBags.Add(InventoryBagId.Bag3);
-                validBags.Add(InventoryBagId.Bag4);
-                validBags.Add(InventoryBagId.Crystals);
-
-                foreach (InventoryBagId curBagId in validBags)
-                {
-                    this.Log(LogMajorColor, curBagId.ToString(), true);
-                    foreach (BagSlot curSlot in InventoryManager.GetBagByInventoryBagId(curBagId))
+                    else if (settings.HqOnly)
                     {
-                        var obj = this.requestList.FirstOrDefault(x => x.ItemName == curSlot.Name);
-                        if (obj != null && obj.CurrentCount != BADITEM && (!settings.HqOnly || curSlot.HqFlag == 1))
-                        {
-                            this.Log(LogMajorColor, "Updating count", true);
-                            obj.CurrentCount += curSlot.Count;
-                        }
+                        curRequest.CurrentCount = ConditionParser.NqItemCount(curRequest.ItemName);
+                    }
+                    else
+                    {
+                        curRequest.CurrentCount = ConditionParser.HqItemCount(curRequest.ItemName);
                     }
                 }
             }
