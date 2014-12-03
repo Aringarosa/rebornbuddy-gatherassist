@@ -585,10 +585,11 @@ namespace GatherAssist
 
                     // construct profile using the chosen item record
                     string xmlContent = string.Format(
-                        "<Profile><Name>{0}</Name><KillRadius>{1}</KillRadius><Order><If Condition=\"not IsOnMap({2}" +
-                        ")\"><TeleportTo Name=\"{3}\" AetheryteId=\"{4}\" /></If><Gather while=\"True\"><GatherObject>{5}</GatherObject><HotSpots>" +
-                        "<HotSpot Radius=\"{6}\" XYZ=\"{7}\" /></HotSpots>{8}<GatheringSkillOrder>" +
-                        "<GatheringSkill SpellName=\"{9}\" TimesToCast=\"{10}\" /></GatheringSkillOrder></Gather></Order></Profile>",
+                        "<Profile><BotSettings AutoEquip=\"{0}\" /><Name>{1}</Name><KillRadius>{2}</KillRadius><Order><If Condition=\"not IsOnMap({3}" +
+                        ")\"><TeleportTo Name=\"{4}\" AetheryteId=\"{5}\" /></If><Gather while=\"True\"><GatherObject>{6}</GatherObject><HotSpots>" +
+                        "<HotSpot Radius=\"{7}\" XYZ=\"{8}\" /></HotSpots>{9}<GatheringSkillOrder>" +
+                        "<GatheringSkill SpellName=\"{10}\" TimesToCast=\"{11}\" /></GatheringSkillOrder></Gather></Order></Profile>",
+                        settings.AutoEquip ? "1" : "0",
                         string.Format("{0}: {1}", itemRecord.ClassName, itemRecord.ItemName),
                         KillRadius,
                         itemRecord.MapNumber,

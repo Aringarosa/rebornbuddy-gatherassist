@@ -33,6 +33,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewRequests = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxLogoutWhenFinished = new System.Windows.Forms.CheckBox();
+            this.buttonValidationMode = new System.Windows.Forms.Button();
+            this.checkBoxSoundWhenFinished = new System.Windows.Forms.CheckBox();
             this.checkBoxHqOnly = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxAutoSkip = new System.Windows.Forms.CheckBox();
@@ -43,9 +46,7 @@
             this.labelRequestOptions = new System.Windows.Forms.Label();
             this.labelRequestList = new System.Windows.Forms.Label();
             this.labelInstructions = new System.Windows.Forms.Label();
-            this.buttonValidationMode = new System.Windows.Forms.Button();
-            this.checkBoxSoundWhenFinished = new System.Windows.Forms.CheckBox();
-            this.checkBoxLogoutWhenFinished = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutoEquip = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRequests)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
@@ -87,6 +88,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxAutoEquip);
             this.groupBox1.Controls.Add(this.checkBoxLogoutWhenFinished);
             this.groupBox1.Controls.Add(this.buttonValidationMode);
             this.groupBox1.Controls.Add(this.checkBoxSoundWhenFinished);
@@ -103,10 +105,40 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
+            // checkBoxLogoutWhenFinished
+            // 
+            this.checkBoxLogoutWhenFinished.AutoSize = true;
+            this.checkBoxLogoutWhenFinished.Location = new System.Drawing.Point(20, 64);
+            this.checkBoxLogoutWhenFinished.Name = "checkBoxLogoutWhenFinished";
+            this.checkBoxLogoutWhenFinished.Size = new System.Drawing.Size(133, 17);
+            this.checkBoxLogoutWhenFinished.TabIndex = 13;
+            this.checkBoxLogoutWhenFinished.Text = "Logout When Finished";
+            this.checkBoxLogoutWhenFinished.UseVisualStyleBackColor = true;
+            // 
+            // buttonValidationMode
+            // 
+            this.buttonValidationMode.Location = new System.Drawing.Point(139, 146);
+            this.buttonValidationMode.Name = "buttonValidationMode";
+            this.buttonValidationMode.Size = new System.Drawing.Size(107, 23);
+            this.buttonValidationMode.TabIndex = 13;
+            this.buttonValidationMode.Text = "Validation Mode";
+            this.buttonValidationMode.UseVisualStyleBackColor = true;
+            this.buttonValidationMode.Click += new System.EventHandler(this.ButtonValidationMode_Click);
+            // 
+            // checkBoxSoundWhenFinished
+            // 
+            this.checkBoxSoundWhenFinished.AutoSize = true;
+            this.checkBoxSoundWhenFinished.Location = new System.Drawing.Point(20, 41);
+            this.checkBoxSoundWhenFinished.Name = "checkBoxSoundWhenFinished";
+            this.checkBoxSoundWhenFinished.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxSoundWhenFinished.TabIndex = 14;
+            this.checkBoxSoundWhenFinished.Text = "Play Sound When Finished";
+            this.checkBoxSoundWhenFinished.UseVisualStyleBackColor = true;
+            // 
             // checkBoxHqOnly
             // 
             this.checkBoxHqOnly.AutoSize = true;
-            this.checkBoxHqOnly.Location = new System.Drawing.Point(95, 19);
+            this.checkBoxHqOnly.Location = new System.Drawing.Point(176, 19);
             this.checkBoxHqOnly.Name = "checkBoxHqOnly";
             this.checkBoxHqOnly.Size = new System.Drawing.Size(66, 17);
             this.checkBoxHqOnly.TabIndex = 13;
@@ -188,39 +220,20 @@
             this.labelInstructions.AutoSize = true;
             this.labelInstructions.Location = new System.Drawing.Point(274, 9);
             this.labelInstructions.Name = "labelInstructions";
-            this.labelInstructions.Size = new System.Drawing.Size(60, 13);
+            this.labelInstructions.Size = new System.Drawing.Size(61, 13);
             this.labelInstructions.TabIndex = 12;
-            this.labelInstructions.Text = "instructions";
+            this.labelInstructions.Text = "Instructions";
             // 
-            // buttonValidationMode
+            // checkBoxAutoEquip
             // 
-            this.buttonValidationMode.Location = new System.Drawing.Point(139, 146);
-            this.buttonValidationMode.Name = "buttonValidationMode";
-            this.buttonValidationMode.Size = new System.Drawing.Size(107, 23);
-            this.buttonValidationMode.TabIndex = 13;
-            this.buttonValidationMode.Text = "Validation Mode";
-            this.buttonValidationMode.UseVisualStyleBackColor = true;
-            this.buttonValidationMode.Click += new System.EventHandler(this.ButtonValidationMode_Click);
-            // 
-            // checkBoxSoundWhenFinished
-            // 
-            this.checkBoxSoundWhenFinished.AutoSize = true;
-            this.checkBoxSoundWhenFinished.Location = new System.Drawing.Point(20, 41);
-            this.checkBoxSoundWhenFinished.Name = "checkBoxSoundWhenFinished";
-            this.checkBoxSoundWhenFinished.Size = new System.Drawing.Size(154, 17);
-            this.checkBoxSoundWhenFinished.TabIndex = 14;
-            this.checkBoxSoundWhenFinished.Text = "Play Sound When Finished";
-            this.checkBoxSoundWhenFinished.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxLogoutWhenFinished
-            // 
-            this.checkBoxLogoutWhenFinished.AutoSize = true;
-            this.checkBoxLogoutWhenFinished.Location = new System.Drawing.Point(20, 64);
-            this.checkBoxLogoutWhenFinished.Name = "checkBoxLogoutWhenFinished";
-            this.checkBoxLogoutWhenFinished.Size = new System.Drawing.Size(133, 17);
-            this.checkBoxLogoutWhenFinished.TabIndex = 13;
-            this.checkBoxLogoutWhenFinished.Text = "Logout When Finished";
-            this.checkBoxLogoutWhenFinished.UseVisualStyleBackColor = true;
+            this.checkBoxAutoEquip.AutoSize = true;
+            this.checkBoxAutoEquip.Enabled = false;
+            this.checkBoxAutoEquip.Location = new System.Drawing.Point(95, 19);
+            this.checkBoxAutoEquip.Name = "checkBoxAutoEquip";
+            this.checkBoxAutoEquip.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxAutoEquip.TabIndex = 13;
+            this.checkBoxAutoEquip.Text = "AutoEquip";
+            this.checkBoxAutoEquip.UseVisualStyleBackColor = true;
             // 
             // GatherAssist_Form
             // 
@@ -267,5 +280,6 @@
         private System.Windows.Forms.Button buttonValidationMode;
         private System.Windows.Forms.CheckBox checkBoxSoundWhenFinished;
         private System.Windows.Forms.CheckBox checkBoxLogoutWhenFinished;
+        private System.Windows.Forms.CheckBox checkBoxAutoEquip;
     }
 }
