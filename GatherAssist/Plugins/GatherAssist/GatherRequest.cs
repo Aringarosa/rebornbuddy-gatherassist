@@ -11,6 +11,8 @@
 //-----------------------------------------------------------------------
 namespace GatherAssist
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// A request to gather a certain number of items.  Also used to hold the current available number of the requested item (updated when
     ///  the timer iterates).
@@ -22,10 +24,13 @@ namespace GatherAssist
         ///  and a current count of zero, to be refreshed when the timer iterates.
         /// </summary>
         /// <param name="itemName">The name of the item to be gathered.</param>
+        /// <param name="aetheryteId">The preferred aetheryte ID where this item should be gathered.</param>
         /// <param name="requestedTotal">The requested count for this item.</param>
-        public GatherRequest(string itemName, int requestedTotal)
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Aethernet is a FFXIV term.")]
+        public GatherRequest(string itemName, uint aetheryteId, int requestedTotal)
         {
             this.ItemName = itemName;
+            this.AetheryteId = aetheryteId;
             this.RequestedTotal = requestedTotal;
             this.CurrentCount = 0;
         }
@@ -41,6 +46,12 @@ namespace GatherAssist
         /// Gets or sets the name of the item to be gathered.
         /// </summary>
         public string ItemName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the preferred AetheryteId for the gather request.
+        /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Aethernet is a FFXIV term.")]
+        public uint AetheryteId { get; set; }
 
         /// <summary>
         /// Gets or sets the current inventory count for this item.

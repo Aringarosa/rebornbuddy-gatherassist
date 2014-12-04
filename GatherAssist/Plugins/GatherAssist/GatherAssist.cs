@@ -435,13 +435,102 @@ namespace GatherAssist
         {
             try
             {
+                // acquire all possible item/aetheryteID combos for all items
+                this.itemsTable.DefaultView.Sort = "AetheryteId ASC, ItemName ASC";
+                DataTable allItemCombos = this.itemsTable.DefaultView.ToTable(true, "ItemName", "AetheryteId");
+
+                DataTable itemCombos = allItemCombos.Clone();
+                itemCombos.Columns.Add(new DataColumn() { ColumnName = "Count", DefaultValue = 0 });
+                
+                foreach (DataRow curItemCombo in allItemCombos.Rows)
+                {
+                    foreach (DataRow curRequest in requestTable.Rows)
+                    {
+                        if (curItemCombo["ItemName"] == curRequest["ItemName"])
+                        {
+                            itemCombos.Rows.Add(curItemCombo["ItemName"], curItemCombo["AetheryteId"], curRequest["Count"]);
+                        }
+                    }
+                }
+
+                int maxAetheryteID = 56;
+                int[] aetheryteCount = new int[maxAetheryteID + 1];
+
+                for (uint i = 1; i <= maxAetheryteID; i++)
+                {
+                    // remove records from Aetheryte IDs that the user does not have available
+                    DataRow[] rows = itemCombos.Select(string.Format("AetheryteId = '{0}'", i));
+                    
+                    if (!WorldManager.HasAetheryteId(i))
+                    {
+                        foreach (DataRow row in rows)
+                        {
+                            itemCombos.Rows.Remove(row);
+                        }
+
+                        itemCombos.AcceptChanges();
+                    }
+
+                    aetheryteCount[i] = rows.Length;
+                }
+
+                // get number of item records for each aethernet ID
+                for (int i = 1; i <= maxAetheryteID; i++)
+                {
+                    DataRow[] rows = itemCombos.Select(string.Format("AetheryteId = '{0}'", i));
+                    aetheryteCount[i] = rows.Length;
+                }
+
+                int bestId;
+                int bestIdCount;
+
+                do
+                {
+                    // find aetheryte with the highest number of item requests
+                    bestId = 0;
+                    bestIdCount = 0;
+
+                    for (int i = 1; i <= maxAetheryteID; i++)
+                    {
+                        if (aetheryteCount[i] > bestIdCount)
+                        {
+                            bestIdCount = aetheryteCount[i];
+                            bestId = i;
+                        }
+                    }
+
+                    // for all item names in the current "best Aethernet ID", select all item records for those names that have other Aethernet IDs, and remove them from the preferred list.
+                    if (bestId != 0)
+                    {
+                        DataRow[] selectedItems = itemCombos.Select(string.Format("AetheryteId = '{0}'", bestId));
+                        foreach (DataRow row in selectedItems)
+                        {
+                            if (row.RowState == DataRowState.Deleted)
+                            {
+                                MessageBox.Show("Deleted");
+                            }
+
+                            DataRow[] deleteItems = itemCombos.Select(string.Format("ItemName = '{0}' AND AetheryteId <> '{1}'", FixQueryField(Convert.ToString(row["ItemName"]), 1), bestId));
+                            foreach (DataRow deleteRow in deleteItems)
+                            {
+                                itemCombos.Rows.Remove(deleteRow);
+                            }
+
+                            itemCombos.AcceptChanges();
+                        }
+
+                        aetheryteCount[bestId] = 0; // clear count so this doesn't cycle again
+                    }
+                }
+                while (bestId != 0);
+                
                 // TODO: validate parameter requestTable to fit the parameter description.
                 this.requestList = new List<GatherRequest>();
 
-                foreach (DataRow dataRow in requestTable.Rows)
+                foreach (DataRow dataRow in itemCombos.Rows)
                 {
                     this.Log(LogMajorColor, "Adding " + dataRow["ItemName"] + " to request list", true);
-                    this.requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToInt32(dataRow["Count"])));
+                    this.requestList.Add(new GatherRequest(Convert.ToString(dataRow["ItemName"]), Convert.ToUInt32(dataRow["AetheryteId"]), Convert.ToInt32(dataRow["Count"])));
                 }
             }
             catch (Exception ex)
@@ -556,7 +645,7 @@ namespace GatherAssist
                 }
 
                 this.Log(LogMajorColor, string.Format("Current Gather Request is {0}", this.currentGatherRequest.ItemName), true);
-                ItemRecord itemRecord = this.GetItemRecord(this.currentGatherRequest.ItemName);
+                ItemRecord itemRecord = this.GetItemRecord(this.currentGatherRequest.ItemName, this.currentGatherRequest.AetheryteId);
                 if (itemRecord == null)
                 {
                     this.Log(LogErrorColor, string.Format("Error: item {0} cannot be located.  A new items entry must be created for this gather request to function properly.", this.currentGatherRequest.ItemName));
@@ -665,12 +754,14 @@ namespace GatherAssist
         /// </summary>
         /// <param name="itemName">The name of the item being searched.</param>
         /// <returns>The ItemRecord for the supplied item name.  Null if no item name can be found in the item table.</returns>
-        private ItemRecord GetItemRecord(string itemName)
+        /// <param name="aetheryteId">The preferred aetheryte ID where this item should be gathered.</param>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Aethernet is a FFXIV term.")]
+        private ItemRecord GetItemRecord(string itemName, uint aetheryteId)
         {
             try
             {
                 bool isValid = true;
-                DataRow[] itemRows = this.itemsTable.Select(string.Format("ItemName = '{0}'", FixQueryField(itemName, 1)));
+                DataRow[] itemRows = this.itemsTable.Select(string.Format("ItemName = '{0}' AND AetheryteId = '{1}'", FixQueryField(itemName, 1), aetheryteId));
                 int itemCount = itemRows.Count<DataRow>();
 
                 if (itemCount == 0)
