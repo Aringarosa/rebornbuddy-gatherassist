@@ -102,6 +102,11 @@ namespace GatherAssist
         private int timerIterations = 0;
 
         /// <summary>
+        /// Whether or not to reload the profile on the next pulse. Used for adjusting the current gather spell.
+        /// </summary>
+        private bool ReloadFlag = false;
+
+        /// <summary>
         /// Gets the author of this plugin.
         /// </summary>
         public string Author
@@ -122,7 +127,7 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
-            get { return new Version(0, 9, 2); }
+            get { return new Version(0, 9, 3); }
         }
 
         /// <summary>
@@ -172,6 +177,13 @@ namespace GatherAssist
         {
             get { return Colors.Red; }
         }
+
+        /// <summary>
+        /// Gets or sets a custom gathering spell override to the blindly-selected spell.
+        ///  This can only be determined during a pulse, so every new profile starts with
+        ///  this value set as null.
+        /// </summary>
+        private string GatheringSpellOverride { get; set; }
 
         /// <summary>
         /// Allows the program to send key strokes directly to FFXIV.
@@ -320,6 +332,68 @@ namespace GatherAssist
         /// </summary>
         public void OnPulse()
         {
+            if (this.ReloadFlag && !GatheringWindow.WindowOpen)
+            {
+                this.LoadProfile(true);
+                return;
+            }
+
+            // only run logic if no gathering spell override has been selected.  Only works if the gather window is open.
+            if (GatheringWindow.WindowOpen && string.IsNullOrEmpty(this.GatheringSpellOverride))
+            {
+                // get the correct target gathering item
+                GatheringItem targetGatheringItem = null;
+
+                foreach (GatheringItem gatheringItem in GatheringWindow.GatheringWindowItems)
+                {
+                    if (gatheringItem.ItemData.EnglishName == this.currentGatherRequest.ItemName)
+                    {
+                        targetGatheringItem = gatheringItem;
+                        break;
+                    }
+                }
+
+                if (targetGatheringItem == null)
+                {
+                    this.Log(LogErrorColor, "The target gathering item could not be ascertained from this window; is there a problem with the profile?");
+                    return;
+                }
+
+                if (targetGatheringItem.Chance <= 50 && Core.Me.ClassLevel >= 10)
+                {
+                    this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision III" : "Field Mastery III";
+                }
+                else if (targetGatheringItem.Chance <= 85 && Core.Me.ClassLevel >= 5)
+                {
+                    this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision II" : "Field Mastery II";
+                }
+                else if (targetGatheringItem.Chance <= 95 && Core.Me.ClassLevel >= 4)
+                {
+                    this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision" : "Field Mastery I";
+                }
+                else if (targetGatheringItem.Chance == 100)
+                {
+                    if (Core.Me.ClassLevel >= 40)
+                    {
+                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "King's Yield II" : "Blessed Harvest II";
+                    }
+                    else if (Core.Me.ClassLevel >= 30)
+                    {
+                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "King's Yield" : "Blessed Harvest II";
+                    }
+                    else if (Core.Me.ClassLevel >= 20)
+                    {
+                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Solid Reason" : "Ageless Words";
+                    }
+                }
+
+                // break logic if a new spell has been selected
+                if (!string.IsNullOrEmpty(this.GatheringSpellOverride))
+                {
+                    Log(LogMajorColor, string.Format("Overriding current gathering spell with {0}", this.GatheringSpellOverride));
+                    this.ReloadFlag = true; // don't do anything on this pulse, as it would create a paradox while waiting for a window to close
+                }
+            }
         }
 
         /// <summary>
@@ -418,7 +492,7 @@ namespace GatherAssist
                 else if (this.currentGatherRequest.ItemName != lastRequest)
                 {
                     // Only load  a profle if the item name has changed; this keeps profile from needlessly reloading.
-                    this.LoadProfile();
+                    this.LoadProfile(false);
                 }
             }
             catch (Exception ex)
@@ -631,10 +705,12 @@ namespace GatherAssist
         /// <summary>
         /// Loads a profile to handle the current gather request.
         /// </summary>
-        private void LoadProfile()
+        /// <param name="spellOverride"> Whether or not to use the gathering spell override when building this profile.  This value should only be set after the first profile load for a particular item.</param>
+        private void LoadProfile(bool spellOverride)
         {
             try
             {
+                this.ReloadFlag = false; // reset reload flag, whether or not the override is being triggered
                 this.timerIterations = 0; // reset iterations for AutoSkip feature
                 bool isValid = true;
 
@@ -663,7 +739,25 @@ namespace GatherAssist
                     //  bot does not update item names properly during a "live" profile swap.
                     this.BotStop();
                     this.SetClass(itemRecord.ClassName); // switch class if necessary
-                    string gatheringSpell = this.GetGatheringSpell(itemRecord); // get a gathering spell appropriate for this class
+                    string gatheringSpell;
+
+                    if (spellOverride)
+                    {
+                        gatheringSpell = this.GatheringSpellOverride;
+                    }
+                    else
+                    {
+                        gatheringSpell = this.GetGatheringSpell(itemRecord); // get a gathering spell appropriate for this class
+                        
+                        // don't allow shard/HQ spells to be overridden; automatic determination is already the best spell
+                        if (gatheringSpell.Contains("Shard") || settings.HqOnly)
+                        {
+                            this.GatheringSpellOverride = gatheringSpell;
+                        }
+
+                        this.GatheringSpellOverride = null; // reset this value, since a new profile is being loaded
+                    }
+
                     int timesToCast = (gatheringSpell == "Prospect" || gatheringSpell == "Triangulate") ? 2 : 1;
                     string nameSlotSection = string.Empty; // to store the item name / slot portion of the profile
 
@@ -1077,61 +1171,39 @@ namespace GatherAssist
                         break;
                 }
 
-                if (Core.Me.CurrentJob.ToString() == "Miner")
+                // handle HQ spells
+                if (settings.HqOnly)
                 {
-                    // handle level-specific spells
                     if (Core.Me.ClassLevel >= 35)
                     {
-                        return "Unearth II";
+                        return Core.Me.CurrentJob.ToString() == "Miner" ? "Unearth II" : "Leaf Turn II";
                     }
                     else if (Core.Me.ClassLevel >= 15)
                     {
-                        return "Unearth";
-                    }
-                    else if (Core.Me.ClassLevel >= 10)
-                    {
-                        return "Sharp Vision III";
-                    }
-                    else if (Core.Me.ClassLevel >= 5)
-                    {
-                        return "Sharp Vision II";
-                    }
-                    else if (Core.Me.ClassLevel >= 4)
-                    {
-                        return "Sharp Vision";
+                        return Core.Me.CurrentJob.ToString() == "Miner" ? "Unearth" : "Leaf Turn";
                     }
                     else
                     {
-                        return "Prospect";
+                        return Core.Me.CurrentJob.ToString() == "Miner" ? "Prospect" : "Triangulate";
                     }
                 }
-                else if (Core.Me.CurrentJob.ToString() == "Botanist")
+
+                // handle NQ spells
+                if (Core.Me.ClassLevel >= 10)
                 {
-                    // handle level-specific spells
-                    if (Core.Me.ClassLevel >= 35)
-                    {
-                        return "Leaf Turn II";
-                    }
-                    else if (Core.Me.ClassLevel >= 15)
-                    {
-                        return "Leaf Turn";
-                    }
-                    else if (Core.Me.ClassLevel >= 10)
-                    {
-                        return "Field Mastery III";
-                    }
-                    else if (Core.Me.ClassLevel >= 5)
-                    {
-                        return "Field Mastery II";
-                    }
-                    else if (Core.Me.ClassLevel >= 4)
-                    {
-                        return "Field Mastery";
-                    }
-                    else
-                    {
-                        return "Triangulate";
-                    }
+                    return Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision III" : "Field Mastery III";
+                }
+                else if (Core.Me.ClassLevel >= 5)
+                {
+                    return Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision II" : "Field Mastery II";
+                }
+                else if (Core.Me.ClassLevel >= 4)
+                {
+                    return Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision" : "Field Mastery";
+                }
+                else
+                {
+                    return Core.Me.CurrentJob.ToString() == "Miner" ? "Prospect" : "Triangulate";
                 }
 
                 throw new ApplicationException(string.Format("CONTACT DEVELOPER!  Could not determine a gathering spell for class {0} and item {1}; please update code.", Core.Me.CurrentJob.ToString(), itemRecord.ItemName));

@@ -176,6 +176,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Ice Shard", "Miner", 13, "Rocky Outcrop", 50, 80, "711.1254, 28.62663, 409.9852", 4);
             itemsTable.Rows.Add("Ice Shard", "Miner", 14, "Mineral Deposit", 20, 80, "353.6206, 2.336102, 74.7085", 4);
             itemsTable.Rows.Add("Ice Shard", "Miner", 14, "Rocky Outcrop", 20, 80, "267.3307, -15.57352, 142.8833", 4);
+            itemsTable.Rows.Add("Ice Shard", "Miner", 23, "Mature Tree", 45, 50, "71.41046, 287.098, -177.7301", 4);
             itemsTable.Rows.Add("Ice Shard", "Miner", 23, "Mineral Deposit", 40, 50, "127.6247, 286.0522, -71.48206", 4);
             itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 25, 60, "-271.2609, 15.10915, -84.62809", 4);
             itemsTable.Rows.Add("Ice Shard", "Miner", 5, "Mineral Deposit", 40, 60, "364.1767, -4.775018, 69.99052", 4);
@@ -225,6 +226,8 @@ namespace GatherAssist
             itemsTable.Rows.Add("Midland Basil", "Botanist", 11, "Lush Vegetation Patch", 35, 80, "259.4367, 40.34094, 430.9537", 3);
             itemsTable.Rows.Add("Midland Cabbage", "Botanist", 7, "Lush Vegetation Patch", 30, 80, "87.2282, -33.21325, 254.1546", 5);
             itemsTable.Rows.Add("Millioncorn", "Botanist", 18, "Lush Vegetation Patch", 25, 80, "-342.9444, -26.28499, -33.79862", 4);
+            itemsTable.Rows.Add("Mirror Apple", "Miner", 23, "Mature Tree", 45, 50, "71.41046, 287.098, -177.7301", 1);
+            itemsTable.Rows.Add("Mistletoe", "Miner", 23, "Mature Tree", 45, 50, "71.41046, 287.098, -177.7301", 7);
             itemsTable.Rows.Add("Moko Grass", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "146.4175, 49.39901, -111.9525", 3);
             itemsTable.Rows.Add("Moor Leech", "Botanist", 7, "Lush Vegetation Patch", 30, 80, "87.2282, -33.21325, 254.1546", 0);
             itemsTable.Rows.Add("Muddy Water", "Miner", 17, "Mineral Deposit", 5, 60, "264.2455, 56.165, 216.7509", 0);
