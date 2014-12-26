@@ -716,7 +716,7 @@ namespace GatherAssist
 
                 if (this.currentGatherRequest == null)
                 {
-                    this.Log(LogErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin."));
+                    this.Log(LogErrorColor, string.Format("Error: LoadProfile was executed without an active gather request; this should not be done.  Shutting down {0} plugin.", this.Name));
                     isValid = false;
                 }
 
