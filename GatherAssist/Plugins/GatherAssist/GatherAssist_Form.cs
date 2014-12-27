@@ -52,6 +52,7 @@ namespace GatherAssist
             this.textBoxAutoSkipInterval.Text = Convert.ToString(settings.AutoSkipInterval);
             this.checkBoxAutoSkip.Checked = settings.AutoSkip;
             this.checkBoxHqOnly.Checked = settings.HqOnly;
+            this.checkBoxSummonChocobo.Checked = settings.SummonChocobo;
             this.checkBoxAutoEquip.Checked = settings.AutoEquip;
             this.checkBoxDebug.Checked = settings.Debug;
             this.checkBoxLogoutWhenFinished.Checked = settings.LogoutWhenFinished;
@@ -117,6 +118,7 @@ namespace GatherAssist
             settings.AutoSkip = this.checkBoxAutoSkip.Checked;
             settings.AutoSkipInterval = System.Convert.ToInt32(this.textBoxAutoSkipInterval.Text);
             settings.HqOnly = this.checkBoxHqOnly.Checked;
+            settings.SummonChocobo = this.checkBoxSummonChocobo.Checked;
             settings.AutoEquip = this.checkBoxAutoEquip.Checked;
             settings.Debug = this.checkBoxDebug.Checked;
             settings.LogoutWhenFinished = this.checkBoxLogoutWhenFinished.Checked;

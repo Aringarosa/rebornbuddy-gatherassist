@@ -102,7 +102,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 10, 60, "530.2131, 75.17319, -277.4191", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 10, "Mature Tree", 20, 60, "664.8801, 65.41305, -216.592", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 15, "Lush Vegetation Patch", 45, 80, "638.3107, -3.304667, 153.4811", 4);
-//            itemsTable.Rows.Add("Earth Shard", "Botanist", 15, "Lush Vegetation Patch", 25, 80, "-364.8127, -1.948596, 152.6039", 4); // no aetheryte
+            ////itemsTable.Rows.Add("Earth Shard", "Botanist", 15, "Lush Vegetation Patch", 25, 80, "-364.8127, -1.948596, 152.6039", 4); // no aetheryte
             itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Lush Vegetation Patch", 30, 80, "87.2282, -33.21325, 254.1546", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 10, 60, "242.0697, -23.3774, 290.0143", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 30, 80, "252.646, -9.157417, 13.05055", 4);
@@ -244,7 +244,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Noble Grapes", "Botanist", 15, "Lush Vegetation Patch", 25, 80, "-364.8127, -1.948596, 152.6039", 1); // no aetheryte
             itemsTable.Rows.Add("Nopales", "Botanist", 53, "Mature Tree", 20, 80, "-33.39082, -8.737234, -74.28648", 5);
             itemsTable.Rows.Add("Nutmeg", "Botanist", 12, "Mature Tree", 40, 80, "-101.0265, 42.08762, 192.7253", 3);
-            itemsTable.Rows.Add("Oak Branch", "Botanist", 6, "Mature Tree", 35, 60, "-229.608, -0.03202128, 443.5553", 2);
+            itemsTable.Rows.Add("Oak Branch", "Botanist", 6, "Mature Tree", 35, 90, "-229.608, -0.03202128, 443.5553", 2);
             itemsTable.Rows.Add("Oak Log", "Botanist", 6, "Mature Tree", 35, 90, "-229.608, -0.03202128, 443.5553", 5);
             itemsTable.Rows.Add("Obsidian", "Miner", 17, "Mineral Deposit", 10, 70, "42.55082, 57.27194, 353.5192", 7);
             itemsTable.Rows.Add("Ogre Horn", "Miner", 21, "Mineral Deposit", 50, 80, "92.58333, 22.01458, 151.3047", 6);

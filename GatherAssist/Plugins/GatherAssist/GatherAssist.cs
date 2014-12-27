@@ -29,6 +29,7 @@ namespace GatherAssist
     using ff14bot.Interfaces;
     using ff14bot.Managers;
     using ff14bot.NeoProfiles;
+    using ff14bot.Objects;
     using ff14bot.Settings;
     using Settings;
     using Action = TreeSharp.Action;
@@ -104,7 +105,7 @@ namespace GatherAssist
         /// <summary>
         /// Whether or not to reload the profile on the next pulse. Used for adjusting the current gather spell.
         /// </summary>
-        private bool ReloadFlag = false;
+        private bool reloadFlag = false;
 
         /// <summary>
         /// Gets the author of this plugin.
@@ -332,7 +333,12 @@ namespace GatherAssist
         /// </summary>
         public void OnPulse()
         {
-            if (this.ReloadFlag && !GatheringWindow.WindowOpen)
+            if (settings.SummonChocobo && !Chocobo.Summoned && Chocobo.CanSummon)
+            {
+                Chocobo.Summon();
+            }
+
+            if (this.reloadFlag && !GatheringWindow.WindowOpen)
             {
                 this.LoadProfile(true);
                 return;
@@ -390,8 +396,8 @@ namespace GatherAssist
                 // break logic if a new spell has been selected
                 if (!string.IsNullOrEmpty(this.GatheringSpellOverride))
                 {
-                    Log(LogMajorColor, string.Format("Overriding current gathering spell with {0}", this.GatheringSpellOverride));
-                    this.ReloadFlag = true; // don't do anything on this pulse, as it would create a paradox while waiting for a window to close
+                    this.Log(LogMajorColor, string.Format("Overriding current gathering spell with {0}", this.GatheringSpellOverride));
+                    this.reloadFlag = true; // don't do anything on this pulse, as it would create a paradox while waiting for a window to close
                 }
             }
         }
@@ -710,7 +716,7 @@ namespace GatherAssist
         {
             try
             {
-                this.ReloadFlag = false; // reset reload flag, whether or not the override is being triggered
+                this.reloadFlag = false; // reset reload flag, whether or not the override is being triggered
                 this.timerIterations = 0; // reset iterations for AutoSkip feature
                 bool isValid = true;
 

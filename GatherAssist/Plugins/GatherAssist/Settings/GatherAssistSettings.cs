@@ -12,6 +12,7 @@
 namespace GatherAssist.Settings
 {
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using ff14bot.Helpers;
     using Newtonsoft.Json;
@@ -82,6 +83,13 @@ namespace GatherAssist.Settings
         /// </summary>
         [Setting]
         public bool HqOnly { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether a companion chocobo should be summoned while gathering.
+        /// </summary>
+        [Setting]
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Chocobo is a FFXIV term.")]
+        public bool SummonChocobo { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the app should log out when gathering is complete.
