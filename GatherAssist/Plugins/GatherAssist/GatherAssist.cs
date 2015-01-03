@@ -128,7 +128,7 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
-            get { return new Version(1, 0, 0); }
+            get { return new Version(1, 0, 1); }
         }
 
         /// <summary>
@@ -361,7 +361,11 @@ namespace GatherAssist
 
                 if (targetGatheringItem == null)
                 {
-                    this.Log(LogErrorColor, "The target gathering item could not be ascertained from this window; is there a problem with the profile?");
+                    if (!this.currentGatherRequest.ItemName.Contains("Crystal"))
+                    {
+                        this.Log(LogErrorColor, "The target gathering item could not be ascertained from this window; is there a problem with the profile?");
+                    }
+
                     return;
                 }
 
@@ -756,7 +760,7 @@ namespace GatherAssist
                         gatheringSpell = this.GetGatheringSpell(itemRecord); // get a gathering spell appropriate for this class
                         
                         // don't allow shard/HQ spells to be overridden; automatic determination is already the best spell
-                        if (gatheringSpell.Contains("Shard") || settings.HqOnly)
+                        if (itemRecord.ItemName.Contains("Shard") || itemRecord.ItemName.Contains("Crystal") || settings.HqOnly)
                         {
                             this.GatheringSpellOverride = gatheringSpell;
                         }
@@ -767,13 +771,19 @@ namespace GatherAssist
                     int timesToCast = (gatheringSpell == "Prospect" || gatheringSpell == "Triangulate") ? 2 : 1;
                     string nameSlotSection = string.Empty; // to store the item name / slot portion of the profile
 
-                    // if there is no valid slot number, use item naming logic instead
-                    if (itemRecord.SlotNumber == NOSLOT)
+                    if (itemRecord.ItemName.Contains("Crystal"))
                     {
+                        // special handling for crystal profiles, since crystal/shard position moves
+                        nameSlotSection = string.Format("<ItemNames><ItemName>{0}</ItemName><ItemName>{1}</ItemName></ItemNames>", itemRecord.ItemName, itemRecord.ItemName.Replace("Crystal", "Shard"));
+                    }
+                    else if (itemRecord.SlotNumber == NOSLOT)
+                    {
+                        // if there is no valid slot number, use item naming logic instead
                         nameSlotSection = string.Format("<ItemNames><ItemName>{0}</ItemName></ItemNames>", itemRecord.ItemName);
                     }
                     else
                     {
+                        // standard definitions, explicit slot number
                         nameSlotSection = string.Format("<Slot>{0}</Slot>", itemRecord.SlotNumber);
                     }
 
