@@ -252,6 +252,25 @@
             Gets or sets the "disregard" time, in milliseconds, of the AutoEquip item check. AutoEquip will automatically recheck an item after it has not been checked for this period of time.
             </summary>
         </member>
+        <member name="T:ff14bot.Helpers.LocalizedDictionary`2">
+            <summary>
+            Multi-Key Dictionary Class
+            </summary>    
+            <typeparam name="K">Primary Key Type</typeparam>
+            <typeparam name="V">Value Type</typeparam>
+        </member>
+        <member name="M:ff14bot.Managers.CraftingManager.SetRecipe(System.UInt32)">
+            <summary>
+            Attempts to select the provided recipe
+            </summary>
+            <param name="recipeId"></param>
+            <returns>true if we know the recipe and could set it, false otherwise</returns>
+        </member>
+        <member name="P:ff14bot.Managers.CraftingManager.CanCraft">
+            <summary>
+            Returns true if we can craft the currently selected recipe
+            </summary>
+        </member>
         <member name="T:ff14bot.Managers.GardenManager">
             <summary>
             Handles interacting with private gardens
@@ -1575,6 +1594,13 @@
             Using this class outside a framelock is not supported as the values are not cached.
             </summary>
         </member>
+        <member name="M:ff14bot.Managers.BagSlot.CanUse(ff14bot.Objects.GameObject)">
+            <summary>
+            Checks if we can use the provided item.
+            </summary>
+            <param name="target">Either the gameobject we want to use it on, or null.</param>
+            <returns></returns>
+        </member>
         <member name="M:ff14bot.Managers.BagSlot.Move(ff14bot.Managers.BagSlot)">
             <summary>
             Attempts to move the contents of the current bagslot to the destination
@@ -1791,6 +1817,21 @@
         <member name="M:ff14bot.NeoProfiles.Tags.ClimbHill.OnResetCachedDone">
             <summary>
             This gets called when a while loop starts over so reset anything that is used inside the IsDone check
+            </summary>
+        </member>
+        <member name="F:ff14bot.NeoProfiles.CraftAction.alternate">
+            <summary>
+            So that we can output the same line to the log without it being removed for spam
+            </summary>
+        </member>
+        <member name="F:ff14bot.NeoProfiles.StopCrafting.alternate">
+            <summary>
+            So that we can output the same line to the log without it being removed for spam
+            </summary>
+        </member>
+        <member name="F:ff14bot.NeoProfiles.EatFood.alternate">
+            <summary>
+            So that we can output the same line to the log without it being removed for spam
             </summary>
         </member>
         <member name="P:ff14bot.NeoProfiles.Tags.HuntBehavior.Position">
@@ -2173,6 +2214,16 @@
                 This class houses the information for spells
             </summary>
         </member>
+        <member name="P:ff14bot.Objects.SpellData.Name">
+            <summary>
+            Returns the english name of the spell
+            </summary>
+        </member>
+        <member name="P:ff14bot.Objects.SpellData.LocalizedName">
+            <summary>
+            Returns the name of the spell in the games currently selected localization
+            </summary>
+        </member>
         <member name="P:ff14bot.Objects.SpellData.BaseCastTime">
             <summary>
             This returns how long the base cast time of a spell is.
@@ -2240,6 +2291,19 @@
             Clicks the line that equals the supplied text
             </summary>
             <param name="text"></param>
+        </member>
+        <member name="F:ff14bot.RemoteWindows.Shop.paddingshit">
+            <summary>
+            This string is actually multiple bytes, gg visual studio interface
+            </summary>
+        </member>
+        <member name="M:ff14bot.RemoteWindows.Shop.Purchase(System.UInt32,System.UInt32)">
+            <summary>
+            Purchase item from store
+            </summary>
+            <param name="itemId"></param>
+            <param name="itemCount">This value will never exced what the normal game ui allows</param>
+            <returns>number of items purchased</returns>
         </member>
         <member name="T:ff14bot.Windows.BotSettings.GlobalSettingsWindow">
             <summary>
@@ -2560,7 +2624,7 @@
         </member>
         <member name="F:ff14bot.Managers.DataManager.SpellCache">
             <summary>
-            Dictionary containing spellobjects stored by id and english name.
+            Dictionary containing spellobjects stored by id and english name and the current localized name
             </summary>
         </member>
         <member name="F:ff14bot.Managers.DataManager.SpellsWithJobsCache">
@@ -2590,12 +2654,7 @@
         </member>
         <member name="F:ff14bot.Managers.DataManager.ItemCache">
             <summary>
-            Dictionary containing itemobjects stored by id and english name.
-            </summary>
-        </member>
-        <member name="F:ff14bot.Managers.DataManager.LocaleItemCache">
-            <summary>
-            Dictionary containing itemobjects stored by id and the games current language.
+            Dictionary containing itemobjects stored by id and english name and current language.
             </summary>
         </member>
         <member name="F:ff14bot.Managers.DataManager.AuraCache">
