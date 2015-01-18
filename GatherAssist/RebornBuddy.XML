@@ -4,6 +4,11 @@
         <name>RebornBuddy</name>
     </assembly>
     <members>
+        <member name="P:ff14bot.AClasses.BotBase.IsAutonomous">
+            <summary>
+            Return false if human presence is needed.
+            </summary>
+        </member>
         <member name="M:ff14bot.Interfaces.IBotPlugin.OnPulse">
             <summary> Executes the pulse action. This is called every "tick" of the bot. </summary>
         </member>
@@ -86,6 +91,19 @@
             <param name="context"></param>
             <returns><c>true</c> if the composite finished with <see cref="F:TreeSharp.RunStatus.Success"/>; otherwise <c>false</c>.</returns>
         </member>
+        <member name="M:ff14bot.Behavior.CommonTasks.ConvertToMateria(ff14bot.Managers.BagSlot,System.Int32)">
+            <summary>
+            Coroutine that will attempt to convert an item to materia.
+            </summary>
+            <param name="bagslot">Slot that contains the item to convert</param>
+            <param name="sleepDuration">How long to sleep after clicking yes in milliseconds.</param>
+            <returns>
+            Returns CannotSpiritbond if slot is not valid or item is not convertible
+            Returns SpiritbondNotComplete if bagslot spiritbond percent is less than 100
+            Returns Failure if we attempted to convert the item but something went wrong
+            Returns Success otherwise
+            </returns>
+        </member>
         <member name="T:ff14bot.Behavior.CoroutineTask">
             <summary>
             Represents a coroutine task that can be derived from to implement coroutine parts with state. This class is awaitable.
@@ -156,6 +174,10 @@
             <param name="location"> The location. </param>
             <param name="behavior"> The behavior. </param>
         </member>
+        <member name="M:ff14bot.Behavior.TreeHooks.ClearHook(System.String)">
+            <summary> Removes all hooks at the specified location. </summary>
+            <param name="location"> The location. </param>
+        </member>
         <member name="M:ff14bot.Behavior.TreeHooks.ReplaceHook(System.String,TreeSharp.Composite)">
             <summary>Replaces all hooks at the specified location, with one that you provide.</summary>
             <remarks>Created 3/9/2011.</remarks>
@@ -176,6 +198,12 @@
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
             <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:ff14bot.BotBases.FateBot.SetFate(ff14bot.Managers.FateData)">
+            <summary>
+            Sets the currentfate to the provided fatedata, also sets the poi.
+            </summary>
+            <param name="fate"></param>
         </member>
         <member name="M:ff14bot.BotBases.FateBot.Start">
             <summary> Starts this bot. Do any initialization here. </summary>
@@ -201,6 +229,56 @@
         <member name="P:ff14bot.Helpers.JsonSettings._revision">
             <summary>
             Override this field when you change the default values for a setting and use the UpdateDefaultValueAttribute attribute to updatethem
+            </summary>
+        </member>
+        <member name="T:ff14bot.CharacterManagement.AutoEquipper">
+            <summary>
+            Represents a class that implements operations to auto equip items for the current character.
+            </summary>
+            <remarks>
+            <para>An instance of this class is available through the <see cref="!:CharacterManager"/> class.</para>
+            </remarks>
+        </member>
+        <member name="P:ff14bot.CharacterManagement.AutoEquipper.TargetCheckTime">
+            <summary>
+            Gets or sets the target time, in milliseconds, of the AutoEquip item check. AutoEquip will run through all bag items over a period of this time.
+            </summary>
+            <remarks>
+            This is also, in most cases, the maximum time it will take for a new item to be considered for equipping.
+            </remarks>
+        </member>
+        <member name="P:ff14bot.CharacterManagement.AutoEquipper.DisregardTime">
+            <summary>
+            Gets or sets the "disregard" time, in milliseconds, of the AutoEquip item check. AutoEquip will automatically recheck an item after it has not been checked for this period of time.
+            </summary>
+        </member>
+        <member name="T:ff14bot.Managers.GardenManager">
+            <summary>
+            Handles interacting with private gardens
+            </summary>
+        </member>
+        <member name="M:ff14bot.Managers.GardenManager.Fertilize(System.Int32)">
+            <summary>
+            Attempts to fertilize the active plant with the provided fertilizer
+            </summary>
+            <param name="itemId">Defaults to fishmeal</param>
+            <returns></returns>
+        </member>
+        <member name="M:ff14bot.Managers.GardenManager.GetCrop(ff14bot.Objects.EventObject)">
+            <summary>
+            Gets the item that the plant will yield
+            </summary>
+            <param name="plant"></param>
+            <returns>Returns an Item if the plant will yield something, null otherwise</returns>
+        </member>
+        <member name="P:ff14bot.Managers.GardenManager.Plants">
+            <summary>
+            Gets all the plants visible to the objectmanager
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.GardenManager.ReadyToFertilize">
+            <summary>
+            Returns true if we have an active plant and the fertilize window is open
             </summary>
         </member>
         <member name="M:ff14bot.Managers.QuestLogManager.HasAtLeastOneQuest(System.Int32[])">
@@ -458,6 +536,11 @@
             <summary> Creates a behavior to force all movement to stop for the current character. This will always return <see cref="F:TreeSharp.RunStatus.Success"/>. </summary>
             <remarks> Created 3/11/2012. </remarks>
             <returns> . </returns>
+        </member>
+        <member name="M:ff14bot.Behavior.CommonBehaviors.CreateSprintBehavior">
+            <summary>Creates mount behavior.</summary>
+            <remarks>superreeen, 05.07.2013.</remarks>
+            <returns>The new mount behavior.</returns>
         </member>
         <member name="M:ff14bot.Behavior.CommonBehaviors.CreateMountBehavior">
             <summary>Creates mount behavior.</summary>
@@ -1403,6 +1486,21 @@
             <param name="unit"> The unit. </param>
             <returns> The score for unit. </returns>
         </member>
+        <member name="M:ff14bot.Managers.SmallDutyCombatTargetingProvider.GetObjectsByWeight">
+            <summary> Gets the objects by weight. </summary>
+            <remarks> Nesox, 2013-06-29. </remarks>
+            <returns> The objects by weight. </returns>
+        </member>
+        <member name="M:ff14bot.Managers.SmallDutyCombatTargetingProvider.IsValidUnit(System.Boolean,ff14bot.Objects.BattleCharacter,ff14bot.Objects.BattleCharacter,ff14bot.Navigation.HotSpot[])">
+            <summary> Query if 'unit' is valid unit. </summary>
+            <remarks> Nesox, 2013-06-29. </remarks>
+        </member>
+        <member name="M:ff14bot.Managers.SmallDutyCombatTargetingProvider.GetScoreForUnit(ff14bot.Managers.SmallDutyCombatTargetingProvider.Score)">
+            <summary> Gets score for a unit. </summary>
+            <remarks> Nesox, 2013-06-29. </remarks>
+            <param name="unit"> The unit. </param>
+            <returns> The score for unit. </returns>
+        </member>
         <member name="T:ff14bot.Managers.DefaultCombatTargetingProvider">
             <summary> Default combat targeting provider. </summary>
             <remarks> Nesox, 2013-06-29. </remarks>
@@ -1474,7 +1572,15 @@
         <member name="T:ff14bot.Managers.BagSlot">
             <summary>
             Class represents an grid slot within a bag
+            Using this class outside a framelock is not supported as the values are not cached.
             </summary>
+        </member>
+        <member name="M:ff14bot.Managers.BagSlot.Move(ff14bot.Managers.BagSlot)">
+            <summary>
+            Attempts to move the contents of the current bagslot to the destination
+            </summary>
+            <param name="destination">Where to move</param>
+            <returns>True if succeded, false otherwise</returns>
         </member>
         <member name="P:ff14bot.Managers.BagSlot.RawItemId">
             <summary>
@@ -1491,9 +1597,39 @@
             This class holds a grid of slots
             </summary>
         </member>
-        <member name="P:ff14bot.Managers.InventoryManager.Slots">
+        <member name="M:ff14bot.Managers.Bag.GetEnumerator">
             <summary>
-            Returns all currently filled item slots
+            Returns all the slots within the bag
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.Bag.Item(System.Int32)">
+            <summary>
+            Returns the bagslot at the given index
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.Bag.Item(ff14bot.Enums.EquipmentSlot)">
+            <summary>
+            Returns the bagslot at the given index
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.Bag.FilledSlots">
+            <summary>
+            Returns all the filled slots within the bag
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.InventoryManager.EquippedItems">
+            <summary>
+            Returns all the slots for Equipment
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.InventoryManager.FilledSlots">
+            <summary>
+            Returns all currently filled item slots in the main inventory and equiped items
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.InventoryManager.FilledInventoryAndArmory">
+            <summary>
+            Returns all currently filled item slots in the main inventory and equiped items
             </summary>
         </member>
         <member name="M:ff14bot.Managers.Lua.GetReturnValues(System.String,System.String)">
@@ -1669,6 +1805,11 @@
             </summary>
             <remarks>Created 2012-02-08</remarks>
         </member>
+        <member name="M:ff14bot.NeoProfiles.Tags.SimpleDutyTag.OnResetCachedDone">
+            <summary>
+            This gets called when a while loop starts over so reset anything that is used inside the IsDone check
+            </summary>
+        </member>
         <member name="P:ff14bot.NeoProfiles.Tags.EmoteNPCTag.StatusText">
             <summary>
             Gets the status text.
@@ -1765,6 +1906,18 @@
         <member name="P:ff14bot.Managers.WorldManager.AvailableLocations">
             <summary>
             List of avalible locations to teleport to.
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.WorldManager.InSanctuary">
+            <summary>
+            Returns true if player is currently in a sanctuary
+            </summary>
+        </member>
+        <member name="P:ff14bot.Managers.WorldManager.RawZoneId">
+            <summary>
+            Returns RAW Id for the current zone 
+            This function is not what you are looking for in most cases
+            Use ZoneId instead.
             </summary>
         </member>
         <member name="P:ff14bot.Managers.WorldManager.ZoneId">
@@ -1920,6 +2073,10 @@
             The full path to the XML file, or null if it was not loaded from file.
             </summary>
         </member>
+        <member name="P:ff14bot.NeoProfiles.NeoProfile.BehaviorDirectory">
+            <summary> Gets or sets the name. </summary>
+            <value> The name. </value>
+        </member>
         <member name="P:ff14bot.NeoProfiles.NeoProfile.Name">
             <summary> Gets or sets the name. </summary>
             <value> The name. </value>
@@ -2004,6 +2161,13 @@
             Returns true if target has been tapped
             </summary>
         </member>
+        <member name="M:ff14bot.Objects.Chocobo.CanSummonWith(System.UInt32)">
+            <summary>
+            Checks to see if the supplied item can be used
+            </summary>
+            <param name="itemid"></param>
+            <returns></returns>
+        </member>
         <member name="T:ff14bot.Objects.SpellData">
             <summary>
                 This class houses the information for spells
@@ -2046,6 +2210,12 @@
             Returns list of current known skills
             Value is cached for 1 minute
             </summary>
+        </member>
+        <member name="M:ff14bot.RemoteWindows.MaterializeDialog.Open(ff14bot.Managers.BagSlot)">
+            <summary>
+            Attempts to open the window with the provided bagslot.
+            </summary>
+            <param name="bagSlot"></param>
         </member>
         <member name="M:ff14bot.RemoteWindows.SelectIconString.ClickLineContains(System.String)">
             <summary>
@@ -2233,7 +2403,6 @@
             Returns true if the following:
                 If we are in Line-of-sight
                 If there is no error code on the spellcheck
-                If there is no spell queued and the spell is not a ground targeting spell and the spell has less then 500ms on its cd
             </summary>
             <param name="spellName"></param>
             <param name="targetObject"></param>
@@ -2244,7 +2413,6 @@
             Returns true if the following:
                 If we are in Line-of-sight
                 If there is no error code on the spellcheck
-                If there is no spell queued and the spell is not a ground targeting spell and the spell has less then 500ms on its cd
             </summary>
             <param name="spellName"></param>
             <param name="targetObject"></param>
@@ -2255,7 +2423,6 @@
             Returns true if the following:
                 If we are in Line-of-sight
                 If there is no error code on the spellcheck
-                If there is no spell queued and the spell is not a ground targeting spell and the spell has less then 500ms on its cd
             </summary>
             <param name="cache"></param>
             <param name="targetObject"></param>
@@ -2376,7 +2543,7 @@
             Returns true if item can go in the mainhand or offhand
             </summary>
         </member>
-        <member name="P:ff14bot.Managers.Item.IsValidForClass">
+        <member name="P:ff14bot.Managers.Item.IsValidForCurrentClass">
             <summary>
             Returns true if the items affinity allows the current class/job
             </summary>
@@ -2478,11 +2645,12 @@
             <param name="spellId"></param>
             <returns>null if could not be found</returns>
         </member>
-        <member name="M:ff14bot.Managers.DataManager.GetItem(System.UInt32)">
+        <member name="M:ff14bot.Managers.DataManager.GetItem(System.UInt32,System.Boolean)">
             <summary>
             Get item object based on id
             </summary>
             <param name="itemId"></param>
+            <param name="highQuality">True if the item is high quality</param>
             <returns>null if could not be found</returns>
         </member>
         <member name="M:ff14bot.Managers.DataManager.GetItem(System.String)">
@@ -2535,6 +2703,11 @@
         <member name="P:ff14bot.Managers.RaptureAtkUnitManager.Controls">
             <summary> Gets a list of AtkAddonControl. </summary>
             <value> A List of AtkAddonControl. </value>
+        </member>
+        <member name="T:ff14bot.Objects.Aura">
+            <summary>
+            The values within this class are only good for one frame, discard object after that.
+            </summary>
         </member>
         <member name="F:ff14bot.Managers.GameObjectManager.Attackers">
             <summary>
