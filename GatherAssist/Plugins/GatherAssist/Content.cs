@@ -82,7 +82,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Cinderfoot Olive", "Botanist", 10, "Lush Vegetation Patch", 15, 80, "266.3692, 45.04897, 34.22172", 1);
             itemsTable.Rows.Add("Cinnabar", "Miner", 17, "Rocky Outcrop", 15, 80, "120.6936, 51.13934, -148.9914", 2);
             itemsTable.Rows.Add("Cinnamon", "Botanist", 7, "Mature Tree", 5, 80, "242.0697, -23.3774, 290.0143", 2);
-            itemsTable.Rows.Add("Cloves", "Botanist", 53, "Mature Tree", 10, 80, "68.77254, 1.497645, 240.9623", 2);
+            itemsTable.Rows.Add("Cloves", "Botanist", 53, "Mature Tree", 10, 100, "42.09723, 4.418721, 281.9322", 2);
             itemsTable.Rows.Add("Cobalt Ore", "Miner", 21, "Mineral Deposit", 50, 80, "92.58333, 22.01458, 151.3047", 2);
             itemsTable.Rows.Add("Cock Feather", "Botanist", 53, "Mature Tree", 10, 80, "68.77254, 1.497645, 240.9623", 0);
             itemsTable.Rows.Add("Coerthan Carrot", "Botanist", 17, "Lush Vegetation Patch", 15, 80, "146.4175, 49.39901, -111.9525", 6);
@@ -108,6 +108,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 5, 60, "281.881, -22.99627, 139.9542", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 5, 60, "403.8246, -6.349792, 262.0765", 4);
             itemsTable.Rows.Add("Earth Shard", "Botanist", 7, "Mature Tree", 5, 60, "52.50433, -12.99726, -14.05974", 4);
+            itemsTable.Rows.Add("Earth Shard", "Miner", 7, "Mineral Deposit", 20, 80, "389.6131, -6.329008, 79.5415", 4);
             itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Mineral Deposit", 10, 60, "308.8403, 68.79769, -143.7302", 4);
             itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 30, 60, "-7.995946, 41.8293, 684.2917", 4);
             itemsTable.Rows.Add("Earth Shard", "Miner", 10, "Rocky Outcrop", 50, 60, "267.9286, 74.66428, -302.3478", 4);
@@ -272,6 +273,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Raw Peridot", "Miner", 3, "Mineral Deposit", 35, 80, "-380.6211, 50.77991, 20.49316", 5);
             itemsTable.Rows.Add("Raw Rubellite", "Miner", 18, "Mineral Deposit", 45, 80, "-451.0229, -13.26132, -118.5514", 6);
             itemsTable.Rows.Add("Raw Spinel", "Miner", 5, "Mineral Deposit", 40, 80, "364.1767, -4.775018, 69.99052", 7);
+            itemsTable.Rows.Add("Raw Sphene", "Miner", 7, "Mineral Deposit", 20, 80, "389.6131, -6.329008, 79.5415", 5);
             itemsTable.Rows.Add("Raw Sunstone", "Miner", 10, "Mineral Deposit", 10, 60, "308.8403, 68.79769, -143.7302", 6);
             itemsTable.Rows.Add("Raw Tourmaline", "Miner", 5, "Mineral Deposit", 40, 80, "364.1767, -4.775018, 69.99052", 5);
             itemsTable.Rows.Add("Raw Turquoise", "Miner", 15, "Mineral Deposit", 45, 80, "429.3576, -3.311842, 185.0665", 6);
