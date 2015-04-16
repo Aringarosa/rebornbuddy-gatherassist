@@ -32,12 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GreyMagic">
-      <HintPath>.\GreyMagic.dll</HintPath>
+      <HintPath>..\..\..\GreyMagic.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="RebornBuddy, Version=1.0.200.0, Culture=neutral, PublicKeyToken=48d7174f8a943034, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\RebornBuddy.exe</HintPath>
+    <Reference Include="RebornBuddy">
+      <HintPath>..\..\..\RebornBuddy.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
