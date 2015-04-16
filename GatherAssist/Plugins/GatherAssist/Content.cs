@@ -44,6 +44,29 @@ namespace GatherAssist
             ////itemsTable.Rows.Add("Lightning Shard", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", GatherAssist.NOSLOT);
             ////itemsTable.Rows.Add("Ruby Tomato", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225", GatherAssist.NOSLOT);
 
+            // MinerLevQuest
+            // 35-40
+            //Eye for an Eye
+            itemsTable.Rows.Add("Highland Limestone", "Miner", 23, "Mineral Deposit", 37, 80, "443.613, 209.5668, 464.4349", 3);
+            //There Are No Good Answers
+            itemsTable.Rows.Add("Block of Snow", "Miner", 23, "Mineral Deposit", 37, 80, "141.7172, 280.5005, 19.43826", 6);
+            //Rocks of Brains
+            itemsTable.Rows.Add("Superior Repair Stone", "Miner", 23, "Mineral Deposit", 40, 80, "77.62911, 217.6815, 420.8323", 6);
+            itemsTable.Rows.Add("Repair Stone", "Miner", 23, "Mineral Deposit", 37, 80, "77.62911, 217.6815, 420.8323", 3);
+            // Mythril Madness
+            itemsTable.Rows.Add("Blue Mythril Ore", "Miner", 23, "Mineral Deposit", 37, 80, "446.4557, 232.4317, 323.9256", 2);
+            itemsTable.Rows.Add("Rich Blue Mythril Ore", "Miner", 23, "Mineral Deposit", 40, 80, "446.4557, 232.4317, 323.9256", 5);
+            // 40-45
+            //Brother in Arms
+            itemsTable.Rows.Add("Marcasite", "Miner", 23, "Mineral Deposit", 42, 80, "-723.2169, 226.3917, -6.858791", 5);
+            //Breach and Build
+            itemsTable.Rows.Add("Building Stone", "Miner", 23, "Mineral Deposit", 42, 80, "-780.027, 241.8041, -162.4704", 3);
+            //Not Losing our Heads This Time
+            itemsTable.Rows.Add("Tundra", "Miner", 23, "Mineral Deposit", 42, 110, "-570.0806, 204.243, -343.9917", 3);
+            itemsTable.Rows.Add("Permafrost", "Miner", 23, "Mineral Deposit", 45, 110, "-570.0806, 204.243, -343.9917", 5);
+            //Nature is a Monster
+            itemsTable.Rows.Add("Snowcloak Slab", "Miner", 23, "Mineral Deposit", 42, 80, "-760.9202, 223.4206, 36.56805", 1);
+            itemsTable.Rows.Add("Clear Snowcloak Slab", "Miner", 23, "Mineral Deposit", 45, 80, "-760.9202, 223.4206, 36.56805", 3);
             // Field Survey
             itemsTable.Rows.Add("Adamantoise Shell", "Miner", 21, "Mineral Deposit", 50, 80, "92.58333, 22.01458, 151.3047", 3);
             itemsTable.Rows.Add("Ala Mhigan Mustard", "Botanist", 18, "Lush Vegetation Patch", 25, 80, "-342.9444, -26.28499, -33.79862", 2);

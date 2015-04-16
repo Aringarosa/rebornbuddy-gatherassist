@@ -1,0 +1,46 @@
+﻿Levequest Items:
+Mining
+1-5
+
+5-10
+
+10-15
+
+15-20
+
+20-25
+
+25-30
+
+30-35
+
+35-40
+            //Eye for an Eye
+            "Highland Limestone"
+            //There Are No Good Answers
+            "Block of Snow"
+            //Rocks of Brains
+            "Superior Repair Stone"
+            "Repair Stone"
+            // Mythril Madness
+            "Blue Mythril Ore"
+            "Rich Blue Mythril Ore"
+40-45
+			//Brother in Arms
+            "Marcasite"
+            //Breach and Build
+            "Building Stone"
+            //Not Losing our Heads This Time
+            "Tundra"
+            "Permafrost"
+            //Nature is a Monster
+            "Snowcloak Slab"
+            "Clear Snowcloak Slab"
+45-50
+			//Hybrid Hypotheses
+			
+			//Sucker Seer
+
+			//Crystal Mess
+
+			// Metal Has No Master
