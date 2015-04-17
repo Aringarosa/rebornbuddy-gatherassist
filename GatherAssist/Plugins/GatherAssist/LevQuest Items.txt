@@ -1,46 +1,98 @@
 ﻿Levequest Items:
 Mining
 1-5
-
+	//Miners Holiday
+	
+	//The Primrose Path
+	
+	//Who Needs the Paperwork
+	
+	//Rubble Bubble
+	
 5-10
-
+	//I DOnt Zinc its a Coincidence
+	
+	//Pipikkulis Ship Comes In
+	
+	//Do they Ore dont They
+	
+	//Vanishing Point
+	
 10-15
-
+	//We do this the hard way
+	
+	//It Peiste to Listen
+	
+	//Thats why they call it fools
+	
+	//Break It up
+	
 15-20
-
+	//The Doom That came to
+	
+	//Eiderdown for Eidolons
+	
+	//Eartg Spirits are easy
+	
+	//A mans gotta dream
+	
 20-25
-
+	//Rock my wall
+	
+	//Location, Location, Location
+	
+	//Elemental Houskeeping
+	
+	//Look how they Shine for you
+	
 25-30
-
+	//Baby light my way
+	
+	//Tag, youre it
+	
+	//Cant start a fire
+	
+	//Fool me twice
+	
 30-35
-
+	//Shell game
+	
+	//The midden Fair
+	
+	//Thats waht the money is for
+	
+	//I Kidd you not
+	
 35-40
-            //Eye for an Eye
-            "Highland Limestone"
-            //There Are No Good Answers
-            "Block of Snow"
-            //Rocks of Brains
-            "Superior Repair Stone"
-            "Repair Stone"
-            // Mythril Madness
-            "Blue Mythril Ore"
-            "Rich Blue Mythril Ore"
+	//Eye for an Eye
+	"Highland Limestone"
+	//There Are No Good Answers
+	"Block of Snow"
+	//Rocks of Brains
+	"Superior Repair Stone"
+	"Repair Stone"
+	// Mythril Madness *stealth*
+	"Blue Mythril Ore"
+	"Rich Blue Mythril Ore"
 40-45
-			//Brother in Arms
-            "Marcasite"
-            //Breach and Build
-            "Building Stone"
-            //Not Losing our Heads This Time
-            "Tundra"
-            "Permafrost"
-            //Nature is a Monster
-            "Snowcloak Slab"
-            "Clear Snowcloak Slab"
+	//Brother in Arms
+	"Marcasite"
+	//Breach and Build
+	"Building Stone"
+	//Not Losing our Heads This Time *stealth*
+	"Tundra"
+	"Permafrost"
+	//Nature is a Monster
+	"Snowcloak Slab"
+	"Clear Snowcloak Slab"
 45-50
-			//Hybrid Hypotheses
-			
-			//Sucker Seer
-
-			//Crystal Mess
-
-			// Metal Has No Master
+	//Hybrid Hypotheses *stealth*
+	"Crystallized Root"
+	"Crystallized Trunk"
+	//Sucker Seer
+	"Scratched Allagan Runestone""
+	//Crystal Mess
+	"Overgrown Crystal""
+	// Metal Has No Master
+	"Dreadnaught Hull"
+	"Dreadnaught Heatshild"

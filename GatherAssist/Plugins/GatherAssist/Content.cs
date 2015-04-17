@@ -67,6 +67,17 @@ namespace GatherAssist
             //Nature is a Monster
             itemsTable.Rows.Add("Snowcloak Slab", "Miner", 23, "Mineral Deposit", 42, 80, "-760.9202, 223.4206, 36.56805", 1);
             itemsTable.Rows.Add("Clear Snowcloak Slab", "Miner", 23, "Mineral Deposit", 45, 80, "-760.9202, 223.4206, 36.56805", 3);
+            //45-50
+	        //Hybrid Hypotheses
+            itemsTable.Rows.Add("Crystallized Root", "Miner", 24, "Mineral Deposit", 47, 120, "431.791, -15.65618, -369.2624", 7);
+            itemsTable.Rows.Add("Crystallized Trunk", "Miner", 24, "Mineral Deposit", 50, 120, "431.791, -15.65618, -369.2624", 5);
+	        //Sucker Seer
+            itemsTable.Rows.Add("Scratched Allagan Runestone", "Miner", 24, "Rocky Outcrop", 47, 90, "503.299, -5.072927, -411.5198", 5);
+	        //Crystal Mess
+            itemsTable.Rows.Add("Overgrown Crystal", "Miner", 24, "Mineral Deposit", 47, 90, "420.7046, -4.675247, -410.5889", 4);
+	        // Metal Has No Master
+            itemsTable.Rows.Add("Dreadnaught Hull", "Miner", 24, "Mineral Deposit", 47, 100, "139.3676, -3.467925, -551.3579", 2);
+            itemsTable.Rows.Add("Dreadnaught Heatshild", "Miner", 24, "Mineral Deposit", 50, 100, "139.3676, -3.467925, -551.3579", 6);
             // Field Survey
             itemsTable.Rows.Add("Adamantoise Shell", "Miner", 21, "Mineral Deposit", 50, 80, "92.58333, 22.01458, 151.3047", 3);
             itemsTable.Rows.Add("Ala Mhigan Mustard", "Botanist", 18, "Lush Vegetation Patch", 25, 80, "-342.9444, -26.28499, -33.79862", 2);
