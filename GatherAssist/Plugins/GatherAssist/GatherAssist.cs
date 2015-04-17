@@ -818,33 +818,35 @@ namespace GatherAssist
                         "<KillRadius>50</KillRadius>\n" +
                         "<Order>\n";
                     string Teleport = string.Format(
+                        "<RunCode Name=\"BreakStealth\" />\n" +
+                        "<WaitTimer WaitTime=\"1\" />\n" +
                         "<If Condition=\"not IsOnMap({0})\">\n"+
                         "\t<TeleportTo Name=\"{1}\" AetheryteId=\"{2}\" />\n" +
                         "</If>\n"+
                         "<RunCode Name=\"EnableMount\" />\n"+
-                        "<WaitTimer WaitTime=\"3\" />\n",
+                        "<WaitTimer WaitTime=\"2\" />\n",
                         itemRecord.MapNumber,
                         itemRecord.AetheryteName,
                         itemRecord.AetheryteId);                   
                     string StealthOn = string.Format(
                         "<If Condition=\"{0}==1\">\n"+
                         "<MoveTo XYZ=\"{1}\" Name=\"StealthPoint\"/>\n" +
-                        "<WaitTimer WaitTime=\"3\" />\n" +
+                        "<WaitTimer WaitTime=\"2\" />\n" +
                         "<RunCode Name=\"Dismount\" />\n" +
                         "<RunCode Name=\"DisableMount\" />\n"+
-                        "<WaitTimer WaitTime=\"3\" />\n"+
+                        "<WaitTimer WaitTime=\"2\" />\n"+
                         "<RunCode Name=\"UseStealth\" />\n" +
-                        "<WaitTimer WaitTime=\"3\" />\n"+
+                        "<WaitTimer WaitTime=\"2\" />\n"+
                         "</If>\n",
                         itemRecord.Stealth,
                         itemRecord.StealthPoint
                         );
                     string MoveTo = string.Format(
                         "<MoveTo XYZ=\"{0}\" Name=\"GatherAssist Point\"/>\n" +
-                        "<WaitTimer WaitTime=\"3\" />\n" +
+                        "<WaitTimer WaitTime=\"2\" />\n" +
                         "<RunCode Name=\"Dismount\" />\n" +
                         "<RunCode Name=\"DisableMount\" />\n"+
-                        "<WaitTimer WaitTime=\"3\" />\n",
+                        "<WaitTimer WaitTime=\"2\" />\n",
                         itemRecord.Location
                         );
                     string Gathering = string.Format(
