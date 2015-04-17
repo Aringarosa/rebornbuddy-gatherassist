@@ -787,6 +787,11 @@ namespace GatherAssist
                         nameSlotSection = string.Format("<Slot>{0}</Slot>", itemRecord.SlotNumber);
                     }
 
+                    if (itemRecord.StealthPoint.Equals(""))
+                    {
+                        // if StealthPoint not set in Content, we need a entry for RB to load Profile
+                        itemRecord.StealthPoint = itemRecord.Location;
+                    }
                     // construct profile using the chosen item record Hier wird das Profiel erstellt!
 
                     //string xmlContent = string.Format(
