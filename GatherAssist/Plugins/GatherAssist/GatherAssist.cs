@@ -787,29 +787,98 @@ namespace GatherAssist
                         nameSlotSection = string.Format("<Slot>{0}</Slot>", itemRecord.SlotNumber);
                     }
 
-                    // construct profile using the chosen item record
-                    string xmlContent = string.Format(
-                        "<Profile><BotSettings AutoEquip=\"{0}\" /><Name>{1}</Name><KillRadius>{2}</KillRadius><Order><If Condition=\"not IsOnMap({3}" +
-                        ")\"><TeleportTo Name=\"{4}\" AetheryteId=\"{5}\" /></If><Gather while=\"True\"><GatherObject>{6}</GatherObject><HotSpots>" +
-                        "<HotSpot Radius=\"{7}\" XYZ=\"{8}\" /></HotSpots>{9}<GatheringSkillOrder>" +
-                        "<GatheringSkill SpellName=\"{10}\" TimesToCast=\"{11}\" /></GatheringSkillOrder></Gather></Order></Profile>",
-                        settings.AutoEquip ? "1" : "0",
-                        string.Format("{0}: {1}", itemRecord.ClassName, itemRecord.ItemName),
-                        KillRadius,
+                    // construct profile using the chosen item record Hier wird das Profiel erstellt!
+
+                    //string xmlContent = string.Format(
+                    //    "<Profile><BotSettings AutoEquip=\"{0}\" /><Name>{1}</Name><KillRadius>{2}</KillRadius><Order><If Condition=\"not IsOnMap({3}" +
+                    //    ")\"><TeleportTo Name=\"{4}\" AetheryteId=\"{5}\" /></If><Gather while=\"True\"><GatherObject>{6}</GatherObject><HotSpots>" +
+                    //    "<HotSpot Radius=\"{7}\" XYZ=\"{8}\" /></HotSpots>{9}<GatheringSkillOrder>" +
+                    //    "<GatheringSkill SpellName=\"{10}\" TimesToCast=\"{11}\" /></GatheringSkillOrder></Gather></Order></Profile>",
+                    //    settings.AutoEquip ? "1" : "0",
+                    //    string.Format("{0}: {1}", itemRecord.ClassName, itemRecord.ItemName),
+                    //    KillRadius,
+                    //    itemRecord.MapNumber,
+                    //    itemRecord.AetheryteName,
+                    //    itemRecord.AetheryteId,
+                    //    itemRecord.GatherObject,
+                    //    itemRecord.HotspotRadius,
+                    //    itemRecord.Location,
+                    //    nameSlotSection,
+                    //    gatheringSpell,
+                    //    timesToCast);
+                    string Head = 
+                        "<Profile>\n"+
+                        "<BotSettings AutoEquip=\"0\" />\n" +
+                        "<Name>GatherAssistAutoProfil</Name>\n" +
+                        "<KillRadius>50</KillRadius>\n" +
+                        "<Order>\n";
+                    string Teleport = string.Format(
+                        "<If Condition=\"not IsOnMap({0})\">\n"+
+                        "\t<TeleportTo Name=\"{1}\" AetheryteId=\"{2}\" />\n" +
+                        "</If>\n"+
+                        "<RunCode Name=\"EnableMount\" />\n"+
+                        "<WaitTimer WaitTime=\"3\" />\n",
                         itemRecord.MapNumber,
                         itemRecord.AetheryteName,
-                        itemRecord.AetheryteId,
+                        itemRecord.AetheryteId);                   
+                    string StealthOn = string.Format(
+                        "<If Condition=\"{0}==1\">\n"+
+                        "<MoveTo XYZ=\"{1}\" Name=\"StealthPoint\"/>\n" +
+                        "<WaitTimer WaitTime=\"3\" />\n" +
+                        "<RunCode Name=\"Dismount\" />\n" +
+                        "<RunCode Name=\"DisableMount\" />\n"+
+                        "<WaitTimer WaitTime=\"3\" />\n"+
+                        "<RunCode Name=\"UseStealth\" />\n" +
+                        "<WaitTimer WaitTime=\"3\" />\n"+
+                        "</If>\n",
+                        itemRecord.Stealth,
+                        itemRecord.StealthPoint
+                        );
+                    string MoveTo = string.Format(
+                        "<MoveTo XYZ=\"{0}\" Name=\"GatherAssist Point\"/>\n" +
+                        "<WaitTimer WaitTime=\"3\" />\n" +
+                        "<RunCode Name=\"Dismount\" />\n" +
+                        "<RunCode Name=\"DisableMount\" />\n"+
+                        "<WaitTimer WaitTime=\"3\" />\n",
+                        itemRecord.Location
+                        );
+                    string Gathering = string.Format(
+                        "<Gather while=\"True\">\n"+
+                        "<GatherObject>{0}</GatherObject>\n"+
+                        "<HotSpots>\n" +
+                        "<HotSpot Radius=\"{1}\" XYZ=\"{2}\" />\n"+
+                        "</HotSpots>\n"+
+                        "{3}"+
+                        "<GatheringSkillOrder>\n" +
+                        "<GatheringSkill SpellName=\"{4}\" TimesToCast=\"{5}\" />\n"+
+                        "</GatheringSkillOrder>\n"+
+                        "</Gather>",
                         itemRecord.GatherObject,
                         itemRecord.HotspotRadius,
                         itemRecord.Location,
                         nameSlotSection,
                         gatheringSpell,
-                        timesToCast);
+                        timesToCast
+                        );
+                    string OrderEnd =
+                        "</Order>\n";
+                    string CodeChunks =
+                        "<CodeChunks>\n" +
+                        "<CodeChunk Name=\"Miner\">\n<![CDATA[ ff14bot.Managers.ChatManager.SendChat(\"/gs change 11\");]]>\n</CodeChunk>\n" +
+                        "<CodeChunk Name=\"Botanist\">\n<![CDATA[ ff14bot.Managers.ChatManager.SendChat(\"/gs change 12\");]]>\n</CodeChunk>\n" +
+                        "<CodeChunk Name=\"UseStealth\">\n<![CDATA[ SpellData data; if (!Core.Me.HasAura(\"Stealth\") && Actionmanager.CurrentActions.TryGetValue(\"Stealth\", out data) && Actionmanager.CanCast(data, Core.Me)) Actionmanager.DoAction(\"Stealth\", Core.Me);]]>\n</CodeChunk>\n" +
+                        "<CodeChunk Name=\"BreakStealth\">\n<![CDATA[ SpellData data; if (Core.Me.HasAura(\"Stealth\") && Actionmanager.CurrentActions.TryGetValue(\"Stealth\", out data) && Actionmanager.CanCast(data, Core.Me)) Actionmanager.DoAction(\"Stealth\", Core.Me);]]>\n</CodeChunk>\n" +
+                        "<CodeChunk Name=\"DisableMount\">\n<![CDATA[ ff14bot.Settings.CharacterSettings.Instance.UseMount = false;]]>\n</CodeChunk>\n" +
+                        "<CodeChunk Name=\"EnableMount\">\n<![CDATA[ ff14bot.Settings.CharacterSettings.Instance.UseMount = true;]]>\n</CodeChunk>\n" +
+                        "<CodeChunk Name=\"Dismount\">\n<![CDATA[ ff14bot.Managers.Actionmanager.Dismount();]]>\n</CodeChunk>\n" +
+                        "</CodeChunks>\n";
+                    string ProfileEnd =
+                        "</Profile>";
 
                     string targetXmlFile = Path.Combine(GlobalSettings.Instance.PluginsPath, "GatherAssist/Temp/gaCurrentProfile.xml");
                     FileInfo profileFile = new FileInfo(targetXmlFile);
                     profileFile.Directory.Create(); // If the directory already exists, this method does nothing.
-                    File.WriteAllText(profileFile.FullName, xmlContent);
+                    File.WriteAllText(profileFile.FullName, Head + Teleport + StealthOn + MoveTo + Gathering + OrderEnd + CodeChunks + ProfileEnd);
 
                     while (ff14bot.Managers.GatheringWindow.WindowOpen)
                     {
@@ -897,6 +966,8 @@ namespace GatherAssist
                             itemRecord.HotspotRadius = Convert.ToInt32(itemRow["HotspotRadius"]);
                             itemRecord.Location = Convert.ToString(itemRow["Location"]);
                             itemRecord.SlotNumber = Convert.ToInt32(itemRow["SlotNumber"]);
+                            itemRecord.Stealth = Convert.ToInt32(itemRow["Stealth"]);
+                            itemRecord.StealthPoint = Convert.ToString(itemRow["StealthPoint"]);
 
                             DataRow[] mapRows = this.mapsTable.Select(string.Format("AetheryteId = '{0}'", itemRecord.AetheryteId));
                             int mapCount = mapRows.Count<DataRow>();

@@ -70,5 +70,15 @@ namespace GatherAssist
         ///  the bot to work even if the item has never been gathered by the current character.
         /// </summary>
         public int SlotNumber { get; set; }
+
+        /// <summary>
+        ///  Get or sets Stealth Mode for gatering at target location
+        /// </summary>
+        public int Stealth { get; set; }
+
+        /// <summary>
+        ///  Get or sets Stealth Point to Secure Stealth On
+        /// </summary>
+        public string StealthPoint { get; set; }
     }
 }
