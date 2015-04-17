@@ -44,7 +44,15 @@ namespace GatherAssist
             ////itemsTable.Rows.Add("Ice Shard", "", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", GatherAssist.NOSLOT);
             ////itemsTable.Rows.Add("Lightning Shard", "", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", GatherAssist.NOSLOT);
             ////itemsTable.Rows.Add("Ruby Tomato", "", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225", GatherAssist.NOSLOT);
-
+           
+            // BotaneiLevQuest
+            // 1-5
+            itemsTable.Rows.Add("Chopped Firewood", "We couldent start the Fire", "Botanist", 3, "Mature Tree", 2, 80, "149.4821, -6.983638, -57.72332", 5);
+            itemsTable.Rows.Add("Pure Latex", "Lovely Latex", "Botanist", 3, "Mature Tree", 3, 80, "168.7536, -1.239101, -115.3219", 3);
+            itemsTable.Rows.Add("Ash Sapling", "East Bank Story", "Botanist", 3, "Mature Tree", 3, 80, "62.56903, -7.659698, -64.60542", 5);
+            itemsTable.Rows.Add("East Bank Mistletoe", "East Bank Story", "Botanist", 3, "Mature Tree", 5, 80, "62.56903, -7.659698, -64.60542", 7);
+            itemsTable.Rows.Add("Throbbing Maple Log", "Waking Wood", "Botanist", 3, "Mature Tree", 3, 80, "8.650797, 6.298589, -241.6973", 5);
+            itemsTable.Rows.Add("Treant Acorn", "Waking Wood", "Botanist", 3, "Mature Tree", 5, 80, "8.650797, 6.298589, -241.6973", 1);
             // MinerLevQuest
             // 35-40
             itemsTable.Rows.Add("Highland Limestone", "Eye for an Eye", "Miner", 23, "Mineral Deposit", 37, 80, "443.613, 209.5668, 464.4349", 3);
@@ -66,7 +74,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Scratched Allagan Runestone", "Sucker Seer", "Miner", 24, "Rocky Outcrop", 47, 90, "503.299, -5.072927, -411.5198", 5);
             itemsTable.Rows.Add("Overgrown Crystal", "Crystal Mess", "Miner", 24, "Mineral Deposit", 47, 90, "420.7046, -4.675247, -410.5889", 4);
             itemsTable.Rows.Add("Dreadnaught Hull", "Metal Has No Master", "Miner", 24, "Mineral Deposit", 47, 100, "139.3676, -3.467925, -551.3579", 2);
-            itemsTable.Rows.Add("Dreadnaught Heatshild", "Metal Has No Master", "Miner", 24, "Mineral Deposit", 50, 100, "139.3676, -3.467925, -551.3579", 6);
+            itemsTable.Rows.Add("Dreadnaught Heatshield", "Metal Has No Master", "Miner", 24, "Mineral Deposit", 50, 100, "139.3676, -3.467925, -551.3579", 6);
             // Field Survey
             itemsTable.Rows.Add("Adamantoise Shell", "", "Miner", 21, "Mineral Deposit", 50, 80, "92.58333, 22.01458, 151.3047", 3);
             itemsTable.Rows.Add("Ala Mhigan Mustard", "", "Botanist", 18, "Lush Vegetation Patch", 25, 80, "-342.9444, -26.28499, -33.79862", 2);
