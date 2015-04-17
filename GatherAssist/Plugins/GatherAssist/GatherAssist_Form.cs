@@ -46,7 +46,7 @@ namespace GatherAssist
         public GatherAssist_Form(DataTable inItemsTable)
         {
             // TODO: validate inItemsTable parameter.
-            this.itemsTable = ReSort(inItemsTable, "ItemName", "ASC");
+            this.itemsTable = ReSort(inItemsTable, "ItemName" , "ASC");
             this.InitializeComponent();
             this.textBoxUpdateInterval.Text = Convert.ToString(settings.UpdateIntervalMinutes);
             this.textBoxAutoSkipInterval.Text = Convert.ToString(settings.AutoSkipInterval);
@@ -155,16 +155,21 @@ namespace GatherAssist
         /// </summary>
         private void UpdateSearchBox()
         {
-            this.resultsTable = this.itemsTable.DefaultView.ToTable(true, "ItemName");
+            this.resultsTable = this.itemsTable.DefaultView.ToTable(true, "ItemName", "Information");
 
             if (this.textBoxSearch.Text != string.Empty)
             {
                 this.resultsTable.Rows.Clear();
+                //Itemname
                 foreach (DataRow resultRow in this.itemsTable.Select(string.Format("ItemName LIKE '%{0}%'", GatherAssist.FixQueryField(this.textBoxSearch.Text, 2))))
                 {
-                    this.resultsTable.Rows.Add(resultRow["ItemName"]);
+                    this.resultsTable.Rows.Add(resultRow["ItemName"], resultRow["Information"]);
                 }
-
+                //Information
+                foreach (DataRow resultRow in this.itemsTable.Select(string.Format("Information LIKE '%{0}%'", GatherAssist.FixQueryField(this.textBoxSearch.Text, 2))))
+                {
+                    this.resultsTable.Rows.Add(resultRow["ItemName"], resultRow["Information"]);
+                }
                 this.resultsTable = this.resultsTable.DefaultView.ToTable(true); // remove duplicates
             }
 
