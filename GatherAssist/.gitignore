@@ -1,3 +1,4 @@
 /obj
 /bin
 /*.suo
+/gatherAssist/Plugins/GatherAssist/.git
