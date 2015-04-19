@@ -46,10 +46,7 @@ namespace GatherAssist
             ////itemsTable.Rows.Add("Ice Shard", "", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", GatherAssist.NOSLOT, 0, "");
             ////itemsTable.Rows.Add("Lightning Shard", "", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", GatherAssist.NOSLOT, 0, "");
             ////itemsTable.Rows.Add("Ruby Tomato", "", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225", GatherAssist.NOSLOT, 0, "");
-
-
-            //templates
-            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+           
             // BotaneiLevQuest
             // 1-5
             itemsTable.Rows.Add("Chopped Firewood", "We couldent start the Fire", "Botanist", 3, "Mature Tree", 2, 80, "149.4821, -6.983638, -57.72332", 5, 0, "");
@@ -59,70 +56,6 @@ namespace GatherAssist
             itemsTable.Rows.Add("Throbbing Maple Log", "Waking Wood", "Botanist", 3, "Mature Tree", 3, 80, "8.650797, 6.298589, -241.6973", 5, 0, "");
             itemsTable.Rows.Add("Treant Acorn", "Waking Wood", "Botanist", 3, "Mature Tree", 5, 80, "8.650797, 6.298589, -241.6973", 1, 0, "");
             // MinerLevQuest
-            // 1-5
-            //Miners Holiday
-            //itemsTable.Rows.Add("...", "Miners Holiday", "Miner", 17, "Mineral Deposit", 2, 80, "...", X, 0, "");
-            //The Primrose Path
-            //itemsTable.Rows.Add("...", "The Primrose Path", "Miner", 17, "...", X, XX, "...", X, 0, "");
-            //Who Needs the Paperwork
-            //itemsTable.Rows.Add("...", "Who Needs the Paperwork", "Miner", 17, "...", X, XX, "...", X, 0, "");
-            //Rubble Bubble
-            itemsTable.Rows.Add("Weather-worn Brick", "Rubble Bubble", "Miner", 17, "Mineral Deposit", 2, 80, "372.845, 78.22433, 158.3768", 1, 0, "");
-            itemsTable.Rows.Add("Undamaged Brick", "Rubble Bubble", "Miner", 17, "Mineral Deposit", 5, 80, "372.845, 78.22433, 158.3768", 4, 0, "");
-            //5-10
-            //I Dont Zinc its a Coincidence
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", 17, XX, "...", X, 0, "");
-            //Pipikkulis Ship Comes In
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", 17, XX, "...", X, 0, "");
-            //Do they Ore dont They
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", 17, XX, "...", X, 0, "");
-            //Vanishing Point
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", 17, XX, "...", X, 0, "");
-            //10-15
-            //We do this the hard way
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //It Peiste to Listen
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Thats why they call it fools
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Break It up
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //15-20
-            //The Doom That came to
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Eiderdown for Eidolons
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Eartg Spirits are easy
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //A mans gotta dream
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //20-25
-            //Rock my wall
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Location, Location, Location
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Elemental Houskeeping
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Look how they Shine for you
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //25-30
-            //Baby light my way
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Tag, youre it
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Cant start a fire
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Fool me twice
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //30-35
-            //Shell game
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //The midden Fair
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //Thats waht the money is for
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
-            //I Kidd you not
-            //itemsTable.Rows.Add("...", "...", "Miner", X, "...", X, XX, "...", X, 0, "");
             // 35-40
             itemsTable.Rows.Add("Highland Limestone", "Eye for an Eye", "Miner", 23, "Mineral Deposit", 37, 80, "443.613, 209.5668, 464.4349", 3, 0, "");
             itemsTable.Rows.Add("Block of Snow", "There Are No Good Answers", "Miner", 23, "Mineral Deposit", 37, 80, "141.7172, 280.5005, 19.43826", 6, 0, "");
