@@ -128,6 +128,7 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
+            get { return new Version(1, 1, 0); }
         }
 
         /// <summary>
@@ -833,9 +834,9 @@ namespace GatherAssist
                         "<WaitTimer WaitTime=\"2\" />\n" +
                         "<RunCode Name=\"Dismount\" />\n" +
                         "<RunCode Name=\"DisableMount\" />\n"+
-                        //"<WaitTimer WaitTime=\"2\" />\n"+
-                        "<RunCode Name=\"UseStealth\" />\n" +
                         "<WaitTimer WaitTime=\"2\" />\n"+
+                        "<RunCode Name=\"UseStealth\" />\n" +
+                        //"<WaitTimer WaitTime=\"2\" />\n"+
                         "</If>\n",
                         itemRecord.Stealth,
                         itemRecord.StealthPoint
