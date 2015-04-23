@@ -112,7 +112,7 @@ namespace GatherAssist
         /// </summary>
         public string Author
         {
-            get { return " Zane McFate"; }
+            get { return " Zane McFate / Aringarosa NinjaPatching"; }
         }
 
         /// <summary>
@@ -128,7 +128,6 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
-            get { return new Version(1, 0, 1); }
         }
 
         /// <summary>
@@ -369,29 +368,29 @@ namespace GatherAssist
                     return;
                 }
 
-                if (targetGatheringItem.Chance <= 50 && Core.Me.ClassLevel >= 10)
+                if (targetGatheringItem.Chance <= 50 && Core.Me.ClassLevel >= 10 && Core.Me.MaxGP >= 250)
                 {
                     this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision III" : "Field Mastery III";
                 }
-                else if (targetGatheringItem.Chance <= 85 && Core.Me.ClassLevel >= 5)
+                else if (targetGatheringItem.Chance <= 85 && Core.Me.ClassLevel >= 5 && Core.Me.MaxGP >= 100)
                 {
                     this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision II" : "Field Mastery II";
                 }
-                else if (targetGatheringItem.Chance <= 95 && Core.Me.ClassLevel >= 4)
+                else if (targetGatheringItem.Chance <= 95 && Core.Me.ClassLevel >= 4 && Core.Me.MaxGP >= 50)
                 {
                     this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision" : "Field Mastery I";
                 }
                 else if (targetGatheringItem.Chance == 100)
                 {
-                    if (Core.Me.ClassLevel >= 40)
+                    if (Core.Me.ClassLevel >= 40 && Core.Me.MaxGP >= 500)
                     {
                         this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "King's Yield II" : "Blessed Harvest II";
                     }
-                    else if (Core.Me.ClassLevel >= 30)
+                    else if (Core.Me.ClassLevel >= 30 && Core.Me.MaxGP >= 400)
                     {
                         this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "King's Yield" : "Blessed Harvest II";
                     }
-                    else if (Core.Me.ClassLevel >= 20)
+                    else if (Core.Me.ClassLevel >= 20 && Core.Me.MaxGP >= 300)
                     {
                         this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Solid Reason" : "Ageless Words";
                     }
@@ -787,7 +786,7 @@ namespace GatherAssist
                         nameSlotSection = string.Format("<Slot>{0}</Slot>", itemRecord.SlotNumber);
                     }
 
-                    if (itemRecord.StealthPoint.Equals(""))
+                    if (string.IsNullOrEmpty(itemRecord.StealthPoint))
                     {
                         // if StealthPoint not set in Content, we need a entry for RB to load Profile
                         itemRecord.StealthPoint = itemRecord.Location;
@@ -834,7 +833,7 @@ namespace GatherAssist
                         "<WaitTimer WaitTime=\"2\" />\n" +
                         "<RunCode Name=\"Dismount\" />\n" +
                         "<RunCode Name=\"DisableMount\" />\n"+
-                        "<WaitTimer WaitTime=\"2\" />\n"+
+                        //"<WaitTimer WaitTime=\"2\" />\n"+
                         "<RunCode Name=\"UseStealth\" />\n" +
                         "<WaitTimer WaitTime=\"2\" />\n"+
                         "</If>\n",
@@ -845,8 +844,8 @@ namespace GatherAssist
                         "<MoveTo XYZ=\"{0}\" Name=\"GatherAssist Point\"/>\n" +
                         "<WaitTimer WaitTime=\"2\" />\n" +
                         "<RunCode Name=\"Dismount\" />\n" +
-                        "<RunCode Name=\"DisableMount\" />\n"+
-                        "<WaitTimer WaitTime=\"2\" />\n",
+                        "<RunCode Name=\"DisableMount\" />\n",
+                        //"<WaitTimer WaitTime=\"2\" />\n",
                         itemRecord.Location
                         );
                     string Gathering = string.Format(
@@ -855,11 +854,11 @@ namespace GatherAssist
                         "<HotSpots>\n" +
                         "<HotSpot Radius=\"{1}\" XYZ=\"{2}\" />\n"+
                         "</HotSpots>\n"+
-                        "{3}"+
+                        "{3}\n"+
                         "<GatheringSkillOrder>\n" +
                         "<GatheringSkill SpellName=\"{4}\" TimesToCast=\"{5}\" />\n"+
                         "</GatheringSkillOrder>\n"+
-                        "</Gather>",
+                        "</Gather>\n",
                         itemRecord.GatherObject,
                         itemRecord.HotspotRadius,
                         itemRecord.Location,
@@ -1268,11 +1267,11 @@ namespace GatherAssist
                 // handle HQ spells
                 if (settings.HqOnly)
                 {
-                    if (Core.Me.ClassLevel >= 35)
+                    if (Core.Me.ClassLevel >= 35 && Core.Me.MaxGP >= 300)
                     {
                         return Core.Me.CurrentJob.ToString() == "Miner" ? "Unearth II" : "Leaf Turn II";
                     }
-                    else if (Core.Me.ClassLevel >= 15)
+                    else if (Core.Me.ClassLevel >= 15 && Core.Me.MaxGP >= 100)
                     {
                         return Core.Me.CurrentJob.ToString() == "Miner" ? "Unearth" : "Leaf Turn";
                     }
@@ -1283,15 +1282,15 @@ namespace GatherAssist
                 }
 
                 // handle NQ spells
-                if (Core.Me.ClassLevel >= 10)
+                if (Core.Me.ClassLevel >= 10 && Core.Me.MaxGP >= 250)
                 {
                     return Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision III" : "Field Mastery III";
                 }
-                else if (Core.Me.ClassLevel >= 5)
+                else if (Core.Me.ClassLevel >= 5 && Core.Me.MaxGP >= 100)
                 {
                     return Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision II" : "Field Mastery II";
                 }
-                else if (Core.Me.ClassLevel >= 4)
+                else if (Core.Me.ClassLevel >= 4 && Core.Me.MaxGP >= 50)
                 {
                     return Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision" : "Field Mastery";
                 }

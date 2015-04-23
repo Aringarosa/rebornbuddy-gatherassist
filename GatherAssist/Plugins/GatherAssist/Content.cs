@@ -46,7 +46,10 @@ namespace GatherAssist
             ////itemsTable.Rows.Add("Ice Shard", "", "Miner", 5, "Mineral Deposit", 60, "353.7134, -3.617686, 58.73518", GatherAssist.NOSLOT, 0, "");
             ////itemsTable.Rows.Add("Lightning Shard", "", "Miner", 53, "Mineral Deposit", 95, "-123.6678, 3.532623, 221.7551", GatherAssist.NOSLOT, 0, "");
             ////itemsTable.Rows.Add("Ruby Tomato", "", "Botanist", 52, "Lush Vegetation Patch", 80, "42.27345, 52.46003, -117.3225", GatherAssist.NOSLOT, 0, "");
-           
+
+
+            //templates
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
             // BotaneiLevQuest
             // 1-5
             itemsTable.Rows.Add("Chopped Firewood", "We couldent start the Fire", "Botanist", 3, "Mature Tree", 2, 80, "149.4821, -6.983638, -57.72332", 5, 0, "");
@@ -55,7 +58,84 @@ namespace GatherAssist
             itemsTable.Rows.Add("East Bank Mistletoe", "East Bank Story", "Botanist", 3, "Mature Tree", 5, 80, "62.56903, -7.659698, -64.60542", 7, 0, "");
             itemsTable.Rows.Add("Throbbing Maple Log", "Waking Wood", "Botanist", 3, "Mature Tree", 3, 80, "8.650797, 6.298589, -241.6973", 5, 0, "");
             itemsTable.Rows.Add("Treant Acorn", "Waking Wood", "Botanist", 3, "Mature Tree", 5, 80, "8.650797, 6.298589, -241.6973", 1, 0, "");
+            // 10-15
+            itemsTable.Rows.Add("Golden Chestnut", "A Chest of Nuts", "Botanist", 3, "Mature Tree", 15, 80, "83.60042, -28.13994, 266.2188", 1, 0, "");
+            itemsTable.Rows.Add("Large Chestnut", "A Chest of Nuts", "Botanist", 3, "Mature Tree", 12, 80, "83.60042, -28.13994, 266.2188", 2, 0, "");
+            //West Bank Story Bad Node Positions
+            //itemsTable.Rows.Add("West Bank Mistletoe", "West Bank Story", "Botanist", 3, "Mature Tree", 15, 80, "-0.2901298, -7.354698, -33.67671", 7, 0, "");
+            //itemsTable.Rows.Add("Ash Sapling", "West Bank Story", "Botanist", 3, "Mature Tree", 12, 80, "-0.2901298, -7.354698, -33.67671", 5, 0, "");
+            itemsTable.Rows.Add("Sprouted Roselet Seed", "The Heart of the Hedge", "Botanist", 3, "Mature Tree", 15, 80, "-52.94984, -36.91956, 462.2035", 6, 0, "");
+            itemsTable.Rows.Add("Roselet Seed", "The Heart of the Hedge", "Botanist", 3, "Mature Tree", 12, 80, "-52.94984, -36.91956, 462.2035", 7, 0, "");
+            itemsTable.Rows.Add("Long Ash Log", "Digging Deeper", "Botanist", 3, "Mature Tree", 15, 80, "-66.22202, -6.033881, -58.82186", 5, 0, "");
+            //15-20
+            itemsTable.Rows.Add("Clear Maple Sap", "Mapple Stories", "Botanist", 4, "Mature Tree", 17, 80, "64.03939, 5.7116, 381.6705", 3, 1, "39.99684, 5.423866, 379.8489");
+
             // MinerLevQuest
+            // 1-5
+            //Miners Holiday
+            itemsTable.Rows.Add("Low-quality Copper Ore", "Miners Holiday", "Miner", 17, "Mineral Deposit", 2, 80, "260.0294, 51.3704, 53.50365", 1, 0, "");
+            //The Primrose Path
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Who Needs the Paperwork
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Rubble Bubble
+            itemsTable.Rows.Add("Weather-worn Brick 1", "Rubble Bubble", "Miner", 17, "Mineral Deposit", 2, 80, "372.845, 78.22433, 158.3768", 1, 0, "");
+            itemsTable.Rows.Add("Undamaged Brick 1", "Rubble Bubble", "Miner", 17, "Mineral Deposit", 5, 80, "372.845, 78.22433, 158.3768", 4, 0, "");
+            //5-10
+            //I Dont Zinc its a Coincidence
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Pipikkulis Ship Comes In
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Do they Ore dont They
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Vanishing Point
+            itemsTable.Rows.Add("Weather-worn Brick 5", "Vanishing Point", "Miner", 17 , "Mineral Deposit", 2, 80, "62.23439, 51.90614, 236.4663", 1, 0, "");
+            itemsTable.Rows.Add("Undamaged Brick 5", "Vanishing Point", "Miner", 17, "Mineral Deposit", 4, 80, "62.23439, 51.90614, 236.4663", 1, 0, "");
+            //10-15
+            //We do this the hard way
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //It Peiste to Listen
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Thats why they call it fools
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Break It up
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //15-20
+            //The Doom That came to
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Eiderdown for Eidolons
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Eartg Spirits are easy
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //A mans gotta dream
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //20-25
+            //Rock my wall
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Location, Location, Location
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Elemental Houskeeping
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Look how they Shine for you
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //25-30
+            //Baby light my way
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Tag, youre it
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Cant start a fire
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Fool me twice
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //30-35
+            //Shell game
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //The midden Fair
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //Thats waht the money is for
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
+            //I Kidd you not
+            //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
             // 35-40
             itemsTable.Rows.Add("Highland Limestone", "Eye for an Eye", "Miner", 23, "Mineral Deposit", 37, 80, "443.613, 209.5668, 464.4349", 3, 0, "");
             itemsTable.Rows.Add("Block of Snow", "There Are No Good Answers", "Miner", 23, "Mineral Deposit", 37, 80, "141.7172, 280.5005, 19.43826", 6, 0, "");

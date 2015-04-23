@@ -68,9 +68,6 @@
       <DependentUpon>GatherAssist_Form.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Plugins\GatherAssist\LevQuest Items.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "C:\Programs\RebornBuddy\Plugins\$(ProjectName)"
