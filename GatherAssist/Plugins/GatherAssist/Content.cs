@@ -52,7 +52,7 @@ namespace GatherAssist
             //itemsTable.Rows.Add("ItemName", "Information", "ClassName", AetheryteId, "GatherObject", ObjectLevel, 80, "Location", SlotNumber, 0, "");
             // BotaneiLevQuest
             // 1-5
-            itemsTable.Rows.Add("Chopped Firewood", "We couldent start the Fire", "Botanist", 3, "Mature Tree", 2, 80, "149.4821, -6.983638, -57.72332", 5, 0, "");
+            itemsTable.Rows.Add("Chopped Firewood 1", "We couldent start the Fire", "Botanist", 3, "Mature Tree", 2, 80, "149.4821, -6.983638, -57.72332", 5, 0, "");
             itemsTable.Rows.Add("Pure Latex", "Lovely Latex", "Botanist", 3, "Mature Tree", 3, 80, "168.7536, -1.239101, -115.3219", 3, 0, "");
             itemsTable.Rows.Add("Ash Sapling", "East Bank Story", "Botanist", 3, "Mature Tree", 3, 80, "62.56903, -7.659698, -64.60542", 5, 0, "");
             itemsTable.Rows.Add("East Bank Mistletoe", "East Bank Story", "Botanist", 3, "Mature Tree", 5, 80, "62.56903, -7.659698, -64.60542", 7, 0, "");
@@ -69,7 +69,25 @@ namespace GatherAssist
             itemsTable.Rows.Add("Long Ash Log", "Digging Deeper", "Botanist", 3, "Mature Tree", 15, 80, "-66.22202, -6.033881, -58.82186", 5, 0, "");
             //15-20
             itemsTable.Rows.Add("Clear Maple Sap", "Mapple Stories", "Botanist", 4, "Mature Tree", 17, 80, "64.03939, 5.7116, 381.6705", 3, 1, "39.99684, 5.423866, 379.8489");
-
+            itemsTable.Rows.Add("Quickweed", "The quick and the Dead", "Botanist", 4, "Lush Vegetation Patch", 17, 80, "-281.1849, 11.91321, 367.8475", 5, 0, "");
+            itemsTable.Rows.Add("Jessamine", "The quick and the Dead", "Botanist", 4, "Lush Vegetation Patch", 20, 80, "-281.1849, 11.91321, 367.8475", 4, 0, "");
+            itemsTable.Rows.Add("Giant Brambleweed Sap", "Briar in the Hole", "Botanist", 4, "Mature Tree", 17, 90, "-238.5367, -0.5605268, 212.0117", 3, 0, "");
+            itemsTable.Rows.Add("Dried Mun-Tuy Bean", "Briar in the Hole", "Botanist", 4, "Mature Tree", 20, 90, "-238.5367, -0.5605268, 212.0117", 1, 0, "");
+            itemsTable.Rows.Add("Mature Galago Mint", "Briar in the Hole", "Botanist", 4, "Lush Vegetation Patch", 17, 90, "-238.5367, -0.5605268, 212.0117", 2, 0, "");
+            itemsTable.Rows.Add("Shroud Iris", "Briar in the Hole", "Botanist", 4, "Lush Vegetation Patch", 20, 90, "-238.5367, -0.5605268, 212.0117", 0, 0, "");
+            itemsTable.Rows.Add("Branded Bark", "Never Strickes Twice", "Botanist", 4, "Mature Tree", 17, 90, "37.03965, -3.286162, 217.3675", 1, 1, "");
+            //20-25
+            itemsTable.Rows.Add("Young Galago Mint", "Shaken, Not Stirred", "Botanist", 5, "Lush Vegetation Patch", 22, 80, "70.22994, 8.849917, 19.15968", 2, 0, "101.4287, 12.13233, -1.987082");
+            itemsTable.Rows.Add("Chopped Firewood 2", "Fueling the Flame", "Botanist", 5, "Mature Tree", 22, 80, "-184.9678, 8.28627, -55.22649", 5, 0, "");
+            itemsTable.Rows.Add("Exposed Tree Root", "Nowhere to Slide", "Botanist", 5, "Mature Tree", 22, 90, "0.5626199, -1.303236, -53.64244", 7, 0, "");
+            itemsTable.Rows.Add("Healthy Tree Root", "Nowhere to Slide", "Botanist", 5, "Mature Tree", 22, 90, "0.5626199, -1.303236, -53.64244", 6, 0, "");
+            itemsTable.Rows.Add("Gelmorran Coin", "Just the Artifacts, Madam", "Botanist", 5, "Mature Tree", 22, 90, "306.2564, -0.4895204, -7.307112", 7, 1, "281.6295, 9.880111, -47.81627");
+            //25-30
+            itemsTable.Rows.Add("Sprite Apple", "Appleanche", "Botanist", 5, "Mature Tree", 27, 80, "208.6061, 28.29374, -158.0087", 1, 0, "");
+            itemsTable.Rows.Add("Soldier's Sore Berries", "Moon in Rouge", "Botanist", 5, "Lush Vegetation Patch", 27, 80, "145.1916, 18.0616, -147.65583", 1, 1, "146.1471, 17.98494, -115.0203");
+            itemsTable.Rows.Add("Two-yalm Switch", "Over the Underbrush", "Botanist", 5, "Mature Tree", 27, 70, "187.0872, 8.576387, -68.65286", 2, 0, "");
+            itemsTable.Rows.Add("Hairy Caterpillar", "Over the Underbrush", "Botanist", 5, "Mature Tree", 30, 70, "187.0872, 8.576387, -68.65286", 0, 0, "");
+            itemsTable.Rows.Add("Hairy Caterpillar", "Mushroom Goblin", "Botanist", 5, "Mature Tree", 30, 70, "187.0872, 8.576387, -68.65286", 0, 0, "");
             // MinerLevQuest
             // 1-5
             //Miners Holiday
