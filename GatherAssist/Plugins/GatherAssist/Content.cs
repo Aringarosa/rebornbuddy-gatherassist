@@ -87,7 +87,7 @@ namespace GatherAssist
             itemsTable.Rows.Add("Soldier's Sore Berries", "Moon in Rouge", "Botanist", 5, "Lush Vegetation Patch", 27, 80, "145.1916, 18.0616, -147.65583", 1, 1, "146.1471, 17.98494, -115.0203");
             itemsTable.Rows.Add("Two-yalm Switch", "Over the Underbrush", "Botanist", 5, "Mature Tree", 27, 70, "187.0872, 8.576387, -68.65286", 2, 0, "");
             itemsTable.Rows.Add("Hairy Caterpillar", "Over the Underbrush", "Botanist", 5, "Mature Tree", 30, 70, "187.0872, 8.576387, -68.65286", 0, 0, "");
-            itemsTable.Rows.Add("Hairy Caterpillar", "Mushroom Goblin", "Botanist", 5, "Mature Tree", 30, 70, "187.0872, 8.576387, -68.65286", 0, 0, "");
+            itemsTable.Rows.Add("Spotted Mushroom", "Mushroom Goblin", "Botanist", 5, "Mature Tree", 27, 80, "302.5681, -0.5226027, -1.946397", 6, 1, "270.9116, 5.428098, -3.448066");
             // MinerLevQuest
             // 1-5
             //Miners Holiday
