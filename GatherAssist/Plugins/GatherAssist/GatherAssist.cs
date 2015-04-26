@@ -112,7 +112,7 @@ namespace GatherAssist
         /// </summary>
         public string Author
         {
-            get { return " Zane McFate / Aringarosa NinjaPatching"; }
+            get { return " Zane McFate / Aringarosa "; }
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace GatherAssist
         /// </summary>
         public Version Version
         {
-            get { return new Version(1, 1, 0); }
+            get { return new Version(1, 1, 5); }
         }
 
         /// <summary>
@@ -187,9 +187,9 @@ namespace GatherAssist
         private string GatheringSpellOverride { get; set; }
 
         /// <summary>
-        /// Turn on or off GatheringSpellOverride logic when yild Crystals
+        /// Turn on or off GatheringSpellOverride logic
         /// </summary>
-        private bool CrystalLock = false;
+        private bool SpellLock = false;
 
         /// <summary>
         /// Allows the program to send key strokes directly to FFXIV.
@@ -334,7 +334,7 @@ namespace GatherAssist
         }
 
         /// <summary>
-        /// Handles the IBotPlugin.OnPulse event.  Currently does nothing.
+        /// Handles the IBotPlugin.OnPulse event.
         /// </summary>
         public void OnPulse()
         {
@@ -371,39 +371,36 @@ namespace GatherAssist
                     }
 
                     return;
-                }
-                if (!settings.HqOnly && !CrystalLock)
+                }               
+                if (targetGatheringItem.Chance <= 50 && Core.Me.ClassLevel >= 10 && Core.Me.MaxGP >= 250)
                 {
-                    if (targetGatheringItem.Chance <= 50 && Core.Me.ClassLevel >= 10 && Core.Me.MaxGP >= 250)
+                    this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision III" : "Field Mastery III";
+                }
+                else if (targetGatheringItem.Chance <= 85 && Core.Me.ClassLevel >= 5 && Core.Me.MaxGP >= 100)
+                {
+                    this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision II" : "Field Mastery II";
+                }
+                else if (targetGatheringItem.Chance <= 95 && Core.Me.ClassLevel >= 4 && Core.Me.MaxGP >= 50)
+                {
+                    this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision" : "Field Mastery";
+                }
+                else if (targetGatheringItem.Chance == 100)
+                {
+                    if (Core.Me.ClassLevel >= 40 && Core.Me.MaxGP >= 500)
                     {
-                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision III" : "Field Mastery III";
+                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "King's Yield II" : "Blessed Harvest II";
                     }
-                    else if (targetGatheringItem.Chance <= 85 && Core.Me.ClassLevel >= 5 && Core.Me.MaxGP >= 100)
+                    else if (Core.Me.ClassLevel >= 30 && Core.Me.MaxGP >= 400)
                     {
-                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision II" : "Field Mastery II";
+                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "King's Yield" : "Blessed Harvest";
                     }
-                    else if (targetGatheringItem.Chance <= 95 && Core.Me.ClassLevel >= 4 && Core.Me.MaxGP >= 50)
+                    else if (Core.Me.ClassLevel >= 20 && Core.Me.MaxGP >= 300)
                     {
-                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Sharp Vision" : "Field Mastery";
-                    }
-                    else if (targetGatheringItem.Chance == 100)
-                    {
-                        if (Core.Me.ClassLevel >= 40 && Core.Me.MaxGP >= 500)
-                        {
-                            this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "King's Yield II" : "Blessed Harvest II";
-                        }
-                        else if (Core.Me.ClassLevel >= 30 && Core.Me.MaxGP >= 400)
-                        {
-                            this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "King's Yield" : "Blessed Harvest II";
-                        }
-                        else if (Core.Me.ClassLevel >= 20 && Core.Me.MaxGP >= 300)
-                        {
-                            this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Solid Reason" : "Ageless Words";
-                        }
+                        this.GatheringSpellOverride = Core.Me.CurrentJob.ToString() == "Miner" ? "Solid Reason" : "Ageless Words";
                     }
                 }
                 // break logic if a new spell has been selected
-                if (!string.IsNullOrEmpty(this.GatheringSpellOverride))
+                if ((!string.IsNullOrEmpty(this.GatheringSpellOverride)) && (!SpellLock))
                 {
                     this.Log(LogMajorColor, string.Format("Overriding current gathering spell with {0}", this.GatheringSpellOverride));
                     this.reloadFlag = true; // don't do anything on this pulse, as it would create a paradox while waiting for a window to close
@@ -760,14 +757,18 @@ namespace GatherAssist
                     if (spellOverride)
                     {
                         gatheringSpell = this.GatheringSpellOverride;
+                        this.Log(LogMinorColor, "Überschrieben" + gatheringSpell, true);
                     }
                     else
                     {
-                        gatheringSpell = this.GetGatheringSpell(itemRecord); // get a gathering spell appropriate for this class                     
+                        gatheringSpell = this.GetGatheringSpell(itemRecord);
+                        this.Log(LogMinorColor, "nicht überchrieben " + gatheringSpell, true);
+                        // get a gathering spell appropriate for this class                     
                         // don't allow shard/HQ spells to be overridden; automatic determination is already the best spell
                         if (itemRecord.ItemName.Contains("Shard") || itemRecord.ItemName.Contains("Crystal") || settings.HqOnly)
                         {
                             this.GatheringSpellOverride = gatheringSpell;
+                            this.Log(LogMinorColor, "Shard, Crystal, HQ ignore " + GatheringSpellOverride, true);
                         }
 
                         this.GatheringSpellOverride = null; // reset this value, since a new profile is being loaded
@@ -1191,7 +1192,7 @@ namespace GatherAssist
         /// <returns>A single spell that will work for the specified class name.</returns>
         private string GetGatheringSpell(ItemRecord itemRecord)
         {
-            CrystalLock = false;
+            SpellLock = false;
             try
             {
                 // handle shard-specific spells.  Allows for any class, if the cross-class skills are enabled.
@@ -1202,7 +1203,7 @@ namespace GatherAssist
                     case "Fire Cluster":
                         if (Actionmanager.HasSpell("Nald'thal's Ward"))
                         {
-                            CrystalLock = true;
+                            SpellLock = true;
                             return "Nald'thal's Ward";
                         }
 
@@ -1212,7 +1213,7 @@ namespace GatherAssist
                     case "Lightning Cluster":
                         if (Actionmanager.HasSpell("Byregot's Ward"))
                         {
-                            CrystalLock = true;
+                            SpellLock = true;
                             return "Byregot's Ward";
                         }
 
@@ -1222,7 +1223,7 @@ namespace GatherAssist
                     case "Water Cluster":
                         if (Actionmanager.HasSpell("Thaliak's Ward"))
                         {
-                            CrystalLock = true;
+                            SpellLock = true;
                             return "Thaliak's Ward";
                         }
 
@@ -1232,7 +1233,7 @@ namespace GatherAssist
                     case "Ice Cluster":
                         if (Actionmanager.HasSpell("Menphina's Ward"))
                         {
-                            CrystalLock = true;
+                            SpellLock = true;
                             return "Menphina's Ward";
                         }
 
@@ -1242,7 +1243,7 @@ namespace GatherAssist
                     case "Wind Cluster":
                         if (Actionmanager.HasSpell("Llymlaen's Ward"))
                         {
-                            CrystalLock = true;
+                            SpellLock = true;
                             return "Llymlaen's Ward";
                         }
 
@@ -1252,7 +1253,7 @@ namespace GatherAssist
                     case "Earth Cluster":
                         if (Actionmanager.HasSpell("Nophica's Ward"))
                         {
-                            CrystalLock = true;
+                            SpellLock = true;
                             return "Nophica's Ward";
                         }
 
@@ -1264,10 +1265,12 @@ namespace GatherAssist
                 {
                     if (Core.Me.ClassLevel >= 35 && Core.Me.MaxGP >= 300)
                     {
+                        SpellLock = true;
                         return Core.Me.CurrentJob.ToString() == "Miner" ? "Unearth II" : "Leaf Turn II";
                     }
                     else if (Core.Me.ClassLevel >= 15 && Core.Me.MaxGP >= 100)
                     {
+                        SpellLock = true;
                         return Core.Me.CurrentJob.ToString() == "Miner" ? "Unearth" : "Leaf Turn";
                     }
                     else
