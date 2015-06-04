@@ -9,6 +9,9 @@
 // </copyright>
 // <author>Zane McFate</author>
 //-----------------------------------------------------------------------
+
+using ff14bot.AClasses;
+
 namespace GatherAssist
 {
     using System;
@@ -37,7 +40,7 @@ namespace GatherAssist
     /// <summary>
     /// RebornBuddy plugin for allowing the gathering of multiple counts of multiple items, from various gathering classes.
     /// </summary>
-    public class GatherAssist : IBotPlugin
+    public class GatherAssist : BotPlugin
     {
         /// <summary>
         /// A code indicating that an item record slot number means nothing, and should not be used.
@@ -110,15 +113,15 @@ namespace GatherAssist
         /// <summary>
         /// Gets the author of this plugin.
         /// </summary>
-        public string Author
+        public override string Author
         {
-            get { return " Zane McFate / Aringarosa "; }
+            get { return " Zane McFate / Aringarosa / teh4x"; }
         }
 
         /// <summary>
         /// Gets the description of the plugin.
         /// </summary>
-        public string Description
+        public override string Description
         {
             get { return "Extends OrderBot gathering functionality to seek multiple items with a single command."; }
         }
@@ -126,7 +129,7 @@ namespace GatherAssist
         /// <summary>
         /// Gets the current plugin version.
         /// </summary>
-        public Version Version
+        public override Version Version
         {
             get { return new Version(1, 1, 5); }
         }
@@ -134,7 +137,7 @@ namespace GatherAssist
         /// <summary>
         /// Gets the plugin name.
         /// </summary>
-        public string Name
+        public override string Name
         {
             get { return "GatherAssist"; }
         }
@@ -142,7 +145,7 @@ namespace GatherAssist
         /// <summary>
         /// Gets a value indicating whether we want a settings button.  True because we do want a button.
         /// </summary>
-        public bool WantButton
+        public override bool WantButton
         {
             get { return true; }
         }
@@ -150,7 +153,7 @@ namespace GatherAssist
         /// <summary>
         /// Gets the text value for the plugin's requisite button.
         /// </summary>
-        public string ButtonText
+        public override string ButtonText
         {
             get { return this.Name; }
         }
@@ -226,7 +229,7 @@ namespace GatherAssist
         /// Handles the IBotPlugin.OnButtonPress event.  Code executed when the user pushes the requisite button for this plugin.
         ///  Initializes the settings form to gather required parameters for the next gathering attempt.
         /// </summary>
-        public void OnButtonPress()
+        public override void OnButtonPress()
         {
             try
             {
@@ -252,21 +255,12 @@ namespace GatherAssist
             }
         }
 
-        /// <summary>
-        /// Used to compare this plugin to other plugins.  Not currently implemented.
-        /// </summary>
-        /// <param name="other">The parameter is not used.</param>
-        /// <returns>The parameter is not used.</returns>
-        public bool Equals(IBotPlugin other)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Handles the IBotPlugin.OnInitialize event.  Initializes data tables, initializes required settings, and prepares the timer for
         ///  future execution.
         /// </summary>
-        public void OnInitialize()
+        public override void OnInitialize()
         {
             try
             {
@@ -296,14 +290,14 @@ namespace GatherAssist
         /// <summary>
         /// Handles the IBotPlugin.OnShutdown event.  Currently does nothing.
         /// </summary>
-        public void OnShutdown()
+        public override void OnShutdown()
         {
         }
 
         /// <summary>
         /// Handles the IBotPlugin.OnEnabled event.  Current shows the plugin version, but does nothing else.
         /// </summary>
-        public void OnEnabled()
+        public override void OnEnabled()
         {
             try
             {
@@ -318,7 +312,7 @@ namespace GatherAssist
         /// <summary>
         /// Handles the IBotPlugin.OnDisabled event.  Reports the plugin version and stops iteration of the gather timer.
         /// </summary>
-        public void OnDisabled()
+        public override void OnDisabled()
         {
             try
             {
@@ -336,7 +330,7 @@ namespace GatherAssist
         /// <summary>
         /// Handles the IBotPlugin.OnPulse event.
         /// </summary>
-        public void OnPulse()
+        public override void OnPulse()
         {
             if (settings.SummonChocobo && !Chocobo.Summoned && Chocobo.CanSummon)
             {
